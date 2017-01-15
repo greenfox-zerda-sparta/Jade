@@ -369,3 +369,7 @@ __pycache__/
 build/
 
 # End of https://www.gitignore.io/api/windows,c++,visualstudio,qt
+hello_qt/hello_qt.sln
+hello_qt/hello_qt/hello_qt.qrc
+hello_qt/hello_qt/hello_qt.ui
+hello_qt/hello_qt/hello_qt.vcxproj
