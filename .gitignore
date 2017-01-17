@@ -372,3 +372,7 @@ build/
 hello_qt/hello_qt.sln
 hello_qt/hello_qt/hello_qt.qrc
 hello_qt/hello_qt/hello_qt.vcxproj
+
+*.sln
+*.qrc
+*.vcxproj
