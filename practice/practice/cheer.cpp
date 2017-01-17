@@ -2,8 +2,9 @@
 #include <string>
 
 void cheer();
-
+	
 int main() {
+	cheer();
 	return 0;
 }
 
