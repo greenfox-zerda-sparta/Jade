@@ -8,5 +8,5 @@ int main() {
 }
 
 void cheer() {
-	std::cout << "hello Jade!" << std::endl;
+	std::cout << "c++" << std::endl;
 }
