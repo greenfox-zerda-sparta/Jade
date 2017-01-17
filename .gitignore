@@ -374,3 +374,4 @@ hello_qt/hello_qt/hello_qt.qrc
 hello_qt/hello_qt/hello_qt.vcxproj
 practice/practice.sln
 *.vcxproj
+*.sln
