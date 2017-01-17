@@ -1,10 +1,12 @@
 #include <iostream>
+#include <string>
 
-void greet() {
-  std::cout << "Juli" << std::endl;
+void greet(std::string input) {
+  std::cout << input << std::endl;
 }
 
 int main() {
-  greet();
+  std::string input = "Juli";
+  greet(input);
   return 0;
 }
