@@ -1,9 +1,9 @@
 #include <iostream>
 
-void count() {
-  std::cout << 26 << std::endl;
+void count(int p) {
+  std::cout << p << std::endl;
 }
 
 int main() {
-  count();
+  count(26);
 }
