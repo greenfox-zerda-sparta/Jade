@@ -6,7 +6,7 @@ void greet(std::string input) {
 }
 
 int main() {
-  std::string input = "Juli";
+  std::string input = "Greetings!";
   greet(input);
   return 0;
 }
