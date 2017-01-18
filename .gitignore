@@ -375,3 +375,5 @@ hello_qt/hello_qt/hello_qt.vcxproj
 practice/practice.sln
 *.vcxproj
 *.sln
+test/qt_unit_test_5/qt_unit_test_5/qt_unit_test_5.qrc
+test/qt_unit_test_5/qt_unit_test_5/qt_unit_test_5.ui
