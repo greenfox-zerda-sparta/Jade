@@ -28,17 +28,28 @@ int main(int argc, char *argv[]) {
   }
 
   QApplication app(argc, argv);
-  QWidget *window = new QWidget;
-  QVBoxLayout *layout = new QVBoxLayout;
+  QWidget *window = new QWidget();
+  QVBoxLayout *layout = new QVBoxLayout();
+  layout->setSizeConstraint(QLayout::SetMaximumSize);
 
   for (int i = 0; i < titles.size(); ++i) {
-    layout->addWidget(new QLabel(titles.at(i)));
-    layout->addWidget(new QLabel(images.at(i)));
-    layout->addWidget(new QLabel(descriptions.at(i)));
+
+    QLabel* label_t = new QLabel(titles.at(i));
+    label_t->setWordWrap(true);
+    layout->addWidget(label_t);
+
+    QLabel* label_i = new QLabel(images.at(i));
+    label_i->setWordWrap(true);
+    layout->addWidget(label_i);
+
+    QLabel* label_d = new QLabel(descriptions.at(i));
+    label_d->setWordWrap(true);
+    layout->addWidget(label_d);
+ 
   }
 
-
   window->setLayout(layout);
+
   window->show();
   return app.exec();
 }
