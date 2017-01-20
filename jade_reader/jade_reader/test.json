@@ -1,0 +1,14 @@
+{
+  "news": [
+    {
+      "img": "<img src=\"1.jpg\"/>",
+      "title": "<b>first</b>"
+    },
+    { "img": "<img src=\"2.jpg\"/>",
+      "title": "second" },
+    { "img": "<img src=\"3.jpg\"/>",
+      "title": "third" },
+    { "img": "<img src=\"4.jpg\"/>",
+      "title": "fourth" }
+  ]
+}
