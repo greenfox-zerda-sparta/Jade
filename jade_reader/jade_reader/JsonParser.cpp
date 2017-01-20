@@ -4,8 +4,6 @@ JsonParser::JsonParser() {}
 
 QStringList JsonParser::parseFromStringToQStringList(std::string content, const char* key) {
 	QStringList titles;
-	//std::string title = "title";
-	//const char* title_key = "title";
 	QJsonParseError *error = Q_NULLPTR;
 	QByteArray byteArray(content.c_str(), content.length());
 	QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
