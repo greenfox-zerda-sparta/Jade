@@ -6,14 +6,14 @@
 
 class jade_reader : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	jade_reader(QWidget *parent = 0);
-	~jade_reader();
+    jade_reader(QWidget *parent = 0);
+    ~jade_reader();
 
 private:
-	Ui::jade_readerClass ui;
+    Ui::jade_readerClass ui;
 };
 
 #endif // JADE_READER_H
