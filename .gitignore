@@ -377,3 +377,4 @@ practice/practice.sln
 *.sln
 test/qt_unit_test_5/qt_unit_test_5/qt_unit_test_5.qrc
 test/qt_unit_test_5/qt_unit_test_5/qt_unit_test_5.ui
+*.qrc
