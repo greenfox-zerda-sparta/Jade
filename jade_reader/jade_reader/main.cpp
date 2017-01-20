@@ -12,9 +12,12 @@ int main(int argc, char *argv[]) {
 
   const char* title_key = "title";
   const char* img_key = "img";
+  const char* description_key = "description";
+
   JsonParser jsonParser;
   QStringList titles = jsonParser.parseFromStringToQStringList(content, title_key);
   QStringList images = jsonParser.parseFromStringToQStringList(content, img_key);
+  QStringList descriptions = jsonParser.parseFromStringToQStringList(content, description_key);
 
   for (int i = 0; i < titles.size(); ++i) {
     std::cout << titles.at(i).toUtf8().constData() << std::endl;
@@ -31,6 +34,7 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < titles.size(); ++i) {
     layout->addWidget(new QLabel(titles.at(i)));
     layout->addWidget(new QLabel(images.at(i)));
+    layout->addWidget(new QLabel(descriptions.at(i)));
   }
 
 
