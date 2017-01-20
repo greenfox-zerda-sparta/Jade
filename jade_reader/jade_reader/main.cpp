@@ -30,11 +30,9 @@ int main(int argc, char *argv[]) {
 
   for (int i = 0; i < titles.size(); ++i) {
     layout->addWidget(new QLabel(titles.at(i)));
-  }
-
-  for (int i = 0; i < images.size(); ++i) {
     layout->addWidget(new QLabel(images.at(i)));
   }
+
 
   window->setLayout(layout);
   window->show();
