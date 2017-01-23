@@ -1,11 +1,5 @@
 #pragma once
-#include "FileReader.h"
-#include "JsonParser.h"
-#include "LabelCreator.h"
-#include <QLabel>
 #include <QtWidgets>
-#include <QVBoxLayout>
-#include <QtGui>
 
 class Application {
 public:

@@ -11,11 +11,8 @@ LabelCreator::~LabelCreator()
 {
 }
 
-QLabel * LabelCreator::createLabelFromArticle(Article * article) {
-	QString label= "";
-	label += article->getTitle() + "<br>" + article->getImg() + "<br>" + article->getDescription();
-	QLabel* qLabel = new QLabel(label);
+QLabel* LabelCreator::createLabelFromQString(QString input) {
+	QLabel* qLabel = new QLabel(input);
 	qLabel->setWordWrap(true);
 	return qLabel;
-
 }
