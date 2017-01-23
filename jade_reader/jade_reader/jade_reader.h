@@ -4,8 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_jade_reader.h"
 
-class jade_reader : public QMainWindow
-{
+class jade_reader: public QMainWindow {
   Q_OBJECT
 
 public:

@@ -2,8 +2,8 @@
 
 JsonParser::JsonParser() {}
 
-QVector <Article*> JsonParser::parseFromStringToArticleVector(QString content) {
-  QVector <Article*> articles;
+QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
+  QVector<Article*> articles;
   QJsonParseError *error = Q_NULLPTR;
   QByteArray byteArray;
   byteArray.append(content);
