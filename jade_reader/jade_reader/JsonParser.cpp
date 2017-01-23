@@ -2,10 +2,11 @@
 
 JsonParser::JsonParser() {}
 
-std::vector <Article*> JsonParser::parseFromStringToArticleVector(std::string content) {
-	std::vector <Article*> articles;
+QVector <Article*> JsonParser::parseFromStringToArticleVector(QString content) {
+	QVector <Article*> articles;
 	QJsonParseError *error = Q_NULLPTR;
-	QByteArray byteArray(content.c_str(), content.length());
+	QByteArray byteArray;
+  byteArray.append(content);
 	QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
 	QJsonObject jsonObject = jsonResponse.object();
 	QJsonArray jsonArray = jsonObject["news"].toArray();

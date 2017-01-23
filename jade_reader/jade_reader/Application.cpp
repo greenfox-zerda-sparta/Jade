@@ -16,9 +16,9 @@ Application::~Application() {
 void Application::run() {
 	QWidget *window = new QWidget();
 	FileReader fileReader;
-	std::string content = fileReader.readFromFileToString("test.json");
+	QString content = fileReader.readFromFileToQString("test.json");
 	JsonParser jsonParser;
-	std::vector <Article*> articles;
+	QVector <Article*> articles;
 	articles = jsonParser.parseFromStringToArticleVector(content);
 	QVBoxLayout *layout = new QVBoxLayout(window);
 	layout->setSizeConstraint(QLayout::SetMaximumSize);

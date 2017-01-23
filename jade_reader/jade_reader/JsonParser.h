@@ -6,12 +6,12 @@
 #include <QByteArray>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <vector>
+#include <QString>
 
 class JsonParser {
 public:
 	JsonParser();
-	std::vector <Article*> parseFromStringToArticleVector(std::string);
+	QVector<Article*> parseFromStringToArticleVector(QString);
 	~JsonParser();
 };
 

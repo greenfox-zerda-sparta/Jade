@@ -3,8 +3,7 @@
 
 
 FileReader::FileReader() {}
-
-std::string FileReader::readFromFileToString(std::string fileName) {
+QString FileReader::readFromFileToQString(std::string fileName) {
   std::string json = "";
   std::string word;
 
@@ -14,7 +13,7 @@ std::string FileReader::readFromFileToString(std::string fileName) {
       json += word;
     }
   }
-  return json;
+  return QString::fromStdString(json);
 }
 
 
