@@ -2,22 +2,22 @@
 
 
 
-std::string Article::getImg()
+QString Article::getImg()
 {
 	return img;
 }
 
-std::string Article::getTitle()
+QString Article::getTitle()
 {
 	return title;
 }
 
-std::string Article::getDescription()
+QString Article::getDescription()
 {
 	return description;
 }
 
-Article::Article(std::string img, std::string title, std::string description) : img(img), title(title), description(description){
+Article::Article(QString img, QString title, QString description) : img(img), title(title), description(description){
 	
 }
 

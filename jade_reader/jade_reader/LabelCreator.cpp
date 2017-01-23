@@ -12,10 +12,9 @@ LabelCreator::~LabelCreator()
 }
 
 QLabel * LabelCreator::createLabelFromArticle(Article * article) {
-	std::string label= "";
+	QString label= "";
 	label += article->getTitle() + "<br>" + article->getImg() + "<br>" + article->getDescription();
-	QString qString = QString(label.c_str());
-	QLabel* qLabel = new QLabel(qString);
+	QLabel* qLabel = new QLabel(label);
 	qLabel->setWordWrap(true);
 	return qLabel;
 

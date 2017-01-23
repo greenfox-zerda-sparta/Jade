@@ -11,9 +11,9 @@ std::vector <Article*> JsonParser::parseFromStringToArticleVector(std::string co
 	QJsonArray jsonArray = jsonObject["news"].toArray();
 	foreach(const QJsonValue & value, jsonArray) {
 		QJsonObject obj = value.toObject();
-		std::string img = obj["img"].toString().toUtf8().constData();
-		std::string title = obj["title"].toString().toUtf8().constData();
-		std::string description = obj["description"].toString().toUtf8().constData();
+		QString img = obj["img"].toString();
+		QString title = obj["title"].toString();
+		QString description = obj["description"].toString();
 		articles.push_back(new Article(img, title, description));
 	}
 	return articles;

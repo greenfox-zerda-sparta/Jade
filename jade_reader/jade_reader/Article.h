@@ -1,16 +1,16 @@
 #pragma once
-#include <string>
+#include <QString>
 
 class Article {
 private:
-	std::string img;
-	std::string title;
-	std::string description;
+	QString img;
+	QString title;
+	QString description;
 public:
-	std::string getImg();
-	std::string getTitle();
-	std::string getDescription();
-	Article(std::string img, std::string title, std::string description);
+	QString getImg();
+	QString getTitle();
+	QString getDescription();
+	Article(QString img, QString title, QString description);
 	~Article();
 };
 
