@@ -1,7 +1,5 @@
 #include "FileReader.h"
 
-
-
 FileReader::FileReader() {}
 QString FileReader::readFromFileToQString(std::string fileName) {
   std::string json = "";

@@ -14,9 +14,8 @@ private:
   QString content;
   QVector <Article*> articles;
 public:
-	Application();
-	~Application();
-	void run();
+  Application();
+  ~Application();
+  void run();
   void draw();
 };
-

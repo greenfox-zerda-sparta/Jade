@@ -1,24 +1,22 @@
 #include "Article.h"
 
-
-
 QString Article::getImg()
 {
-	return img;
+  return img;
 }
 
 QString Article::getTitle()
 {
-	return title;
+  return title;
 }
 
 QString Article::getDescription()
 {
-	return description;
+  return description;
 }
 
-Article::Article(QString img, QString title, QString description) : img(img), title(title), description(description){
-	
+Article::Article(QString img, QString title, QString description) : img(img), title(title), description(description) {
+
 }
 
 Article::~Article()

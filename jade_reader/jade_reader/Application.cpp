@@ -12,7 +12,6 @@ Application::Application() {
   content = "";
 }
 
-
 Application::~Application() {
   delete layoutCreator;
   delete fileReader;
@@ -22,10 +21,10 @@ Application::~Application() {
 }
 
 void Application::run() {
-	content = fileReader->readFromFileToQString("test.json");
-	articles = jsonParser->parseFromStringToArticleVector(content);
+  content = fileReader->readFromFileToQString("test.json");
+  articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
-}	
+}
 
 void Application::draw() {
   mainLayout->setSizeConstraint(QLayout::SetMaximumSize);
