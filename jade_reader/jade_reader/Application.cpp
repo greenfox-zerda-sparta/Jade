@@ -1,6 +1,10 @@
 #include "Application.h"
-
-
+#include "FileReader.h"
+#include "JsonParser.h"
+#include "LayoutCreator.h"
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QtGui>
 
 Application::Application() {
 }
@@ -16,13 +20,11 @@ void Application::run() {
 	JsonParser jsonParser;
 	std::vector <Article*> articles;
 	articles = jsonParser.parseFromStringToArticleVector(content);
-	QVBoxLayout *layout = new QVBoxLayout();
+	QVBoxLayout *layout = new QVBoxLayout(window);
 	layout->setSizeConstraint(QLayout::SetMaximumSize);
-	LabelCreator labelCreator;
+  LayoutCreator layoutCreator;
 	for (int i = 0; i < articles.size(); ++i) {
-		layout->addWidget(labelCreator.createLabelFromArticle(articles[i]));
+		layout->addLayout(layoutCreator.createLayout(articles[i]));
 	}
-
-	window->setLayout(layout);
 	window->show();
 }	

@@ -1,12 +1,10 @@
 #pragma once
-#include "Article.h"
 #include <QLabel>
 
-class LabelCreator
-{
+class LabelCreator {
 public:
-	LabelCreator();
-	~LabelCreator();
-	QLabel* createLabelFromArticle(Article*);
+  LabelCreator();
+  ~LabelCreator();
+  QLabel * createLabelFromQString(QString input);
 };
 
