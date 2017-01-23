@@ -2,8 +2,8 @@
 
 JsonParser::JsonParser() {}
 
-QStringList JsonParser::parseFromStringToQStringList(std::string content, const char* key) {
-	QStringList titles;
+std::vector <Article*> JsonParser::parseFromStringToArticleVector(std::string content) {
+	std::vector <Article*> articles;
 	QJsonParseError *error = Q_NULLPTR;
 	QByteArray byteArray(content.c_str(), content.length());
 	QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
@@ -11,9 +11,12 @@ QStringList JsonParser::parseFromStringToQStringList(std::string content, const 
 	QJsonArray jsonArray = jsonObject["news"].toArray();
 	foreach(const QJsonValue & value, jsonArray) {
 		QJsonObject obj = value.toObject();
-		titles.append(obj[key].toString());
+		std::string img = obj["img"].toString().toUtf8().constData();
+		std::string title = obj["title"].toString().toUtf8().constData();
+		std::string description = obj["description"].toString().toUtf8().constData();
+		articles.push_back(new Article(img, title, description));
 	}
-	return titles;
+	return articles;
 }
 
 JsonParser::~JsonParser() {}
