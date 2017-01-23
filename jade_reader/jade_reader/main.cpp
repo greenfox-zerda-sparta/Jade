@@ -3,6 +3,7 @@
 #include <QtWidgets>
 #include <QVBoxLayout>
 #include <QtGui>
+#include <QtWidgets/QScrollBar>
 #include "FileReader.h"
 #include "JsonParser.h"
 
@@ -27,6 +28,9 @@ int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
   QWidget *window = new QWidget;
   QVBoxLayout *layout = new QVBoxLayout;
+
+  layout->addWidget(new QScrollBar(0, layout ));
+  
 
   for (int i = 0; i < titles.size(); ++i) {
     layout->addWidget(new QLabel(titles.at(i)));
