@@ -7,5 +7,5 @@ class LayoutCreator {
 public:
   LayoutCreator();
   ~LayoutCreator();
-  QVBoxLayout* createLayout(Article*);
+  QGridLayout* createLayout(Article*);
 };

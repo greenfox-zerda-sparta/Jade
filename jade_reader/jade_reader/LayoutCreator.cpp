@@ -1,4 +1,5 @@
 #include "LayoutCreator.h"
+#include <QPushButton>
 
 
 LayoutCreator::LayoutCreator() {}
@@ -6,11 +7,16 @@ LayoutCreator::LayoutCreator() {}
 
 LayoutCreator::~LayoutCreator() {}
 
-QVBoxLayout* LayoutCreator::createLayout(Article* article) {
+QGridLayout* LayoutCreator::createLayout(Article* article) {
   LabelCreator labelCreator;
-  QVBoxLayout* layout = new QVBoxLayout();
-  layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()));
-  layout->addWidget(labelCreator.createLabelFromQString(article->getDescription()));
+
+  QGridLayout * layout = new QGridLayout();
+  QPushButton *pushButton1 = new QPushButton();
+ // void QGridLayout::addWidget(QWidget *widget, int fromRow, int fromColumn, int rowSpan, int columnSpan, Qt::Alignment alignment = Qt::Alignment())
+  layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()),1,1,1,-1, Qt::AlignLeft);
   layout->addWidget(labelCreator.createLabelFromQString(article->getCreated()));
+  layout->addWidget(labelCreator.createLabelFromQString(article->getDescription()), 2, 1, 2, -1, Qt::AlignLeft);
+  layout->addWidget(pushButton1, 1, 2, 1, 1);
+
   return layout;
 }
