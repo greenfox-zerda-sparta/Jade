@@ -6,6 +6,7 @@ private:
   QString title;
   QString description;
   QString created;
+  QString dateParser(qint64 date);
 public:
   QString getTitle();
   QString getDescription();
