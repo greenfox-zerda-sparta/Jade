@@ -1,21 +1,26 @@
 {
-  "news": [
+  "feed": [
     {
-      "img": "<img src=\"1.jpg\"/>",
-      "title": "<b>first</b>",
-      "description": "Jade is an ornamental rock. The term jade is applied to two different metamorphic rocks that are composed of different silicate minerals."
+      "id": 2345525,
+      "title": "Fox on the Moon!",
+      "description:": "THis is a description.",
+      "created": 1484756107,
+      "feed_name": "Fox Crunch",
+      "feed_id": 43673,
+      "favorite": false,
+      "opened": true,
+      "url": "http://fox.com/moon"
     },
-    { "img": "<img src=\"2.jpg\"/>",
-      "title": "<b>second</b>",
-      "description": "Nephrite consists of a microcrystalline interlocking fibrous matrix of the calcium, magnesium-iron rich amphibole mineral series tremolite (calcium-magnesium)-ferroactinolite (calcium-magnesium-iron). The middle member of this series with an intermediate composition is called actinolite (the silky fibrous mineral form is one form of asbestos). The higher the iron content, the greener the colour."
-    },
-    { "img": "<img src=\"3.jpg\"/>",
-      "title": "<b>third</b>",
-      "description": "Jadeite is a sodium- and aluminium-rich pyroxene. The precious form of jadeite jade is a microcrystalline interlocking growth of jadeite crystals."
-    },
-    { "img": "<img src=\"4.jpg\"/>",
-      "title": "<b>fourth</b>",
-      "description": "Nephrite and jadeite were used from prehistoric periods for hardstone carving. Jadeite has about the same hardness as quartz. Nephrite is slightly softer, but is tougher (more resistant to breakage) than jadeite. It was not until the 19th century that a French mineralogist, Alexis Damour (1808-1902), determined that \"jade\" was in fact two different minerals."
+    {
+     "id": 2345525,
+     "title": "Fox on the Moon!",
+     "description:" : "...",
+     "created": 1484756107,        
+     "feed_name": "Fox Crunch",
+     "feed_id": 43673,
+     "favorite": false,
+     "opened": true,
+     "url": "http://fox.com/moon"
     }
   ]
 }
