@@ -5,9 +5,11 @@ class Article {
 private:
   QString title;
   QString description;
+  QString created;
 public:
   QString getTitle();
   QString getDescription();
-  Article(QString title, QString description);
+  QString getCreated();
+  Article(QString title, QString description, qint64 created);
   ~Article();
 };

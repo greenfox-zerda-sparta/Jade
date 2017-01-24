@@ -14,7 +14,8 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
     QJsonObject obj = value.toObject();
     QString title = obj["title"].toString();
     QString description = obj["description"].toString();
-    articles.push_back(new Article(title, description));
+    qint64 created = obj["created"].toDouble();
+    articles.push_back(new Article(title, description, created));
   }
   return articles;
 }

@@ -1,5 +1,6 @@
 #include "LayoutCreator.h"
 
+
 LayoutCreator::LayoutCreator() {}
 
 
@@ -10,5 +11,6 @@ QVBoxLayout* LayoutCreator::createLayout(Article* article) {
   QVBoxLayout* layout = new QVBoxLayout();
   layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()));
   layout->addWidget(labelCreator.createLabelFromQString(article->getDescription()));
+  layout->addWidget(labelCreator.createLabelFromQString(article->getCreated()));
   return layout;
 }
