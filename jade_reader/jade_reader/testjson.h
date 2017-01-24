@@ -8,7 +8,7 @@ class TestJson : public QObject {
   Q_OBJECT
 public:
   private slots :
-    void toUpper();
+    void checkDescription();
 };
 
 #endif // TESTJSON_H
