@@ -16,9 +16,13 @@ QString Article::getCreated() {
 Article::Article(QString title, QString description, qint64 created) {
   this->title = title;
   this->description = description;
-  QDateTime time;
-  time.setMSecsSinceEpoch(created * 1000);
-  this->created = time.toString("MMMM d, yyyy");
+  this->created = dateParser(created);
 }
 
 Article::~Article() {}
+
+QString Article::dateParser(qint64 date) {
+  QDateTime time;
+  time.setMSecsSinceEpoch(date * 1000);
+  return time.toString("MMMM d, yyyy");
+}
