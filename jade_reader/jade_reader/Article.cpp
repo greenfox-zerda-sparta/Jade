@@ -1,5 +1,6 @@
 #include "Article.h"
 #include "QDateTime"
+#include "QDebug"
 
 QString Article::getTitle() {
   return title;
