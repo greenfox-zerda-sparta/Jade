@@ -4,16 +4,11 @@
 #include <QObject>
 #include <QtTest/QtTest>
 
-class TestJson : public QObject
-{
+class TestJson : public QObject {
   Q_OBJECT
-
 public:
-      private slots:
+  private slots :
     void toUpper();
-
-private:
-    
 };
 
 #endif // TESTJSON_H
