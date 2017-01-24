@@ -3,7 +3,7 @@
     {
       "id": 2345525,
       "title": "Fox on the Moon!",
-      "description:": "THis is a description.",
+      "description": "This is a description.",
       "created": 1484756107,
       "feed_name": "Fox Crunch",
       "feed_id": 43673,
@@ -13,8 +13,8 @@
     },
     {
      "id": 2345525,
-     "title": "Fox on the Moon!",
-     "description:" : "...",
+     "title": "Fox on the Moon! 2",
+     "description" : "This is description 2.",
      "created": 1484756107,        
      "feed_name": "Fox Crunch",
      "feed_id": 43673,
