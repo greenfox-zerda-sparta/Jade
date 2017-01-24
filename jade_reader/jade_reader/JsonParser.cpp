@@ -9,13 +9,13 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   byteArray.append(content);
   QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
   QJsonObject jsonObject = jsonResponse.object();
-  QJsonArray jsonArray = jsonObject["news"].toArray();
+  QJsonArray jsonArray = jsonObject["feed"].toArray();
   foreach(const QJsonValue & value, jsonArray) {
     QJsonObject obj = value.toObject();
-    QString img = obj["img"].toString();
     QString title = obj["title"].toString();
     QString description = obj["description"].toString();
-    articles.push_back(new Article(img, title, description));
+    qint64 created = obj["created"].toDouble();
+    articles.push_back(new Article(title, description, created));
   }
   return articles;
 }

@@ -3,13 +3,14 @@
 
 class Article {
 private:
-  QString img;
   QString title;
   QString description;
+  QString created;
+  QString dateParser(qint64 date);
 public:
-  QString getImg();
   QString getTitle();
   QString getDescription();
-  Article(QString img, QString title, QString description);
+  QString getCreated();
+  Article(QString title, QString description, qint64 created);
   ~Article();
 };

@@ -1,8 +1,6 @@
 #include "Article.h"
-
-QString Article::getImg() {
-  return img;
-}
+#include "QDateTime"
+#include "QDebug"
 
 QString Article::getTitle() {
   return title;
@@ -12,8 +10,20 @@ QString Article::getDescription() {
   return description;
 }
 
-Article::Article(QString img, QString title, QString description): img(img), title(title), description(description) {
+QString Article::getCreated() {
+  return created;
+}
 
+Article::Article(QString title, QString description, qint64 created) {
+  this->title = title;
+  this->description = description;
+  this->created = dateParser(created);
 }
 
 Article::~Article() {}
+
+QString Article::dateParser(qint64 date) {
+  QDateTime time;
+  time.setMSecsSinceEpoch(date * 1000);
+  return time.toString("MMMM d, yyyy");
+}
