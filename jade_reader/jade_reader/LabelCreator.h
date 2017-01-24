@@ -7,4 +7,3 @@ public:
   ~LabelCreator();
   QLabel * createLabelFromQString(QString input);
 };
-

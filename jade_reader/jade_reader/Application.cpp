@@ -1,30 +1,35 @@
 #include "Application.h"
-#include "FileReader.h"
-#include "JsonParser.h"
-#include "LayoutCreator.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QtGui>
 
 Application::Application() {
+  window = new QWidget();
+  fileReader = new FileReader;
+  jsonParser = new JsonParser;
+  mainLayout = new QVBoxLayout(window);
+  layoutCreator = new LayoutCreator;
+  content = "";
 }
 
-
 Application::~Application() {
+  delete layoutCreator;
+  delete fileReader;
+  delete jsonParser;
+  delete mainLayout;
+  delete window;
 }
 
 void Application::run() {
-	QWidget *window = new QWidget();
-	FileReader fileReader;
-	std::string content = fileReader.readFromFileToString("test.json");
-	JsonParser jsonParser;
-	std::vector <Article*> articles;
-	articles = jsonParser.parseFromStringToArticleVector(content);
-	QVBoxLayout *layout = new QVBoxLayout(window);
-	layout->setSizeConstraint(QLayout::SetMaximumSize);
-  LayoutCreator layoutCreator;
-	for (int i = 0; i < articles.size(); ++i) {
-		layout->addLayout(layoutCreator.createLayout(articles[i]));
-	}
-	window->show();
-}	
+  content = fileReader->readFromFileToQString("test.json");
+  articles = jsonParser->parseFromStringToArticleVector(content);
+  draw();
+}
+
+void Application::draw() {
+  mainLayout->setSizeConstraint(QLayout::SetMaximumSize);
+  for (int i = 0; i < articles.size(); ++i) {
+    mainLayout->addLayout(layoutCreator->createLayout(articles[i]));
+  }
+  window->show();
+}

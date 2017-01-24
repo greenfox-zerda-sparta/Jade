@@ -9,4 +9,3 @@ public:
   ~LayoutCreator();
   QVBoxLayout* createLayout(Article*);
 };
-
