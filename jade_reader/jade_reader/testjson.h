@@ -8,6 +8,7 @@ class TestJson : public QObject {
   Q_OBJECT
 public:
   private slots :
+    void checkTitle();
     void checkDescription();
 };
 
