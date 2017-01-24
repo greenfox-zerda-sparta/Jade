@@ -1,15 +1,16 @@
 #pragma once
 #include "jade_reader.h"
+#include "Article.h"
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QByteArray>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QString>
 
 class JsonParser {
 public:
-	JsonParser();
-	QStringList parseFromStringToQStringList(std::string, const char* key);
-	~JsonParser();
+  JsonParser();
+  QVector<Article*> parseFromStringToArticleVector(QString);
+  ~JsonParser();
 };
-

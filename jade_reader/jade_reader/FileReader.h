@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <fstream>
+#include <QString>
 
 class FileReader {
 public:
   FileReader();
-  std::string readFromFileToString(std::string fileName);
+  QString readFromFileToQString(std::string fileName);
   ~FileReader();
 };

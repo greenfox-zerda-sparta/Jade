@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include <QLabel>
 #include <QtWidgets>
@@ -6,26 +7,13 @@
 #include <QtWidgets/QScrollBar>
 #include "FileReader.h"
 #include "JsonParser.h"
+=======
+#include "Application.h"
+>>>>>>> f050155de8603328f9d58175dc83f1521d8d4482
 
 int main(int argc, char *argv[]) {
-  FileReader fileReader;
-  std::string content = fileReader.readFromFileToString("test.json");
-
-  const char* title_key = "title";
-  const char* img_key = "img";
-  JsonParser jsonParser;
-  QStringList titles = jsonParser.parseFromStringToQStringList(content, title_key);
-  QStringList images = jsonParser.parseFromStringToQStringList(content, img_key);
-
-  for (int i = 0; i < titles.size(); ++i) {
-    std::cout << titles.at(i).toUtf8().constData() << std::endl;
-  }
-
-  for (int i = 0; i < images.size(); ++i) {
-    std::cout << images.at(i).toUtf8().constData() << std::endl;
-  }
-
   QApplication app(argc, argv);
+<<<<<<< HEAD
   QWidget *window = new QWidget;
   QVBoxLayout *layout = new QVBoxLayout;
 
@@ -40,5 +28,9 @@ int main(int argc, char *argv[]) {
 
   window->setLayout(layout);
   window->show();
+=======
+  Application application;
+  application.run();
+>>>>>>> f050155de8603328f9d58175dc83f1521d8d4482
   return app.exec();
 }
