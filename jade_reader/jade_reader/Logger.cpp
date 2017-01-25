@@ -30,25 +30,29 @@ Logger::Logger(QString classType, QTextStream* mockStream) {
 void Logger::log(QString message) {
   switch (levels.indexOf(baseLevel)) {
     case 0 :
-    if (levels.indexOf(actualLogLevel) >= 0) {
-      *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
-       _COUT->flush();
-    }
-    case 1 :
-    if (levels.indexOf(actualLogLevel) >= 1) {
-      *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
-       _COUT->flush();
-    }
+      if (levels.indexOf(actualLogLevel) >= 0) {
+        *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
+         _COUT->flush();
+      }
+      break;
+    case 1:
+      if (levels.indexOf(actualLogLevel) >= 1) {
+        *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
+        _COUT->flush();
+      }
+      break;
     case 2 :
-    if (levels.indexOf(actualLogLevel) >= 2) {
-      *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
-      _CERR->flush();
-    }
+      if (levels.indexOf(actualLogLevel) >= 2) {
+        *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
+        _CERR->flush();
+      }
+      break;
     case 3 :
-    if (levels.indexOf(actualLogLevel) == 3) {
-      *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
-      _CERR->flush();
-    }
+      if (levels.indexOf(actualLogLevel) == 3) {
+        *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
+        _CERR->flush();
+      }
+      break;
   }
 }
 
