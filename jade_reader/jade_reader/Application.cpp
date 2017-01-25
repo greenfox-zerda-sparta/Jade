@@ -2,6 +2,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QtGui>
+#include "Logger.h"
 
 Application::Application() {
   window = new QWidget();
@@ -24,6 +25,8 @@ void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
+  Logger logger("Application");
+  logger.info("alma");
 }
 
 void Application::draw() {
