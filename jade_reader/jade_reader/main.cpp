@@ -15,13 +15,16 @@ int main(int argc, char *argv[]) {
 #include <QtTest/QtTest>
 #include "testjson.h"
 #include "testDateParser.h"
+#include "TestLogger.h"
 
 int main(int argc, char** argv) {
   QApplication app(argc, argv);
   TestJson testJson;
   TestDateParser testDateParser;
+  TestLogger testLogger;
   QTest::qExec(&testJson, argc, argv);
   QTest::qExec(&testDateParser, argc, argv);
+  QTest::qExec(&testLogger, argc, argv);
   return 0;
 }
 #endif

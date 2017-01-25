@@ -10,10 +10,9 @@ private:
   QString baseLevel;
   QString classType;
   QString actualLogLevel;
-  QString* output;
 public:
   Logger(QString classType);
-  Logger(QString classType, QString* output);
+  Logger(QString classType, QTextStream* mockStream);
   ~Logger();
   void log(QString message);
   void debug(QString message);
