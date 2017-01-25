@@ -13,25 +13,41 @@ Logger::Logger(QString classType) {
   baseLevel = processEnvironment.value("LOG", "INFO");
   this->classType = classType;
   actualLogLevel = "";
+  _COUT = new QTextStream(stdout);
+  _CERR = new QTextStream(stderr);
+}
+
+Logger::Logger(QString classType, QTextStream* mockStream) {
+  processEnvironment = QProcessEnvironment::systemEnvironment();
+  QStringList qStringList = processEnvironment.toStringList();
+  baseLevel = processEnvironment.value("LOG", "INFO");
+  this->classType = classType;
+  actualLogLevel = "";
+  _COUT = mockStream;
+  _CERR = mockStream;
 }
 
 void Logger::log(QString message) {
   switch (levels.indexOf(baseLevel)) {
     case 0 :
     if (levels.indexOf(actualLogLevel) >= 0) {
-      std::cout << actualLogLevel.toUtf8().constData() << " Message: " << message.toUtf8().constData() << " Class: " << classType.toUtf8().constData() << std::endl;
+      *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
+       _COUT->flush();
     }
     case 1 :
     if (levels.indexOf(actualLogLevel) >= 1) {
-      std::cout << actualLogLevel.toUtf8().constData() << " Message: " << message.toUtf8().constData() << " Class: " << classType.toUtf8().constData() << std::endl;
+      *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
+       _COUT->flush();
     }
     case 2 :
     if (levels.indexOf(actualLogLevel) >= 2) {
-      std::cerr << actualLogLevel.toUtf8().constData() << " Message: " << message.toUtf8().constData() << " Class: " << classType.toUtf8().constData() << std::endl;
+      *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
+      _CERR->flush();
     }
     case 3 :
     if (levels.indexOf(actualLogLevel) == 3) {
-      std::cerr << actualLogLevel.toUtf8().constData() << " Message: " << message.toUtf8().constData() << " Class: " << classType.toUtf8().constData() << std::endl;
+      *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
+      _CERR->flush();
     }
   }
 }
