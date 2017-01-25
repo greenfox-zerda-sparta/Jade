@@ -4,11 +4,16 @@
 class Logger {
 private:
   QProcessEnvironment processEnvironment;
- // QLoggingCategory::CategoryFilter oldCategoryFilter;
+  QString baseLevel;
+  QString classType;
+  QString actualLogLevel;
 public:
-  QLoggingCategory* debug;
-  Logger();
+  Logger(QString classType);
   ~Logger();
-  void myCategoryFilter(QLoggingCategory *category);
+  void log(QString message);
+  void debug(QString message);
+  void info(QString message);
+  void warn(QString message);
+  void error(QString message);
 };
 

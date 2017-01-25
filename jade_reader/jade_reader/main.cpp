@@ -1,11 +1,8 @@
 #ifndef _TEST
 #include "Application.h"
-#include "Logger.h"
 
 int main(int argc, char *argv[]) {
   QApplication app(argc, argv);
-  Logger logger;
-  logger.myCategoryFilter(logger.debug);
   Application application;
   application.run();  
   return app.exec();
