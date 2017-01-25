@@ -1,6 +1,7 @@
 #include "Article.h"
-#include "QDateTime"
-#include "QDebug"
+#include <QDateTime>
+#include <QDebug>
+#include <QLocale>
 
 QString Article::getTitle() {
   return title;
@@ -23,7 +24,9 @@ Article::Article(QString title, QString description, qint64 created) {
 Article::~Article() {}
 
 QString Article::dateParser(qint64 date) {
-  QDateTime time;
-  time.setMSecsSinceEpoch(date * 1000);
-  return time.toString("MMMM d, yyyy");
+  QDateTime qdate;
+  qdate.setMSecsSinceEpoch(date * 1000);
+  QLocale us(QLocale::English, QLocale::UnitedStates);
+  QString dateStringEnglish = us.toString(qdate, "MMMM d, yyyy");
+  return dateStringEnglish;
 }
