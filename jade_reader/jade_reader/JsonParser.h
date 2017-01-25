@@ -11,6 +11,6 @@
 class JsonParser {
 public:
   JsonParser();
-  QVector<Article*> parseFromStringToArticleVector(QString);
   ~JsonParser();
+  QVector<Article*> parseFromStringToArticleVector(QString content);
 };
