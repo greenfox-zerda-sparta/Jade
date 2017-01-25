@@ -32,7 +32,7 @@ void Application::run() {
 void Application::draw() {
   mainLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
-    mainLayout->addLayout(layoutCreator->createLayout(articles[i]));
+    mainLayout->addLayout(layoutCreator->createLayout(articles[i]), 50);
   }
   window->show();
 }
