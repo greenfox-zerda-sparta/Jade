@@ -7,24 +7,16 @@
 QVector<QString> levels = {"DEBUG", "INFO", "WARN", "ERROR"};
 
 
-Logger::Logger(QString classType) {
-  processEnvironment = QProcessEnvironment::systemEnvironment();
-  QStringList qStringList = processEnvironment.toStringList();
-  baseLevel = processEnvironment.value("LOG", "INFO");
-  this->classType = classType;
-  actualLogLevel = "";
-  _COUT = new QTextStream(stdout);
-  _CERR = new QTextStream(stderr);
-}
+Logger::Logger(QString classType) : Logger::Logger(classType, new QTextStream(stdout), new QTextStream(stderr)) {}
 
-Logger::Logger(QString classType, QTextStream* mockStream) {
+Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr) {
   processEnvironment = QProcessEnvironment::systemEnvironment();
   QStringList qStringList = processEnvironment.toStringList();
   baseLevel = processEnvironment.value("LOG", "INFO");
   this->classType = classType;
   actualLogLevel = "";
-  _COUT = mockStream;
-  _CERR = mockStream;
+  _COUT = mockStreamCout;
+  _CERR = mockStreamCerr;
 }
 
 void Logger::log(QString message) {

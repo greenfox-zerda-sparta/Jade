@@ -28,7 +28,7 @@ void Application::run() {
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
   Logger logger("Application");
-  logger.warn("alma");
+  logger.info("alma");
 }
 
 void Application::draw() {

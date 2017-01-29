@@ -12,7 +12,7 @@ private:
   QString actualLogLevel;
 public:
   Logger(QString classType);
-  Logger(QString classType, QTextStream* mockStream);
+  Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr);
   ~Logger();
   void log(QString message);
   void debug(QString message);
