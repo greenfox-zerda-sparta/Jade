@@ -8,7 +8,7 @@ class TestDateParser : public QObject {
   Q_OBJECT
 public:
 private slots :
-  void checkTest1();
+  void checkIfDateInEnglish();
 };
 
 #endif

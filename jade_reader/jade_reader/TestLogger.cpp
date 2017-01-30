@@ -35,6 +35,6 @@ void TestLogger::whenInfoMessageHasLineBreak() {
   QString logLevel = "INFO";
   Logger logger2("TestClass", mockCout, mockCerr, logLevel);
   logger2.info("Test \n Info \n Message");
-  QString result = mockCout->readLine();
-  QCOMPARE(result, QString("INFO TestClass Test "));
+  QString result = mockCout->readAll();
+  QCOMPARE(result, QString("INFO TestClass Test \n Info \n Message\n"));
 }
