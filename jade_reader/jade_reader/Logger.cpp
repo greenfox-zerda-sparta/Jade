@@ -1,18 +1,11 @@
 #include "Logger.h"
-#include <QDebug>
-#include <QLoggingCategory>
 #include <QVector>
-#include <iostream>
 
 QVector<QString> levels = {"DEBUG", "INFO", "WARN", "ERROR"};
-
 
 Logger::Logger(QString classType, QString logLevel) : Logger::Logger(classType, new QTextStream(stdout), new QTextStream(stderr), logLevel) {}
 
 Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr, QString logLevel) {
-  /*processEnvironment = QProcessEnvironment::systemEnvironment();
-  QStringList qStringList = processEnvironment.toStringList();
-  baseLevel = processEnvironment.value("LOG", "INFO");*/
   baseLevel = logLevel;
   this->classType = classType;
   actualLogLevel = "";

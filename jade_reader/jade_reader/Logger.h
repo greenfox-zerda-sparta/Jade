@@ -1,12 +1,10 @@
 #pragma once
-#include <QProcessEnvironment>
 #include <QTextStream>
 
 class Logger {
 private:
   QTextStream* _COUT;
   QTextStream* _CERR;
-  QProcessEnvironment processEnvironment;
   QString baseLevel;
   QString classType;
   QString actualLogLevel;
