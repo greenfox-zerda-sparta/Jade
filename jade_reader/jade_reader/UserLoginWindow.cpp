@@ -17,7 +17,10 @@ UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
   mainLayout->addLayout(formLayout);
   mainLayout->addWidget(signInButton);
   mainLayout->addWidget(signUpButton);
+  connect(signUpButton, &QAbstractButton::clicked, this, &UserLoginWindow::openSignUpWindow);
+}
 
+void UserLoginWindow::openSignUpWindow() {
   UserSignUpWindow* userSignUpWindow = new UserSignUpWindow();
   userSignUpWindow->show();
 }

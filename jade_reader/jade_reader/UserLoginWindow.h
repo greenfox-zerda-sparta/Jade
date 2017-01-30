@@ -11,6 +11,8 @@ private:
   QLineEdit* passwordLineEdit;
   QPushButton* signInButton;
   QPushButton* signUpButton;
+  private slots:
+  void openSignUpWindow();
 public:
   explicit UserLoginWindow(QWidget* parent = Q_NULLPTR);
   ~UserLoginWindow();

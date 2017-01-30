@@ -19,6 +19,7 @@ Application::~Application() {
   delete jsonParser;
   delete mainLayout;
   delete window;
+  delete userLoginWindow;
 }
 
 void Application::run() {
