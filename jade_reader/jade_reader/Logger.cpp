@@ -62,4 +62,7 @@ void Logger::error(QString message) {
   log(message);
 }
 
-Logger::~Logger() {}
+Logger::~Logger() {
+  delete _COUT;
+  delete _CERR;
+}
