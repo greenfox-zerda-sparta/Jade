@@ -14,11 +14,21 @@ Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mock
 }
 
 void Logger::log(QString message) {
-  if ((levels.indexOf(baseLevel) == 0 || levels.indexOf(baseLevel) == 1) && levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel)) {
-    logCout(message);
-  } else if (levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel)) {
-    logCerr(message);
+  if (isMessageDisplayable()) {
+    if (isLogLevelLessThanWarn()) {
+      logCout(message);
+    } else {
+      logCerr(message);
+    }
   }
+}
+
+bool Logger::isMessageDisplayable() {
+  return levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel);
+}
+
+bool Logger::isLogLevelLessThanWarn() {
+  return levels.indexOf(baseLevel) == 0 || levels.indexOf(baseLevel) == 1;
 }
 
 void Logger::logCout(QString message) {

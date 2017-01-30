@@ -10,6 +10,8 @@ private:
   QString actualLogLevel;
   void logCout(QString message);
   void logCerr(QString message);
+  bool isLogLevelLessThanWarn();
+  bool isMessageDisplayable();
 public:
   Logger(QString classType, QString logLevel);
   Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr, QString logLevel);
