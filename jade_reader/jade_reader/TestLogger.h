@@ -11,6 +11,10 @@ public:
     void whenInfoMessageIsEmpty();
     void whenInfoMessageIsReallyLong();
     void whenInfoMessageHasLineBreak();
+    void whenLogLevelIsDebug();
+    void whenLogLevelIsInfo();
+    void whenLogLevelIsWarn();
+    void whenLogLevelIsError();
 };
 
 #endif
