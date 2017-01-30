@@ -11,7 +11,6 @@ LayoutCreator::~LayoutCreator() {}
 
 QGridLayout* LayoutCreator::createLayout(Article* article) {
   LabelCreator labelCreator;
-
   QGridLayout * layout = new QGridLayout();
   FlowLayout* titleDate = new FlowLayout();
   QPushButton *pushButton1 = new QPushButton();
