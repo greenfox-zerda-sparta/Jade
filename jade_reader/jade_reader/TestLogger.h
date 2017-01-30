@@ -3,18 +3,26 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
+#include <QTextStream>
+#include <QString>
 
-class TestLogger : public QObject {
+class TestLogger: public QObject {
   Q_OBJECT
-public:
-  private slots :
-    void whenInfoMessageIsEmpty();
-    void whenInfoMessageIsReallyLong();
-    void whenInfoMessageHasLineBreak();
-    void whenLogLevelIsDebug();
-    void whenLogLevelIsInfo();
-    void whenLogLevelIsWarn();
-    void whenLogLevelIsError();
+private:
+  QString* buffer;
+  QString* buffer2;
+  QTextStream* mockCout;
+  QTextStream* mockCerr;
+private slots:
+  void init();
+  void cleanup();
+  void whenInfoMessageIsEmpty();
+  void whenInfoMessageIsReallyLong();
+  void whenInfoMessageHasLineBreak();
+  void whenLogLevelIsDebug();
+  void whenLogLevelIsInfo();
+  void whenLogLevelIsWarn();
+  void whenLogLevelIsError();
 };
 
 #endif

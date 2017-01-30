@@ -1,50 +1,53 @@
 #include "Logger.h"
-#include <QVector>
+#include "LogLevelProvider.h"
 
-QVector<QString> levels = {"DEBUG", "INFO", "WARN", "ERROR"};
+Logger::Logger(QString classType) : Logger::Logger(classType, new QTextStream(stdout), new QTextStream(stderr), LogLevelProvider::getLogLevel()) {}
 
-Logger::Logger(QString classType, QString logLevel) : Logger::Logger(classType, new QTextStream(stdout), new QTextStream(stderr), logLevel) {}
-
-Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr, QString logLevel) {
-  baseLevel = logLevel;
+Logger::Logger(QString classType, QTextStream* coutStream, QTextStream* cerrStream, QString baseLevel) {
+  levels = {"DEBUG", "INFO", "WARN", "ERROR"};
+  this->baseLevel = baseLevel;
   this->classType = classType;
-  actualLogLevel = "";
-  _COUT = mockStreamCout;
-  _CERR = mockStreamCerr;
+  _COUT = coutStream;
+  _CERR = cerrStream;
 }
 
-void Logger::log(QString message, QTextStream* stream) {
-  if (isMessageDisplayable()) {
-    *stream << actualLogLevel << " " << classType << " " << message << "\n";
+void Logger::log(QString message, QString logLevel) {
+  if (isMessageDisplayable(logLevel)) {
+    QTextStream* stream = getStreamByLogLevel(logLevel);
+    *stream << logLevel << " " << classType << " " << message << "\n";
     stream->flush();
   }
 }
 
-bool Logger::isMessageDisplayable() {
-  return levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel);
+bool Logger::isMessageDisplayable(QString logLevel) {
+  return levels.indexOf(logLevel) >= levels.indexOf(baseLevel);
+}
+
+bool Logger::isLogLevelLessThanWarn(QString logLevel) {
+  return levels.indexOf(logLevel) == 0 || levels.indexOf(logLevel) == 1;
+}
+
+QTextStream* Logger::getStreamByLogLevel(QString logLevel) {
+  return isLogLevelLessThanWarn(logLevel) ? _COUT : _CERR;
 }
 
 void Logger::debug(QString message) {
-  actualLogLevel = "DEBUG";
-  log(message, _COUT);
+  log(message, "DEBUG");
 }
 
 void Logger::info(QString message) {
-  actualLogLevel = "INFO";
-  log(message, _COUT);
+  log(message, "INFO");
 }
 
 void Logger::warn(QString message) {
-  actualLogLevel = "WARN";
-  log(message, _CERR);
+  log(message, "WARN");
 }
 
 void Logger::error(QString message) {
-  actualLogLevel = "ERROR";
-  log(message, _CERR);
+  log(message, "ERROR");
 }
 
 Logger::~Logger() {
-  delete _COUT;
-  delete _CERR;
+  /*delete _COUT;
+  delete _CERR;*/
 }

@@ -23,7 +23,7 @@ void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
-  Logger logger("Application", LogLevelProvider::getLogLevel());
+  Logger logger("Application");
   logger.info("alma");
 }
 
