@@ -13,13 +13,10 @@ Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mock
   _CERR = mockStreamCerr;
 }
 
-void Logger::log(QString message) {
+void Logger::log(QString message, QTextStream* stream) {
   if (isMessageDisplayable()) {
-    if (isLogLevelLessThanWarn()) {
-      logCout(message);
-    } else {
-      logCerr(message);
-    }
+    *stream << actualLogLevel << " " << classType << " " << message << "\n";
+    stream->flush();
   }
 }
 
@@ -27,38 +24,24 @@ bool Logger::isMessageDisplayable() {
   return levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel);
 }
 
-bool Logger::isLogLevelLessThanWarn() {
-  return levels.indexOf(baseLevel) == 0 || levels.indexOf(baseLevel) == 1;
-}
-
-void Logger::logCout(QString message) {
-  *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
-  _COUT->flush();
-}
-
-void Logger::logCerr(QString message) {
-  *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
-  _CERR->flush();
-}
-
 void Logger::debug(QString message) {
   actualLogLevel = "DEBUG";
-  log(message);
+  log(message, _COUT);
 }
 
 void Logger::info(QString message) {
   actualLogLevel = "INFO";
-  log(message);
+  log(message, _COUT);
 }
 
 void Logger::warn(QString message) {
   actualLogLevel = "WARN";
-  log(message);
+  log(message, _CERR);
 }
 
 void Logger::error(QString message) {
   actualLogLevel = "ERROR";
-  log(message);
+  log(message, _CERR);
 }
 
 Logger::~Logger() {

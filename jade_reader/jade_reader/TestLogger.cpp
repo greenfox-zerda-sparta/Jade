@@ -52,8 +52,8 @@ void TestLogger::whenLogLevelIsDebug() {
   logger.error("Test Error Message");
   QString resultCout = mockCout->readAll();
   QString resultCerr = mockCerr->readAll();
-  QCOMPARE(resultCout, QString("DEBUG TestClass Test Debug Message\nINFO TestClass Test Info Message\nWARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
-  QCOMPARE(resultCerr, QString(""));
+  QCOMPARE(resultCout, QString("DEBUG TestClass Test Debug Message\nINFO TestClass Test Info Message\n"));
+  QCOMPARE(resultCerr, QString("WARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
 }
 
 void TestLogger::whenLogLevelIsInfo() {
@@ -69,8 +69,8 @@ void TestLogger::whenLogLevelIsInfo() {
   logger.error("Test Error Message");
   QString resultCout = mockCout->readAll();
   QString resultCerr = mockCerr->readAll();
-  QCOMPARE(resultCout, QString("INFO TestClass Test Info Message\nWARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
-  QCOMPARE(resultCerr, QString(""));
+  QCOMPARE(resultCout, QString("INFO TestClass Test Info Message\n"));
+  QCOMPARE(resultCerr, QString("WARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
 }
 
 void TestLogger::whenLogLevelIsWarn() {
@@ -86,8 +86,8 @@ void TestLogger::whenLogLevelIsWarn() {
   logger.error("Test Error Message");
   QString resultCout = mockCout->readAll();
   QString resultCerr = mockCerr->readAll();
-  QCOMPARE(resultCerr, QString("WARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
   QCOMPARE(resultCout, QString(""));
+  QCOMPARE(resultCerr, QString("WARN TestClass Test Warn Message\nERROR TestClass Test Error Message\n"));
 }
 
 void TestLogger::whenLogLevelIsError() {
@@ -103,6 +103,6 @@ void TestLogger::whenLogLevelIsError() {
   logger.error("Test Error Message");
   QString resultCout = mockCout->readAll();
   QString resultCerr = mockCerr->readAll();
-  QCOMPARE(resultCerr, QString("ERROR TestClass Test Error Message\n"));
   QCOMPARE(resultCout, QString(""));
+  QCOMPARE(resultCerr, QString("ERROR TestClass Test Error Message\n"));
 }
