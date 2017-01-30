@@ -1,25 +1,21 @@
-#include "UserLoginWindow.h"
 #include "UserSignUpWindow.h"
 #include <QFormLayout>
 
-UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
+UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
   emailLineEdit = new QLineEdit(parent);
   passwordLineEdit = new QLineEdit(parent);
+  passwordAgainLineEdit = new QLineEdit(parent);
 
   QFormLayout* formLayout = new QFormLayout;
   setWindowTitle(tr("JADE READER"));
   formLayout->addRow(tr("&Email:"), emailLineEdit);
   formLayout->addRow(tr("&Password:"), passwordLineEdit);
+  formLayout->addRow(tr("&Password again:"), passwordAgainLineEdit);
 
-  signInButton = new QPushButton(tr("Sign In"));
   signUpButton = new QPushButton(tr("Sign Up"));
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
   mainLayout->addLayout(formLayout);
-  mainLayout->addWidget(signInButton);
   mainLayout->addWidget(signUpButton);
-
-  UserSignUpWindow* userSignUpWindow = new UserSignUpWindow();
-  userSignUpWindow->show();
 }
 
-UserLoginWindow::~UserLoginWindow() {}
+UserSignUpWindow::~UserSignUpWindow() {}
