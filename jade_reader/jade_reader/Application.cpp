@@ -1,10 +1,6 @@
 #include "Application.h"
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QtGui>
 #include "Logger.h"
-#include <iostream>
-#include <QDebug>
+#include "LogLevelProvider.h"
 
 Application::Application() {
   window = new QWidget();
@@ -27,8 +23,9 @@ void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
-  Logger logger("Application");
-  logger.warn("alma");
+  LogLevelProvider logLevelProvider;
+  Logger logger("Application", logLevelProvider.getLogLevel());
+  logger.info("alma");
 }
 
 void Application::draw() {

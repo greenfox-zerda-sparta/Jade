@@ -2,7 +2,6 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 #include "LayoutCreator.h"
-#include <QtWidgets>
 
 class Application {
 private:
