@@ -1,11 +1,6 @@
 #include "Application.h"
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QtGui>
 #include "Logger.h"
 #include "LogLevelProvider.h"
-#include <iostream>
-#include <QDebug>
 
 Application::Application() {
   window = new QWidget();
