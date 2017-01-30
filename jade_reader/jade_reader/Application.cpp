@@ -3,6 +3,8 @@
 #include <QVBoxLayout>
 #include <QtGui>
 #include "Logger.h"
+#include <iostream>
+#include <QDebug>
 
 Application::Application() {
   window = new QWidget();
@@ -26,7 +28,7 @@ void Application::run() {
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
   Logger logger("Application");
-  logger.info("alma");
+  logger.warn("alma");
 }
 
 void Application::draw() {
