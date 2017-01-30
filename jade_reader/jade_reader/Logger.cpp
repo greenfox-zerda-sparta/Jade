@@ -17,29 +17,35 @@ void Logger::log(QString message) {
   switch (levels.indexOf(baseLevel)) {
     case 0 :
       if (levels.indexOf(actualLogLevel) >= 0) {
-        *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
-         _COUT->flush();
+        logCout(message);
       }
       break;
     case 1:
       if (levels.indexOf(actualLogLevel) >= 1) {
-        *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
-        _COUT->flush();
+        logCout(message);
       }
       break;
     case 2 :
       if (levels.indexOf(actualLogLevel) >= 2) {
-        *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
-        _CERR->flush();
+        logCerr(message);
       }
       break;
     case 3 :
       if (levels.indexOf(actualLogLevel) == 3) {
-        *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
-        _CERR->flush();
+        logCerr(message);
       }
       break;
   }
+}
+
+void Logger::logCout(QString message) {
+  *_COUT << actualLogLevel << " " << classType << " " << message << "\n";
+  _COUT->flush();
+}
+
+void Logger::logCerr(QString message) {
+  *_CERR << actualLogLevel << " " << classType << " " << message << "\n";
+  _CERR->flush();
 }
 
 void Logger::debug(QString message) {

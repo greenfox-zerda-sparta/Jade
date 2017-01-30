@@ -8,6 +8,8 @@ private:
   QString baseLevel;
   QString classType;
   QString actualLogLevel;
+  void logCout(QString message);
+  void logCerr(QString message);
 public:
   Logger(QString classType, QString logLevel);
   Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mockStreamCerr, QString logLevel);
