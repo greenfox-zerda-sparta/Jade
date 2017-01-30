@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <QtGui>
 #include "Logger.h"
+#include "LogLevelProvider.h"
 #include <iostream>
 #include <QDebug>
 
@@ -27,7 +28,8 @@ void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
-  Logger logger("Application");
+  LogLevelProvider logLevelProvider;
+  Logger logger("Application", logLevelProvider.getLogLevel());
   logger.info("alma");
 }
 
