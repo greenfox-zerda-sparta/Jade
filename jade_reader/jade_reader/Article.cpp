@@ -1,7 +1,5 @@
 #include "Article.h"
-#include <QDateTime>
-#include <QDebug>
-#include <QLocale>
+#include "DateParser.h"
 
 quint64 Article::getId() {
   return id;
@@ -56,15 +54,7 @@ Article::Article(quint64 id, QString title, QString description, qint64 created,
   this->favorite = favorite;
   this->opened = opened;
   this->url = url;
-  this->created = dateParser(created);
+  this->created = DateParser::parseDate(created);
 }
 
 Article::~Article() {}
-
-QString Article::dateParser(qint64 date) {
-  QDateTime qdate;
-  qdate.setMSecsSinceEpoch(date * 1000);
-  QLocale us(QLocale::English, QLocale::UnitedStates);
-  QString dateStringEnglish = us.toString(qdate, "MMMM d, yyyy");
-  return dateStringEnglish;
-}
