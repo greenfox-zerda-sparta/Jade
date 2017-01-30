@@ -2,6 +2,7 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 #include "LayoutCreator.h"
+#include "UserLoginWindow.h"
 
 class Application {
 private:
@@ -10,6 +11,7 @@ private:
   JsonParser* jsonParser;
   QVBoxLayout* mainLayout;
   LayoutCreator* layoutCreator;
+  UserLoginWindow* userLoginWindow;
   QString content;
   QVector <Article*> articles;
 public:
