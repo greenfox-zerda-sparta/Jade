@@ -14,27 +14,10 @@ Logger::Logger(QString classType, QTextStream* mockStreamCout, QTextStream* mock
 }
 
 void Logger::log(QString message) {
-  switch (levels.indexOf(baseLevel)) {
-    case 0 :
-      if (levels.indexOf(actualLogLevel) >= 0) {
-        logCout(message);
-      }
-      break;
-    case 1:
-      if (levels.indexOf(actualLogLevel) >= 1) {
-        logCout(message);
-      }
-      break;
-    case 2 :
-      if (levels.indexOf(actualLogLevel) >= 2) {
-        logCerr(message);
-      }
-      break;
-    case 3 :
-      if (levels.indexOf(actualLogLevel) == 3) {
-        logCerr(message);
-      }
-      break;
+  if ((levels.indexOf(baseLevel) == 0 || levels.indexOf(baseLevel) == 1) && levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel)) {
+    logCout(message);
+  } else if (levels.indexOf(actualLogLevel) >= levels.indexOf(baseLevel)) {
+    logCerr(message);
   }
 }
 
