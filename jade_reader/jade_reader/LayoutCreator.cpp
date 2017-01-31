@@ -14,32 +14,17 @@ LayoutCreator::LayoutCreator() {}
 
 LayoutCreator::~LayoutCreator() {}
 
-QGridLayout* LayoutCreator::createLayout(Article* article) {
-  url = article->getUrl();
-  LabelCreator labelCreator;
-  QGridLayout * layout = new QGridLayout();
-  FlowLayout* titleDate = new FlowLayout();
-  QPushButton *pushButton1 = new QPushButton();
-  QPushButton *pushButton2 = new QPushButton();
-  layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()), 0, 0, 1, 1, Qt::AlignLeft);
-  layout->addWidget(labelCreator.createLabelFromQString(article->getCreated()), 1, 0, 1, 1, Qt::AlignLeft);
-  layout->addWidget(labelCreator.createLabelFromQString(article->getDescription()), 2, 0, 1, -1, Qt::AlignLeft);
-  layout->setColumnStretch(0, 99);
-  layout->addWidget(pushButton1, 0, 1);
-  pushButton1->setText("Go to link");
-  connect(pushButton1, &QAbstractButton::clicked, this, &LayoutCreator::clickOpenBrowser);
-  layout->addWidget(pushButton2, 1, 1);
-
-  return layout;
+ArticleLayout* LayoutCreator::createLayout(Article* article) {
+  ArticleLayout* al = new ArticleLayout(article);
+  return al;
 }
 
-void LayoutCreator::openNewBrowserWindow(QString url) {
-  QWidget* widget = Q_NULLPTR;
-  QWebEngineView *view = new QWebEngineView(widget);
-  view->load(QUrl(url));
-  view->show();
+void LayoutCreator::openNewBrowserWindow(QGridLayout* layout) {
+
 }
 
 void LayoutCreator::clickOpenBrowser() {
-  openNewBrowserWindow(this->url);
+//  openNewBrowserWindow();
 }
+
+
