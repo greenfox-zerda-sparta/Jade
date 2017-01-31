@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "LogLevelProvider.h"
 #include "UserLoginWindow.h"
+#include "WindowManager.h"
 
 Application::Application() {
   window = new QWidget();
@@ -28,7 +29,9 @@ void Application::run() {
   draw();
   Logger logger("Application", LogLevelProvider::getLogLevel());
   logger.info("alma");*/
-  userLoginWindow->show();
+  //userLoginWindow->show();
+  WindowManager* windowManager = new WindowManager;
+  windowManager->show();
 }
 
 void Application::draw() {
