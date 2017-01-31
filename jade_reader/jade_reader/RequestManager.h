@@ -10,5 +10,9 @@ private:
 public:
   RequestManager();
   ~RequestManager();
+private:
   QString getRequest(QString url);
+  QString loginRequest(QString _email, QString _password);
+public slots:
+  void getFeed();
 };

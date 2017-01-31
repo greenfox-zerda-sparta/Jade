@@ -22,14 +22,18 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
   layout->addWidget(pushButton2, 1, 1);
-  
-  connect(pushButton1, &QAbstractButton::clicked, this, &LayoutCreator::getGoogle);
+
+  RequestManager* manager = new RequestManager;
+  connect(pushButton1, SIGNAL(clicked()), manager, SLOT(getFeed()));
 
   return layout;
 }
 
-void LayoutCreator::getGoogle() {
+/*void LayoutCreator::getFeed() {
   RequestManager* manager = new RequestManager;
-  qDebug() << manager->getRequest("http://www.google.hu");
+  //qDebug() << manager->getRequest("http://zerda-reader-mockback.gomix.me/feed");
+  QString email = "bogi@reader.com";
+  QString pw = "bogi";
+  qDebug() << manager->loginRequest(email, pw);
   delete manager;
-}
+}*/
