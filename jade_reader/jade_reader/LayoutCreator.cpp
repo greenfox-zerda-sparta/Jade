@@ -15,6 +15,7 @@ LayoutCreator::LayoutCreator() {}
 LayoutCreator::~LayoutCreator() {}
 
 QGridLayout* LayoutCreator::createLayout(Article* article) {
+  url = article->getUrl();
   LabelCreator labelCreator;
   QGridLayout * layout = new QGridLayout();
   FlowLayout* titleDate = new FlowLayout();
@@ -26,20 +27,19 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->setColumnStretch(0, 99);
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
-  connect(pushButton1, SIGNAL(clicked()), this, SLOT(openBrowser(article->getUrl)));
+  connect(pushButton1, &QAbstractButton::clicked, this, &LayoutCreator::clickOpenBrowser);
   layout->addWidget(pushButton2, 1, 1);
 
   return layout;
 }
 
-void LayoutCreator::openBrowser(QString url) {
-  std::cout << "na" << std::endl;
-  QMessageBox msgBox;
-  msgBox.setWindowTitle("Hello");
-  msgBox.setText("You Clicked " + url);
-  msgBox.exec();
-  /*QWidget* widget = Q_NULLPTR;
+void LayoutCreator::openNewBrowserWindow(QString url) {
+  QWidget* widget = Q_NULLPTR;
   QWebEngineView *view = new QWebEngineView(widget);
-  view->load(QUrl("url"));
-  view->show();*/
+  view->load(QUrl(url));
+  view->show();
+}
+
+void LayoutCreator::clickOpenBrowser() {
+  openNewBrowserWindow(this->url);
 }

@@ -7,9 +7,11 @@ class Application;
 class LayoutCreator: public QObject{
 Q_OBJECT
 public:
+  QString url;
   LayoutCreator();
   ~LayoutCreator();
   QGridLayout* createLayout(Article*);
+  void openNewBrowserWindow(QString);
 public slots:
-void openBrowser(QString);
+void clickOpenBrowser();
 };
