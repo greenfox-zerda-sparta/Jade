@@ -46,8 +46,3 @@ void Logger::warn(QString message) {
 void Logger::error(QString message) {
   log(message, "ERROR");
 }
-
-Logger::~Logger() {
-  /*delete _COUT;
-  delete _CERR;*/
-}

@@ -20,6 +20,5 @@ public:
   void info(QString message);
   void warn(QString message);
   void error(QString message);
-  ~Logger();
 };
 

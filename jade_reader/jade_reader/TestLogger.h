@@ -5,6 +5,7 @@
 #include <QtTest/QtTest>
 #include <QTextStream>
 #include <QString>
+#include "Logger.h"
 
 class TestLogger: public QObject {
   Q_OBJECT
@@ -13,6 +14,7 @@ private:
   QString* buffer2;
   QTextStream* mockCout;
   QTextStream* mockCerr;
+  void writeMessages(Logger& logger);
 private slots:
   void init();
   void cleanup();
