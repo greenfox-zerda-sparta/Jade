@@ -3,12 +3,7 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidgetItem>
-//#include <QWebEngineView>
-//#include <QWidget>
-//#include <QApplication>
-//#include <QMessageBox>
-//#include <iostream>
-
+#include "RequestManager.h"
 
 LayoutCreator::LayoutCreator() {}
 
@@ -27,6 +22,14 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
   layout->addWidget(pushButton2, 1, 1);
+  
+  connect(pushButton1, &QAbstractButton::clicked, this, &LayoutCreator::getGoogle);
 
   return layout;
+}
+
+void LayoutCreator::getGoogle() {
+  RequestManager* manager = new RequestManager;
+  qDebug() << manager->getRequest("http://www.google.hu");
+  delete manager;
 }
