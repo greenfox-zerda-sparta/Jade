@@ -3,11 +3,11 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidgetItem>
-#include <QWebEngineView>
-#include <QWidget>
-#include <QApplication>
-#include <QMessageBox>
-#include <iostream>
+//#include <QWebEngineView>
+//#include <QWidget>
+//#include <QApplication>
+//#include <QMessageBox>
+//#include <iostream>
 
 
 LayoutCreator::LayoutCreator() {}
@@ -26,20 +26,7 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->setColumnStretch(0, 99);
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
-  connect(pushButton1, SIGNAL(clicked()), this, SLOT(openBrowser(article->getUrl)));
   layout->addWidget(pushButton2, 1, 1);
 
   return layout;
-}
-
-void LayoutCreator::openBrowser(QString url) {
-  std::cout << "na" << std::endl;
-  QMessageBox msgBox;
-  msgBox.setWindowTitle("Hello");
-  msgBox.setText("You Clicked " + url);
-  msgBox.exec();
-  /*QWidget* widget = Q_NULLPTR;
-  QWebEngineView *view = new QWebEngineView(widget);
-  view->load(QUrl("url"));
-  view->show();*/
 }

@@ -10,6 +10,4 @@ public:
   LayoutCreator();
   ~LayoutCreator();
   QGridLayout* createLayout(Article*);
-public slots:
-void openBrowser(QString);
 };
