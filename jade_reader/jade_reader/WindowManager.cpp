@@ -2,7 +2,6 @@
 #include "UserLoginWindow.h"
 #include "UserSignUpWindow.h"
 #include <QVBoxLayout>
-#include <QDebug>
 
 WindowManager::WindowManager() {
   firstPageWidget = new UserLoginWindow;
@@ -19,13 +18,11 @@ WindowManager::WindowManager() {
 
   setCentralWidget(centralWidget);
   centralWidget->setLayout(layout);
-  UserLoginWindow* userLoginWindow = new UserLoginWindow;
   connect(firstPageWidget, SIGNAL(sendRequest()), this, SLOT(changePage()));
 }
 
 void WindowManager::changePage() {
   stackedWidget->setCurrentIndex(1);
-  qDebug() << "changePage";
 }
 
 WindowManager::~WindowManager() {}
