@@ -1,6 +1,7 @@
 #include "UserLoginWindow.h"
 #include "UserSignUpWindow.h"
 #include <QFormLayout>
+#include <QDebug>
 
 UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
   emailLineEdit = new QLineEdit(parent);
@@ -17,7 +18,13 @@ UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
   mainLayout->addLayout(formLayout);
   mainLayout->addWidget(signInButton);
   mainLayout->addWidget(signUpButton);
-  connect(signUpButton, &QAbstractButton::clicked, this, &UserLoginWindow::openSignUpWindow);
+  //connect(signUpButton, &QAbstractButton::clicked, this, &UserLoginWindow::openSignUpWindow);
+  connect(signUpButton, &QAbstractButton::clicked, this, &UserLoginWindow::onEvent);
+}
+
+void UserLoginWindow::onEvent() {
+  qDebug() << "on event";
+  emit sendRequest();
 }
 
 void UserLoginWindow::openSignUpWindow() {

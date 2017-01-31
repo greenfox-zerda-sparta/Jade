@@ -3,15 +3,18 @@
 #include <QWidget>
 #include <QDialog>
 #include <QMainWindow>
+#include <QStackedWidget>
 
 class WindowManager : public QMainWindow {
   Q_OBJECT
 private:
+  QStackedWidget* stackedWidget;
   QWidget* firstPageWidget;
   QWidget* secondPageWidget;
-  QWidget* thirdPageWidget;
 public:
   WindowManager();
   ~WindowManager();
+public slots:
+  void changePage();
 };
 
