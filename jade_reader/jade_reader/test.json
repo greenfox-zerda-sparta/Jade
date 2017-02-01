@@ -9,7 +9,7 @@
       "feed_id": 43673,
       "favorite": false,
       "opened": true,
-      "url": "http://fox.com/moon"
+      "url": "http://google.com"
     },
     {
      "id": 2345525,
@@ -20,7 +20,7 @@
      "feed_id": 43673,
      "favorite": false,
      "opened": true,
-     "url": "http://fox.com/moon"
+     "url": "http://en.wikipedia.org"
     }
   ]
 }
