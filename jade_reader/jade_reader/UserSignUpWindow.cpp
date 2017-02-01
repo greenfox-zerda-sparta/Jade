@@ -1,4 +1,5 @@
 #include "UserSignUpWindow.h"
+#include <QDebug>
 
 
 UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
@@ -7,6 +8,8 @@ UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
   passwordAgainLineEdit = new QLineEdit(parent);
   signUpButton = new QPushButton(tr("Sign Up"));
   backButton = new QPushButton(tr("Back"));
+  passwordLineEdit->setEchoMode(QLineEdit::Password);
+  passwordAgainLineEdit->setEchoMode(QLineEdit::Password);
 
   formLayout = new QFormLayout;
   setWindowTitle(tr("JADE READER"));
@@ -19,11 +22,21 @@ UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
   mainLayout->addWidget(signUpButton);
   mainLayout->addWidget(backButton);
 
-  connect(backButton, &QAbstractButton::clicked, this, &UserSignUpWindow::onPushButtonEvent);
+  connect(backButton, &QAbstractButton::clicked, this, &UserSignUpWindow::onBackButtonEvent);
+  connect(signUpButton, &QAbstractButton::clicked, this, &UserSignUpWindow::onSignUpButtonEvent);
 }
 
-void UserSignUpWindow::onPushButtonEvent() {
+void UserSignUpWindow::onBackButtonEvent() {
   emit sendRequest();
+}
+
+void UserSignUpWindow::onSignUpButtonEvent() {
+  email = emailLineEdit->text();
+  password = passwordLineEdit->text();
+  passwordAgain = passwordAgainLineEdit->text();
+  qDebug() << email;
+  qDebug() << password;
+  qDebug() << passwordAgain;
 }
 
 UserSignUpWindow::~UserSignUpWindow() {

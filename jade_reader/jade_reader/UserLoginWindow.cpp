@@ -32,3 +32,12 @@ void UserLoginWindow::onSignInButtonEvent() {
   qDebug() << email;
   qDebug() << password;
 }
+
+UserLoginWindow::~UserLoginWindow() {
+  delete emailLineEdit;
+  delete passwordLineEdit;
+  delete signUpButton;
+  delete signInButton;
+  delete formLayout;
+  delete mainLayout;
+}

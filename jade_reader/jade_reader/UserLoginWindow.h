@@ -23,5 +23,6 @@ private slots:
   void onSignInButtonEvent();
 public:
   explicit UserLoginWindow(QWidget* parent = Q_NULLPTR);
+  ~UserLoginWindow();;
 };
 

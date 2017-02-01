@@ -3,6 +3,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QFormLayout>
+#include <QString>
 
 class UserSignUpWindow : public QDialog {
   Q_OBJECT 
@@ -16,8 +17,12 @@ private:
   QLineEdit* passwordAgainLineEdit;
   QPushButton* signUpButton;
   QPushButton* backButton;
+  QString email;
+  QString password;
+  QString passwordAgain;
 private slots:
-  void onPushButtonEvent();
+  void onBackButtonEvent();
+  void onSignUpButtonEvent();
 public:
   explicit UserSignUpWindow(QWidget* parent = Q_NULLPTR);
   ~UserSignUpWindow();
