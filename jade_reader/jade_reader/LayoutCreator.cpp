@@ -18,7 +18,6 @@ ArticleLayout::ArticleLayout(Article* _article) {
   article = _article;
   LabelCreator labelCreator;
   layout = new QGridLayout();
-  layout->setObjectName(article->getUrl());
   QPushButton *pushButton1 = new QPushButton();
   QPushButton *pushButton2 = new QPushButton();
   layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()), 0, 0, 1, 1, Qt::AlignLeft);
