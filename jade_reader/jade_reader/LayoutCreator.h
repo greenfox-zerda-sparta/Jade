@@ -19,7 +19,11 @@ public:
   QGridLayout* layout;
   Article* article;
   public slots:
+  QPushButton* addMarkAsReadButton();
+  QPushButton* addMarkFavouriteButton();
   void newBrowserWindow();
+  void markFavourite();
+  void markAsRead();
 };
 
 class LayoutCreator: public QObject{
