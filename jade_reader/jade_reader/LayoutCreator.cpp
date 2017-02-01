@@ -3,7 +3,6 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidgetItem>
-#include "RequestManager.h"
 
 LayoutCreator::LayoutCreator() {}
 
@@ -22,18 +21,5 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
   layout->addWidget(pushButton2, 1, 1);
-
-  connect(pushButton1, SIGNAL(clicked()), this, SLOT(getFeed()));
-
   return layout;
-}
-
-void LayoutCreator::getFeed() {
-  RequestManager* manager = new RequestManager;
-  qDebug() << manager->getFeed();
-  QString email = "joegalamb@reader.com";
-  QString pw = "modelt";
-  //qDebug() << manager->postLogin(email, pw);
-  //qDebug() << manager->postSignup(email, pw);
-  delete manager;
 }
