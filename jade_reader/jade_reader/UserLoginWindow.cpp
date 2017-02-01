@@ -2,6 +2,7 @@
 #include <QDebug>
 
 UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
+  requestManager = new RequestManager;
   emailLineEdit = new QLineEdit(parent);
   passwordLineEdit = new QLineEdit(parent);
   signInButton = new QPushButton(tr("Sign In"));
@@ -29,8 +30,7 @@ void UserLoginWindow::onSignUpButtonEvent() {
 void UserLoginWindow::onSignInButtonEvent() {
   email = emailLineEdit->text();
   password = passwordLineEdit->text();
-  qDebug() << email;
-  qDebug() << password;
+  qDebug() << requestManager->postLogin(email, password);
 }
 
 UserLoginWindow::~UserLoginWindow() {
@@ -40,4 +40,5 @@ UserLoginWindow::~UserLoginWindow() {
   delete signInButton;
   delete formLayout;
   delete mainLayout;
+  delete requestManager;
 }

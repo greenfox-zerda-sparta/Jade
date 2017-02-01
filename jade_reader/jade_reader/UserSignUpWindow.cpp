@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
+  requestManager = new RequestManager;
   emailLineEdit = new QLineEdit(parent);
   passwordLineEdit = new QLineEdit(parent);
   passwordAgainLineEdit = new QLineEdit(parent);
@@ -26,7 +27,7 @@ UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
 }
 
 void UserSignUpWindow::onBackButtonEvent() {
-  emit sendRequest();
+  sendRequest();
 }
 
 void UserSignUpWindow::onSignUpButtonEvent() {
@@ -34,9 +35,7 @@ void UserSignUpWindow::onSignUpButtonEvent() {
   password = passwordLineEdit->text();
   passwordAgain = passwordAgainLineEdit->text();
   if (password.compare(passwordAgain, Qt::CaseSensitive) == 0) {
-    qDebug() << email;
-    qDebug() << password;
-    qDebug() << passwordAgain;
+    qDebug() << requestManager->postSignup(email, password);
   } else {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Jade Reader");

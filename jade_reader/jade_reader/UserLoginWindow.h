@@ -4,6 +4,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QFormLayout>
+#include "RequestManager.h"
 
 class UserLoginWindow : public QDialog {
   Q_OBJECT
@@ -18,6 +19,7 @@ private:
   QVBoxLayout* mainLayout;
   QString email;
   QString password;
+  RequestManager* requestManager;
 private slots:
   void onSignUpButtonEvent();
   void onSignInButtonEvent();
