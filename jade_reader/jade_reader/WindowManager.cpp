@@ -1,27 +1,25 @@
 #include "WindowManager.h"
 #include "UserLoginWindow.h"
 #include "UserSignUpWindow.h"
-#include <QVBoxLayout>
-#include <QDebug>
 
 WindowManager::WindowManager() {
-  firstPageWidget = new UserLoginWindow;
-  secondPageWidget = new UserSignUpWindow;
+  loginPageWidget = new UserLoginWindow;
+  signUpPageWidget = new UserSignUpWindow;
   setWindowTitle(tr("Jade Reader"));
 
-  QWidget* centralWidget = new QWidget();
+  centralWidget = new QWidget();
 
   stackedWidget = new QStackedWidget;
-  stackedWidget->addWidget(firstPageWidget);
-  stackedWidget->addWidget(secondPageWidget);
+  stackedWidget->addWidget(loginPageWidget);
+  stackedWidget->addWidget(signUpPageWidget);
 
-  QVBoxLayout *layout = new QVBoxLayout;
+  layout = new QVBoxLayout;
   layout->addWidget(stackedWidget);
 
   setCentralWidget(centralWidget);
   centralWidget->setLayout(layout);
-  connect(firstPageWidget, SIGNAL(sendRequest()), this, SLOT(changePage()));
-  connect(secondPageWidget, SIGNAL(sendRequest()), this, SLOT(changePage()));
+  connect(loginPageWidget, SIGNAL(sendRequest()), this, SLOT(changePage()));
+  connect(signUpPageWidget, SIGNAL(sendRequest()), this, SLOT(changePage()));
 }
 
 void WindowManager::changePage() {
@@ -32,4 +30,10 @@ void WindowManager::changePage() {
   }
 }
 
-WindowManager::~WindowManager() {}
+WindowManager::~WindowManager() {
+  delete loginPageWidget;
+  delete signUpPageWidget;
+  delete centralWidget;
+  delete layout;
+  delete stackedWidget;
+}

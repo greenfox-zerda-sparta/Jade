@@ -3,13 +3,16 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QVBoxLayout>
 
 class WindowManager : public QMainWindow {
   Q_OBJECT
 private:
   QStackedWidget* stackedWidget;
-  QWidget* firstPageWidget;
-  QWidget* secondPageWidget;
+  QWidget* loginPageWidget;
+  QWidget* signUpPageWidget;
+  QWidget* centralWidget;
+  QVBoxLayout* layout;
 public:
   WindowManager();
   ~WindowManager();
