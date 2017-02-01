@@ -26,7 +26,7 @@ UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
 }
 
 void UserSignUpWindow::onBackButtonEvent() {
-  emit sendRequest();
+  sendRequest();
 }
 
 void UserSignUpWindow::onSignUpButtonEvent() {

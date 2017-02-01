@@ -1,7 +1,9 @@
 #include "UserLoginWindow.h"
 #include <QDebug>
+#include <QMessageBox>
 
 UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
+  logger = new Logger("UserLoginWindow", "DEBUG");
   emailLineEdit = new QLineEdit(parent);
   passwordLineEdit = new QLineEdit(parent);
   signInButton = new QPushButton(tr("Sign In"));
@@ -23,14 +25,22 @@ UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
 }
 
 void UserLoginWindow::onSignUpButtonEvent() {
-  emit sendRequest();
+  sendRequest();
 }
 
 void UserLoginWindow::onSignInButtonEvent() {
-  email = emailLineEdit->text();
-  password = passwordLineEdit->text();
-  qDebug() << email;
-  qDebug() << password;
+  if (emailLineEdit->text().isEmpty() || passwordLineEdit->text().isEmpty()) {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Jade Reader");
+    msgBox.setText("Email or Password line is empty.");
+    msgBox.exec();
+    logger->error("Email or Password line is empty.");
+  } else {
+    email = emailLineEdit->text();
+    password = passwordLineEdit->text();
+    logger->debug(email);
+    logger->debug(password);
+  }
 }
 
 UserLoginWindow::~UserLoginWindow() {
@@ -40,4 +50,5 @@ UserLoginWindow::~UserLoginWindow() {
   delete signInButton;
   delete formLayout;
   delete mainLayout;
+  delete logger;
 }

@@ -4,12 +4,14 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QFormLayout>
+#include "Logger.h"
 
 class UserLoginWindow : public QDialog {
   Q_OBJECT
 signals :
   void sendRequest();
 private:
+  Logger* logger;
   QLineEdit* emailLineEdit;
   QLineEdit* passwordLineEdit;
   QPushButton* signInButton;
