@@ -6,6 +6,7 @@ UserLoginWindow::UserLoginWindow(QWidget *parent) : QDialog(parent) {
   passwordLineEdit = new QLineEdit(parent);
   signInButton = new QPushButton(tr("Sign In"));
   signUpButton = new QPushButton(tr("Sign Up"));
+  passwordLineEdit->setEchoMode(QLineEdit::Password);
 
   formLayout = new QFormLayout;
   setWindowTitle(tr("JADE READER"));
