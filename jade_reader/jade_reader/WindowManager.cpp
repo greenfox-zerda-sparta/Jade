@@ -7,6 +7,7 @@
 WindowManager::WindowManager() {
   firstPageWidget = new UserLoginWindow;
   secondPageWidget = new UserSignUpWindow;
+  setWindowTitle(tr("Jade Reader"));
 
   QWidget* centralWidget = new QWidget();
 

@@ -1,6 +1,6 @@
 #include "UserSignUpWindow.h"
 #include <QDebug>
-
+#include <QMessageBox>
 
 UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
   emailLineEdit = new QLineEdit(parent);
@@ -12,7 +12,6 @@ UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
   passwordAgainLineEdit->setEchoMode(QLineEdit::Password);
 
   formLayout = new QFormLayout;
-  setWindowTitle(tr("JADE READER"));
   formLayout->addRow(tr("&Email:"), emailLineEdit);
   formLayout->addRow(tr("&Password:"), passwordLineEdit);
   formLayout->addRow(tr("&Password again:"), passwordAgainLineEdit);
@@ -34,9 +33,16 @@ void UserSignUpWindow::onSignUpButtonEvent() {
   email = emailLineEdit->text();
   password = passwordLineEdit->text();
   passwordAgain = passwordAgainLineEdit->text();
-  qDebug() << email;
-  qDebug() << password;
-  qDebug() << passwordAgain;
+  if (password.compare(passwordAgain, Qt::CaseSensitive) == 0) {
+    qDebug() << email;
+    qDebug() << password;
+    qDebug() << passwordAgain;
+  } else {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Jade Reader");
+    msgBox.setText("Passwords don't match.");
+    msgBox.exec();
+  }
 }
 
 UserSignUpWindow::~UserSignUpWindow() {
