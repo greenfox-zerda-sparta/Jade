@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 UserSignUpWindow::UserSignUpWindow(QWidget *parent): QDialog(parent) {
+  logger = new Logger("UserSignUpWindow", "DEBUG");
   emailLineEdit = new QLineEdit(parent);
   passwordLineEdit = new QLineEdit(parent);
   passwordAgainLineEdit = new QLineEdit(parent);
@@ -30,18 +31,21 @@ void UserSignUpWindow::onBackButtonEvent() {
 }
 
 void UserSignUpWindow::onSignUpButtonEvent() {
-  email = emailLineEdit->text();
-  password = passwordLineEdit->text();
-  passwordAgain = passwordAgainLineEdit->text();
-  if (password.compare(passwordAgain, Qt::CaseSensitive) == 0) {
-    qDebug() << email;
-    qDebug() << password;
-    qDebug() << passwordAgain;
-  } else {
+  if (emailLineEdit->text().isEmpty() || passwordLineEdit->text().isEmpty() || passwordLineEdit->text().isEmpty()) {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Jade Reader");
+    msgBox.setText("Email or Password line is empty.");
+    msgBox.exec();
+    logger->error("Email or Password line is empty.");
+  } else if (passwordLineEdit->text().compare(passwordAgainLineEdit->text(), Qt::CaseSensitive) != 0) {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Jade Reader");
     msgBox.setText("Passwords don't match.");
     msgBox.exec();
+  } else {
+    email = emailLineEdit->text();
+    password = passwordLineEdit->text();
+    passwordAgain = passwordAgainLineEdit->text();
   }
 }
 
@@ -53,4 +57,5 @@ UserSignUpWindow::~UserSignUpWindow() {
   delete backButton;
   delete formLayout;
   delete mainLayout;
+  delete logger;
 }
