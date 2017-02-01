@@ -12,7 +12,6 @@ private:
   bool favorite;
   bool opened;
   QString url;
-  QString dateParser(qint64 date);
 public:
   quint64 getId();
   QString getTitle();

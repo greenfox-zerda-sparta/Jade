@@ -32,5 +32,7 @@ Q_OBJECT
 public:
   LayoutCreator();
   ~LayoutCreator();
+
   ArticleLayout* createLayout(Article*);
+
 };

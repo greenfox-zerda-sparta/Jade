@@ -2,11 +2,11 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidgetItem>
-#include <QWebEngineView>
-#include <QWidget>
-#include <QApplication>
-#include <QMessageBox>
-#include <iostream>
+//#include <QWebEngineView>
+//#include <QWidget>
+//#include <QApplication>
+//#include <QMessageBox>
+//#include <iostream>
 
 
 LayoutCreator::LayoutCreator() {}
@@ -77,4 +77,5 @@ QPushButton* ArticleLayout::addMarkFavouriteButton() {
     markAsFavouriteButton->setText("Cancel Favourite");
   }
   return markAsFavouriteButton;
+
 }
