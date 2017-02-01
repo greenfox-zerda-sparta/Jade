@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "Logger.h"
 #include "LogLevelProvider.h"
+#include "UserLoginWindow.h"
+#include "WindowManager.h"
 
 Application::Application() {
   window = new QWidget();
@@ -8,6 +10,7 @@ Application::Application() {
   jsonParser = new JsonParser;
   mainLayout = new QVBoxLayout(window);
   layoutCreator = new LayoutCreator;
+  userLoginWindow = new UserLoginWindow;
   content = "";
 }
 
@@ -17,15 +20,18 @@ Application::~Application() {
   delete jsonParser;
   delete mainLayout;
   delete window;
+  delete userLoginWindow;
 }
 
 void Application::run() {
-  content = fileReader->readFromFileToQString("test.json");
+  /*content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
   draw();
-  LogLevelProvider logLevelProvider;
-  Logger logger("Application", logLevelProvider.getLogLevel());
-  logger.info("alma");
+  Logger logger("Application", LogLevelProvider::getLogLevel());
+  logger.info("alma");*/
+  //userLoginWindow->show();
+  WindowManager* windowManager = new WindowManager;
+  windowManager->show();
 }
 
 void Application::draw() {

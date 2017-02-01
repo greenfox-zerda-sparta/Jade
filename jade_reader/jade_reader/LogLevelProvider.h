@@ -3,6 +3,5 @@
 
 class LogLevelProvider {
 public:
-  QString getLogLevel();
+  static QString getLogLevel();
 };
-
