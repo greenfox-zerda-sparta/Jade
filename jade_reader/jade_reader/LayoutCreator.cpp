@@ -3,12 +3,6 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidgetItem>
-//#include <QWebEngineView>
-//#include <QWidget>
-//#include <QApplication>
-//#include <QMessageBox>
-//#include <iostream>
-
 
 LayoutCreator::LayoutCreator() {}
 
@@ -27,6 +21,5 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   layout->addWidget(pushButton1, 0, 1);
   pushButton1->setText("Go to link");
   layout->addWidget(pushButton2, 1, 1);
-
   return layout;
 }
