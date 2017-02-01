@@ -23,17 +23,17 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
   pushButton1->setText("Go to link");
   layout->addWidget(pushButton2, 1, 1);
 
-  RequestManager* manager = new RequestManager;
-  connect(pushButton1, SIGNAL(clicked()), manager, SLOT(getFeed()));
+  connect(pushButton1, SIGNAL(clicked()), this, SLOT(getFeed()));
 
   return layout;
 }
 
-/*void LayoutCreator::getFeed() {
+void LayoutCreator::getFeed() {
   RequestManager* manager = new RequestManager;
-  //qDebug() << manager->getRequest("http://zerda-reader-mockback.gomix.me/feed");
-  QString email = "bogi@reader.com";
-  QString pw = "bogi";
-  qDebug() << manager->loginRequest(email, pw);
+  //qDebug() << manager->getFeed("http://zerda-reader-mockback.gomix.me/feed");
+  QString email = "joegalamb@reader.com";
+  QString pw = "modelt";
+  //qDebug() << manager->postLogin(email, pw);
+  qDebug() << manager->postSignup(email, pw);
   delete manager;
-}*/
+}

@@ -11,6 +11,6 @@ public:
   ~LayoutCreator();
   QGridLayout* createLayout(Article*);
   
-/*private slots:
-  void getFeed();*/
+private slots:
+  void getFeed();
 };

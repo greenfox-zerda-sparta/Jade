@@ -7,7 +7,7 @@ RequestManager::RequestManager() {
   manager = new QNetworkAccessManager;
 }
 
-QString RequestManager::getRequest(QString url) {
+QString RequestManager::getFeed(QString url) {
   QNetworkRequest request = QNetworkRequest(QUrl(url));
   QEventLoop eventLoop;
 
@@ -18,7 +18,7 @@ QString RequestManager::getRequest(QString url) {
   return reply->readAll();
 }
 
-QString RequestManager::loginRequest(QString _email, QString _password) {
+QString RequestManager::postLogin(QString _email, QString _password) {
   QUrl url("http://zerda-reader-mockback.gomix.me/user/login");
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -36,10 +36,22 @@ QString RequestManager::loginRequest(QString _email, QString _password) {
   return reply->readAll();
 }
 
-void RequestManager::getFeed() {
-  QString email = "bogi@reader.com";
-  QString pw = "bogi";
-  qDebug() << this->loginRequest(email, pw);
+QString RequestManager::postSignup(QString _email, QString _password) {
+  QUrl url("http://zerda-reader-mockback.gomix.me/user/signup");
+  QNetworkRequest request = QNetworkRequest(url);
+  request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+  QString param = "{\"email\":\"";
+  param += _email;
+  param += "\",\"password\":\"";
+  param += _password;
+  param += "\"}";
+  QEventLoop eventLoop;
+
+  connect(manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+  reply = manager->post(request, param.toUtf8());
+
+  eventLoop.exec();
+  return reply->readAll();
 }
 
 RequestManager::~RequestManager() {
