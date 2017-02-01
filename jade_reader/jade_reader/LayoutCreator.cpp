@@ -30,10 +30,10 @@ QGridLayout* LayoutCreator::createLayout(Article* article) {
 
 void LayoutCreator::getFeed() {
   RequestManager* manager = new RequestManager;
-  //qDebug() << manager->getFeed("http://zerda-reader-mockback.gomix.me/feed");
+  qDebug() << manager->getFeed();
   QString email = "joegalamb@reader.com";
   QString pw = "modelt";
   //qDebug() << manager->postLogin(email, pw);
-  qDebug() << manager->postSignup(email, pw);
+  //qDebug() << manager->postSignup(email, pw);
   delete manager;
 }
