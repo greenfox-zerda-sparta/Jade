@@ -2,7 +2,6 @@
 
 
 ArticleLayout::ArticleLayout(Article* _article) {
- 
   article = _article;
   labelCreator = new LabelCreator;
   layout = new QGridLayout();
@@ -35,12 +34,8 @@ void ArticleLayout::newBrowserWindow() {
 }
 
 void ArticleLayout::markAsRead() {
-  if (!article->getOpened()) {
-    article->setOpened(true);
-  }
-  else {
-    article->setOpened(false);
-  }
+  article->setOpened(!article->getOpened());
+  article->getOpened() ? markAsReadButton->setText("Mark as unread") : markAsReadButton->setText("Mark as read");
 }
 
 void ArticleLayout::markFavourite() {
@@ -49,12 +44,7 @@ void ArticleLayout::markFavourite() {
 
 QPushButton* ArticleLayout::addMarkAsReadButton() {
   QPushButton* markAsReadButton = new QPushButton;
-  if (!article->getOpened()) {
-    markAsReadButton->setText("Mark as read");
-  }
-  else {
-    markAsReadButton->setText("Mark as unread");
-  }
+  article->getOpened() ? markAsReadButton->setText("Mark as unread") : markAsReadButton->setText("Mark as read");
   return markAsReadButton;
 }
 
