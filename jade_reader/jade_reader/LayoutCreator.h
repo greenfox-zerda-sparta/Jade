@@ -10,21 +10,8 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <iostream>
-class Application;
+#include "ArticleLayout.h"
 
-class ArticleLayout : public QObject{
-  Q_OBJECT
-public:
-  ArticleLayout(Article* _article);
-  QGridLayout* layout;
-  Article* article;
-  public slots:
-  QPushButton* addMarkAsReadButton();
-  QPushButton* addMarkFavouriteButton();
-  void newBrowserWindow();
-  void markFavourite();
-  void markAsRead();
-};
 
 class LayoutCreator: public QObject{
 private:
