@@ -2,13 +2,15 @@
 #include "Logger.h"
 #include "LogLevelProvider.h"
 
-Application::Application() {
+Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
+  manager = new RequestManager;
   window = new QWidget();
   fileReader = new FileReader;
   jsonParser = new JsonParser;
   mainLayout = new QVBoxLayout(window);
   layoutCreator = new LayoutCreator;
   content = "";
+  connect(manager, SIGNAL(onReady()), this, SLOT(readFile()));
 }
 
 Application::~Application() {
@@ -26,6 +28,10 @@ void Application::run() {
   LogLevelProvider logLevelProvider;
   Logger logger("Application", logLevelProvider.getLogLevel());
   logger.info("alma");
+  QString email = "bogi@reader.com";
+  QString pw = "bogi";
+  manager->postLogin(email, pw);
+
 }
 
 void Application::draw() {
@@ -34,4 +40,8 @@ void Application::draw() {
     mainLayout->addLayout(layoutCreator->createLayout(articles[i]), 50);
   }
   window->show();
+}
+
+void Application::readFile() {
+  qDebug() << manager->pReply;
 }

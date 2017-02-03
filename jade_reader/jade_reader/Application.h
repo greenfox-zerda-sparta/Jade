@@ -2,9 +2,13 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 #include "LayoutCreator.h"
+#include "RequestManager.h"
+#include <QApplication>
 
-class Application {
+class Application : public QApplication {
+  Q_OBJECT
 private:
+  RequestManager* manager;
   QWidget* window;
   FileReader* fileReader;
   JsonParser* jsonParser;
@@ -13,8 +17,10 @@ private:
   QString content;
   QVector <Article*> articles;
 public:
-  Application();
+  Application(int argc, char* argv[]);
   ~Application();
   void run();
   void draw();
+private slots:
+  void readFile();
 };

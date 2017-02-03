@@ -4,10 +4,9 @@
 #include <iostream>
 
 int main(int argc, char *argv[]) {
-  QApplication app(argc, argv);
-  Application application;
+  Application application(argc, argv);
   application.run();
-  return app.exec();
+  return application.exec();
 }
 #endif
 
