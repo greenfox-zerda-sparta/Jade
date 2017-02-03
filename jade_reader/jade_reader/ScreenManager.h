@@ -18,6 +18,8 @@ public:
   ScreenManager();
   ~ScreenManager();
 public slots:
-  void switchScreen();
+  void switchLoginScreen();
+  void switchSignUpScreen();
+  void switchFeedScreen();
 };
 

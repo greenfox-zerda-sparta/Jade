@@ -10,9 +10,9 @@ ScreenManager::ScreenManager() {
   signUpScreenWidget = new QWidget;
   feedScreen = new QScrollArea;
   init();
-  connect(loginScreenWidget, SIGNAL(sendRequest()), this, SLOT(switchScreen()));
-  connect(signUpScreenWidget, SIGNAL(sendRequest()), this, SLOT(switchScreen()));
-  connect(feedScreen, SIGNAL(sendRequest()), this, SLOT(switchScreen()));
+  connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
+  connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
+  connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(switchFeedScreen()));
 }
 
 
@@ -35,6 +35,14 @@ void ScreenManager::init() {
   centralWidget->setLayout(containerLayout);
 }
 
-void ScreenManager::switchScreen() {
+void ScreenManager::switchLoginScreen() {
+  stackedWidget->setCurrentIndex(0);
+}
 
+void ScreenManager::switchSignUpScreen() {
+  stackedWidget->setCurrentIndex(1);
+ }
+
+void ScreenManager::switchFeedScreen() {
+  stackedWidget->setCurrentIndex(2);
 }
