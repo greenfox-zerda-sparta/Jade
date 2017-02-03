@@ -2,7 +2,7 @@
 #include "FeedWindow.h"
 
 
-Application::Application() {
+Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
   fileReader = new FileReader;
   jsonParser = new JsonParser;  
 }
