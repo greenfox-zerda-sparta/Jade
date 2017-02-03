@@ -1,18 +1,19 @@
 #pragma once
 #include <QPushButton>
 #include <QLayout>
-#include <QWidgetItem>
-#include <QtWidgets/QVBoxLayout>
 #include <QWebEngineView>
 #include <QWidget>
-#include <QApplication>
-#include <QMessageBox>
-#include <iostream>
 #include "Article.h"
 #include "LabelCreator.h"
 
 class ArticleLayout : public QObject {
   Q_OBJECT
+private:
+  LabelCreator* labelCreator;
+  QPushButton* markAsReadButton;
+  QPushButton* markAsFavouriteButton;
+  QPushButton* goToLinkButton;
+  void addWidgetsToLayout();
 public:
   ArticleLayout(Article* _article);
   QGridLayout* layout;

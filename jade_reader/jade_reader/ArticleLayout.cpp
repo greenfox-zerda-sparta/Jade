@@ -3,21 +3,25 @@
 
 ArticleLayout::ArticleLayout(Article* _article) {
   article = _article;
-  LabelCreator labelCreator;
+  labelCreator = new LabelCreator;
   layout = new QGridLayout();
-  QPushButton* goToLinkButton = new QPushButton();
-  QPushButton* markAsReadButton = addMarkAsReadButton();
-  QPushButton* markAsFavouriteButton = addMarkFavouriteButton();
-  layout->addWidget(labelCreator.createLabelFromQString(article->getTitle()), 0, 0, 1, 1, Qt::AlignLeft);
-  layout->addWidget(labelCreator.createLabelFromQString(article->getCreated()), 1, 0, 1, 1, Qt::AlignLeft);
-  layout->addWidget(labelCreator.createLabelFromQString(article->getFeedName()), 0, 1, 1, 1, Qt::AlignLeft);
-  layout->addWidget(markAsReadButton, 1, 1, 1, 1, Qt::AlignLeft);
-  connect(markAsReadButton, &QAbstractButton::clicked, this, &ArticleLayout::markAsRead);
-  layout->addWidget(labelCreator.createLabelFromQString(article->getDescription()), 2, 0, 1, -1, Qt::AlignLeft);
-  layout->setColumnStretch(0, 99);
-  layout->addWidget(goToLinkButton, 0, 2);
+  goToLinkButton = new QPushButton();
   goToLinkButton->setText("Go to link");
+  markAsReadButton = addMarkAsReadButton();
+  markAsFavouriteButton = addMarkFavouriteButton();
+  addWidgetsToLayout();
+  connect(markAsReadButton, &QAbstractButton::clicked, this, &ArticleLayout::markAsRead);
   connect(goToLinkButton, &QAbstractButton::clicked, this, &ArticleLayout::newBrowserWindow);
+}
+
+void ArticleLayout::addWidgetsToLayout() {
+  layout->setColumnStretch(0, 99);
+  layout->addWidget(labelCreator->createLabelFromQString(article->getTitle()), 0, 0, 1, 1, Qt::AlignLeft);
+  layout->addWidget(labelCreator->createLabelFromQString(article->getCreated()), 1, 0, 1, 1, Qt::AlignLeft);
+  layout->addWidget(labelCreator->createLabelFromQString(article->getFeedName()), 0, 1, 1, 1, Qt::AlignLeft);
+  layout->addWidget(markAsReadButton, 1, 1, 1, 1, Qt::AlignLeft);
+  layout->addWidget(labelCreator->createLabelFromQString(article->getDescription()), 2, 0, 1, -1, Qt::AlignLeft);
+  layout->addWidget(goToLinkButton, 0, 2);
   layout->addWidget(markAsFavouriteButton, 1, 2);
 }
 
@@ -30,12 +34,8 @@ void ArticleLayout::newBrowserWindow() {
 }
 
 void ArticleLayout::markAsRead() {
-  if (!article->getOpened()) {
-    article->setOpened(true);
-  }
-  else {
-    article->setOpened(false);
-  }
+  article->setOpened(!article->getOpened());
+  article->getOpened() ? markAsReadButton->setText("Mark as unread") : markAsReadButton->setText("Mark as read");
 }
 
 void ArticleLayout::markFavourite() {
@@ -44,12 +44,7 @@ void ArticleLayout::markFavourite() {
 
 QPushButton* ArticleLayout::addMarkAsReadButton() {
   QPushButton* markAsReadButton = new QPushButton;
-  if (!article->getOpened()) {
-    markAsReadButton->setText("Mark as read");
-  }
-  else {
-    markAsReadButton->setText("Mark as unread");
-  }
+  article->getOpened() ? markAsReadButton->setText("Mark as unread") : markAsReadButton->setText("Mark as read");
   return markAsReadButton;
 }
 
