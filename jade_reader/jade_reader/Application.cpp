@@ -28,10 +28,11 @@ void Application::run() {
   LogLevelProvider logLevelProvider;
   Logger logger("Application", logLevelProvider.getLogLevel());
   logger.info("alma");
+  
   QString email = "bogi@reader.com";
   QString pw = "bogi";
   manager->postLogin(email, pw);
-
+  //manager->postSignup(email, pw);
 }
 
 void Application::draw() {
