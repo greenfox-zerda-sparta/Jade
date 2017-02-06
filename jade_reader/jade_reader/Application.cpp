@@ -2,11 +2,18 @@
 #include "ScreenManager.h"
 
 Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
+  loginScreenWidget = new UserLoginScreen;
+  signUpScreenWidget = new UserSignUpScreen;
+  feedScreen = new FeedWindow;
+  screenManager = new ScreenManager(loginScreenWidget, signUpScreenWidget, feedScreen);
   fileReader = new FileReader;
-  jsonParser = new JsonParser;  
+  jsonParser = new JsonParser;
 }
 
 Application::~Application() {
+  delete loginScreenWidget;
+  delete signUpScreenWidget;
+  delete feedScreen;
   delete fileReader;
   delete jsonParser;
 }
@@ -14,6 +21,7 @@ Application::~Application() {
 void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
-  ScreenManager* screenManager = new ScreenManager;
+  feedScreen->createWindow(articles);
+  screenManager->refreshFeedScreen(feedScreen);
   screenManager->show();
 }
