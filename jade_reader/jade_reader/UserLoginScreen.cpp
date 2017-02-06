@@ -1,5 +1,4 @@
 #include "UserLoginScreen.h"
-#include <QMessageBox>
 
 UserLoginScreen::UserLoginScreen(QWidget *parent): QDialog(parent) {
   logger.reset(new Logger("UserLoginScreen"));
@@ -9,6 +8,8 @@ UserLoginScreen::UserLoginScreen(QWidget *parent): QDialog(parent) {
   signUpButton.reset(new QPushButton(tr("Sign Up")));
   formLayout.reset(new QFormLayout);
   mainLayout.reset(new QVBoxLayout(this));
+  msgBox.reset(new QMessageBox);
+  msgBox->setWindowTitle("Jade Reader");
   logger->info("Initializing...");
   
   definePasswordLinesMode();
@@ -50,10 +51,8 @@ void UserLoginScreen::onSignInButtonEvent() {
   logger->info("Sign In button pushed...");
   if (emailLineEdit->text().isEmpty() || passwordLineEdit->text().isEmpty()) {
     logger->error("Email or Password line is empty.");
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("Jade Reader");
-    msgBox.setText("Email or Password line is empty.");
-    msgBox.exec();
+    msgBox->setText("Email or Password line is empty.");
+    msgBox->exec();
   } else {
     email = emailLineEdit->text();
     password = passwordLineEdit->text();

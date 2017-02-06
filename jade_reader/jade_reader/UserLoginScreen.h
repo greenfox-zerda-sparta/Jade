@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QFormLayout>
 #include <QScopedPointer>
+#include <QMessageBox>
 #include "Logger.h"
 
 class UserLoginScreen: public QDialog {
@@ -22,6 +23,7 @@ private:
   QScopedPointer<QPushButton> signUpButton;
   QScopedPointer<QFormLayout> formLayout;
   QScopedPointer<QVBoxLayout> mainLayout;
+  QScopedPointer<QMessageBox> msgBox;
   QString email;
   QString password;
   void definePasswordLinesMode();
