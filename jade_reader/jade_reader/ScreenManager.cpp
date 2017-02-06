@@ -1,20 +1,19 @@
 #include "ScreenManager.h"
-
-
+#include "UserLoginScreen.h"
+#include "UserSignUpScreen.h"
 
 ScreenManager::ScreenManager() {
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
-  loginScreenWidget = new QWidget;
-  signUpScreenWidget = new QWidget;
+  loginScreenWidget = new UserLoginScreen;
+  signUpScreenWidget = new UserSignUpScreen;
   feedScreen = new QScrollArea;
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
   connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(switchFeedScreen()));
 }
-
 
 ScreenManager::~ScreenManager() {
   delete loginScreenWidget;
