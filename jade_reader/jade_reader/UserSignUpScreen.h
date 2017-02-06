@@ -5,12 +5,16 @@
 #include <QFormLayout>
 #include <QString>
 #include <QScopedPointer>
+#include <QMessageBox>
 #include "Logger.h"
 
 class UserSignUpScreen: public QDialog {
   Q_OBJECT
 signals :
-  void switchToSignUpSignal();
+  void switchToLoginSignal();
+private slots:
+  void onBackButtonEvent();
+  void onSignUpButtonEvent();
 private:
   QScopedPointer<Logger> logger;
   QScopedPointer<QFormLayout> formLayout;
@@ -20,6 +24,7 @@ private:
   QScopedPointer<QLineEdit> passwordAgainLineEdit;
   QScopedPointer<QPushButton> signUpButton;
   QScopedPointer<QPushButton> backButton;
+  QScopedPointer<QMessageBox> msgBox;
   QString email;
   QString password;
   QString passwordAgain;
@@ -27,9 +32,6 @@ private:
   void defineConnections();
   void initFormLayout();
   void initMainLayout();
-private slots:
-  void onBackButtonEvent();
-  void onSignUpButtonEvent();
 public:
   explicit UserSignUpScreen(QWidget* parent = Q_NULLPTR);
 };
