@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
   Application application(argc, argv);
-  application.run();
+  application.run();  
   return application.exec();
 }
 #endif
