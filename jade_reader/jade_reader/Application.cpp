@@ -1,6 +1,5 @@
 #include "Application.h"
-#include "FeedWindow.h"
-
+#include "ScreenManager.h"
 
 Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
   fileReader = new FileReader;
@@ -15,7 +14,6 @@ Application::~Application() {
 void Application::run() {
   content = fileReader->readFromFileToQString("test.json");
   articles = jsonParser->parseFromStringToArticleVector(content);
-  FeedWindow* feedWindow = new FeedWindow;
-  feedWindow->createWindow(articles);
-  feedWindow->show();
+  ScreenManager* screenManager = new ScreenManager;
+  screenManager->show();
 }
