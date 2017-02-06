@@ -23,7 +23,11 @@ private:
   QString email;
   QString password;
   QString passwordAgain;
-  private slots:
+  void definePasswordLinesMode();
+  void defineConnections();
+  void initFormLayout();
+  void initMainLayout();
+private slots:
   void onBackButtonEvent();
   void onSignUpButtonEvent();
 public:

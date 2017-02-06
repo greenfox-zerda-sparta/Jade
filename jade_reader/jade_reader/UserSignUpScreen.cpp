@@ -9,21 +9,35 @@ UserSignUpScreen::UserSignUpScreen(QWidget *parent): QDialog(parent) {
   passwordAgainLineEdit.reset(new QLineEdit(parent));
   signUpButton.reset(new QPushButton(tr("Sign Up")));
   backButton.reset(new QPushButton(tr("Back")));
+  formLayout.reset(new QFormLayout);
+  mainLayout.reset(new QVBoxLayout(this));
+
+  definePasswordLinesMode();
+  initFormLayout();
+  initMainLayout();
+  defineConnections();
+}
+
+void UserSignUpScreen::definePasswordLinesMode() {
   passwordLineEdit->setEchoMode(QLineEdit::Password);
   passwordAgainLineEdit->setEchoMode(QLineEdit::Password);
+}
 
-  formLayout.reset(new QFormLayout);
+void UserSignUpScreen::defineConnections() {
+  connect(backButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onBackButtonEvent);
+  connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onSignUpButtonEvent);
+}
+
+void UserSignUpScreen::initFormLayout() {
   formLayout->addRow(tr("&Email:"), emailLineEdit.data());
   formLayout->addRow(tr("&Password:"), passwordLineEdit.data());
   formLayout->addRow(tr("&Password again:"), passwordAgainLineEdit.data());
+}
 
-  mainLayout.reset(new QVBoxLayout(this));
+void UserSignUpScreen::initMainLayout() {
   mainLayout->addLayout(formLayout.data());
   mainLayout->addWidget(signUpButton.data());
   mainLayout->addWidget(backButton.data());
-
-  connect(backButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onBackButtonEvent);
-  connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onSignUpButtonEvent);
 }
 
 void UserSignUpScreen::onBackButtonEvent() {
