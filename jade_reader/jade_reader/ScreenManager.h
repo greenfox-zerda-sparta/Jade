@@ -3,6 +3,8 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include "FeedService.h"
+#include "FeedWindow.h"
 
 class ScreenManager : public QMainWindow {
   Q_OBJECT
@@ -12,15 +14,18 @@ private:
   QVBoxLayout* containerLayout;
   QWidget* loginScreenWidget;
   QWidget* signUpScreenWidget;
-  QScrollArea* feedScreen;
+  FeedWindow* feedScreen;
+  FeedService* feedService;
   void init();
 public:
-  ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, QScrollArea* feedScreen);
+  ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen);
   ~ScreenManager();
-  void refreshFeedScreen(QScrollArea*);
+  void refreshFeedScreen(FeedWindow*);
 public slots:
   void switchLoginScreen();
   void switchSignUpScreen();
   void switchFeedScreen();
+  void getFeed();
+  void loadFeed(QVector<Article*>*);
 };
 

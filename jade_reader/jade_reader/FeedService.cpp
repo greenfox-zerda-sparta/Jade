@@ -3,26 +3,21 @@
 #include <QNetworkReply>
 
 
-FeedService::FeedService() {
-  manager = new QNetworkAccessManager(this);
-  parser = new JsonParser;
-  articles = new QVector<Article*>;
-}
+FeedService::FeedService():
+  manager(new QNetworkAccessManager(this)),
+  parser(new JsonParser),
+  articles(new QVector<Article*>) {}
 
-FeedService::~FeedService() {
-  delete articles;
-  delete parser;
-  delete manager;
-}
+FeedService::~FeedService() {}
 
 void FeedService::getFeed() {
   QUrl url("http://zerda-reader-mockback.gomix.me/feed");
   QNetworkRequest request = QNetworkRequest(url);
-  connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+  connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
   manager->get(request);
 }
 
 void FeedService::replyFinished(QNetworkReply* reply) {
   *articles = parser->parseFromStringToArticleVector(reply->readAll());
-  this->onReady(articles);
+  this->onReady(articles.data());
 }

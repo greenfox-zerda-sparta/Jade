@@ -11,6 +11,6 @@ private:
 public:
   FeedWindow(QWidget* parent = 0);
   ~FeedWindow();
-  void createWindow(QVector<Article*> article);
+  void createWindow(QVector<Article*>);
 };
 
