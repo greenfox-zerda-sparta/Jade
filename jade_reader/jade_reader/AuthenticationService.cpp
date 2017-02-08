@@ -29,7 +29,7 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
   QString result = jsonObject["result"].toString();
   if (result == "fail") {
-    logger->error("Failed to sign in.");
+    logger->error(jsonObject["message"].toString().toUtf8());
   } else {
     logger->info("Success");
     token = jsonObject["token"].toString();
