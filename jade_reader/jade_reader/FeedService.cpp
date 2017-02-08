@@ -2,13 +2,16 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
+
 FeedService::FeedService() {
   manager = new QNetworkAccessManager(this);
-  reply = new QString;
+  parser = new JsonParser;
+  articles = new QVector<Article*>;
 }
 
 FeedService::~FeedService() {
-  delete reply;
+  delete articles;
+  delete parser;
   delete manager;
 }
 
@@ -20,6 +23,6 @@ void FeedService::getFeed() {
 }
 
 void FeedService::replyFinished(QNetworkReply* reply) {
-  *(this->reply) = reply->readAll();
-  this->onReady(this->reply);
+  *articles = parser->parseFromStringToArticleVector(reply->readAll());
+  this->onReady(articles);
 }
