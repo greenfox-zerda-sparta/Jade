@@ -11,16 +11,15 @@
 class Application : public QApplication{
 Q_OBJECT
 private:
-  FileReader* fileReader;
-  JsonParser* jsonParser;
   QString content;
   QVector<Article*> articles;
-  UserLoginScreen* loginScreenWidget;
-  UserSignUpScreen* signUpScreenWidget;
-  FeedWindow* feedScreen;
-  ScreenManager* screenManager;
+  QScopedPointer<FileReader> fileReader;
+  QScopedPointer<JsonParser> jsonParser;
+  QScopedPointer<UserLoginScreen> loginScreenWidget;
+  QScopedPointer<UserSignUpScreen> signUpScreenWidget;
+  QScopedPointer<FeedWindow> feedScreen;
+  QScopedPointer<ScreenManager> screenManager;
 public:
   Application(int argc, char* argv[]);
-  ~Application();
   void run();
 };
