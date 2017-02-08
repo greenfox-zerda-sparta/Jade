@@ -5,6 +5,7 @@
 #include <QScopedPointer>
 #include <QNetworkAccessManager>
 #include "Logger.h"
+#include "JsonParser.h"
 
 class AuthenticationService : public QObject {
   Q_OBJECT
@@ -14,13 +15,14 @@ private:
   QString pReply;
   QString token;
   QScopedPointer<QNetworkAccessManager> manager;
+  QScopedPointer<JsonParser> jsonParser;
   QScopedPointer<Logger> logger;
 public:
   AuthenticationService();
   void postRequest(QString _url, QString _email, QString _password);
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
-  QString toJson(QString email, QString password);
+  void getResult(QJsonObject& jsonObject);
   void parseJson();
   void getToken();
 };
