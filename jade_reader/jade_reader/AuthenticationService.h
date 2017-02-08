@@ -23,7 +23,6 @@ public:
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
   void getResult(QJsonObject& jsonObject);
-  void parseJson();
   void getToken();
 };
 

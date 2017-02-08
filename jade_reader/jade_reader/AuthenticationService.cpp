@@ -1,11 +1,6 @@
 #include "AuthenticationService.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonValue>
-#include <QJsonDocument>
-#include <QJsonParseError>
 
 AuthenticationService::AuthenticationService() : 
   logger(new Logger("AuthenticationService")),
