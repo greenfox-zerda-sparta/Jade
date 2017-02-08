@@ -1,4 +1,5 @@
 #include "UserLoginScreen.h"
+#include "AuthenticationService.h"
 
 UserLoginScreen::UserLoginScreen(QWidget *parent): 
   QDialog(parent), 
@@ -9,7 +10,8 @@ UserLoginScreen::UserLoginScreen(QWidget *parent):
   signUpButton(new QPushButton(tr("Sign Up"))),
   formLayout(new QFormLayout),
   mainLayout(new QVBoxLayout(this)),
-  msgBox(new QMessageBox) {
+  msgBox(new QMessageBox),
+  authService(new AuthenticationService) {
   
   msgBox->setWindowTitle("Jade Reader");
   logger->info("Initializing...");
@@ -58,6 +60,7 @@ void UserLoginScreen::onSignInButtonEvent() {
   } else {
     email = emailLineEdit->text();
     password = passwordLineEdit->text();
+    authService->postLogin(email, password);
     swithToFeedSignal();
   }
 }
