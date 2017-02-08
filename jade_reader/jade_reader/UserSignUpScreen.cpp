@@ -1,15 +1,17 @@
 #include "UserSignUpScreen.h"
 
-UserSignUpScreen::UserSignUpScreen(QWidget *parent): QDialog(parent) {
-  logger.reset(new Logger("UserSignUpScreen"));
-  emailLineEdit.reset(new QLineEdit(parent));
-  passwordLineEdit.reset(new QLineEdit(parent));
-  passwordAgainLineEdit.reset(new QLineEdit(parent));
-  signUpButton.reset(new QPushButton(tr("Sign Up")));
-  backButton.reset(new QPushButton(tr("Back")));
-  formLayout.reset(new QFormLayout);
-  mainLayout.reset(new QVBoxLayout(this));
-  msgBox.reset(new QMessageBox);
+UserSignUpScreen::UserSignUpScreen(QWidget *parent)
+  : QDialog(parent),
+  logger(new Logger("UserSignUpScreen")),
+  emailLineEdit(new QLineEdit(parent)),
+  passwordLineEdit(new QLineEdit(parent)),
+  passwordAgainLineEdit(new QLineEdit(parent)),
+  signUpButton(new QPushButton(tr("Sign Up"))),
+  backButton(new QPushButton(tr("Back"))),
+  formLayout(new QFormLayout),
+  mainLayout(new QVBoxLayout(this)),
+  msgBox(new QMessageBox) {
+  
   msgBox->setWindowTitle("Jade Reader");
   logger->info("Initializing...");
 

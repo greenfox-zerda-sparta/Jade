@@ -15,8 +15,9 @@ private:
   QScrollArea* feedScreen;
   void init();
 public:
-  ScreenManager();
+  ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, QScrollArea* feedScreen);
   ~ScreenManager();
+  void refreshFeedScreen(QScrollArea*);
 public slots:
   void switchLoginScreen();
   void switchSignUpScreen();
