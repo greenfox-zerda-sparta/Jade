@@ -15,9 +15,6 @@ private:
   QVector<Article*> articles;
   QScopedPointer<FileReader> fileReader;
   QScopedPointer<JsonParser> jsonParser;
-  QScopedPointer<UserLoginScreen> loginScreenWidget;
-  QScopedPointer<UserSignUpScreen> signUpScreenWidget;
-  QScopedPointer<FeedWindow> feedScreen;
   QScopedPointer<ScreenManager> screenManager;
 public:
   Application(int argc, char* argv[]);
