@@ -1,13 +1,10 @@
 #include "HeaderLayoutCreator.h"
 
-
-
 HeaderLayoutCreator::HeaderLayoutCreator() {
   headerLayout = new QGridLayout();
   signOutButton = new QPushButton;
   loadMoreButton = new QPushButton;
 }
-
 
 HeaderLayoutCreator::~HeaderLayoutCreator() {
 
@@ -20,16 +17,14 @@ QGridLayout* HeaderLayoutCreator::createHeaderLayout() {
   signOutButton->setText("Sign out");
   loadMoreButton->setText("Load more");
   headerLayout->addWidget(signOutButton, 0, 0, 1, 1, Qt::AlignLeft);
-  headerLayout->addWidget(loadMoreButton, 0, 1, 1, 1, Qt::AlignLeft);
+  headerLayout->addWidget(loadMoreButton, 0, 1, 1, 1, Qt::AlignRight);
   connect(signOutButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::signOut);
   connect(loadMoreButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::loadMore);
   return headerLayout;
 }
 
 void HeaderLayoutCreator::signOut() {
-
 }
 
-void HeaderLayoutCreator::loadMore() {
-
+void HeaderLayoutCreator::loadMore() { 
 }
