@@ -19,9 +19,5 @@ Application::~Application() {
 }
 
 void Application::run() {
-  content = fileReader->readFromFileToQString("test.json");
-  articles = jsonParser->parseFromStringToArticleVector(content);
-  feedScreen->createWindow(articles);
-  screenManager->refreshFeedScreen(feedScreen);
   screenManager->show();
 }
