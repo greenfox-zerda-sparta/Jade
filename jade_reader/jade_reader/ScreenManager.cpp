@@ -3,17 +3,19 @@
 #include "UserSignUpScreen.h"
 #include "FeedWindow.h"
 
-ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, QScrollArea* feedScreen) {
+ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen) {
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
+  feedService = new FeedService;
   this->loginScreenWidget = loginScreenWidget;
   this->signUpScreenWidget = signUpScreenWidget;
   this->feedScreen = feedScreen;
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
-  connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(switchFeedScreen()));
+  connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(getFeed()));
+  connect(feedService, SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
 }
 
 ScreenManager::~ScreenManager() {
@@ -47,6 +49,15 @@ void ScreenManager::switchFeedScreen() {
   stackedWidget->setCurrentIndex(2);
 }
 
-void ScreenManager::refreshFeedScreen(QScrollArea* feedScreen) {
+void ScreenManager::refreshFeedScreen(FeedWindow* feedScreen) {
   this->feedScreen = feedScreen;
+}
+
+void ScreenManager::getFeed() {
+  feedService->getFeed();
+}
+
+void ScreenManager::loadFeed(QVector<Article*>* articles) {
+  feedScreen->createWindow(*articles);
+  stackedWidget->setCurrentIndex(2);
 }
