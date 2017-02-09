@@ -17,6 +17,6 @@ FeedWindow::~FeedWindow() {
 void FeedWindow::createWindow(QVector<Article*> articles) {
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
-    articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout, 50);
+    articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout);
   }
 }

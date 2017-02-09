@@ -11,9 +11,9 @@
 class Application : public QApplication{
 Q_OBJECT
 private:
-  QScopedPointer<ScreenManager> screenManager;
+  ScreenManager* screenManager;
 public:
   Application(int argc, char* argv[]);
-  //~Application();
+  ~Application();
   void run();
 };
