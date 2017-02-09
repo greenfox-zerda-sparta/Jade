@@ -2,6 +2,8 @@
 #include "UserLoginScreen.h"
 #include "UserSignUpScreen.h"
 #include "FeedWindow.h"
+#include "FileReader.h"
+#include "JsonParser.h"
 
 ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen) {
   stackedWidget = new QStackedWidget;
@@ -14,8 +16,10 @@ ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWi
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
-  connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(getFeed()));
+  connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(loadEmptyFeed()));
   connect(feedService, SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
+  connect(feedScreen, SIGNAL(refreshSignal()), this, SLOT(getFeed()));
+  connect(feedScreen, SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
 }
 
 ScreenManager::~ScreenManager() {
@@ -58,6 +62,25 @@ void ScreenManager::getFeed() {
 }
 
 void ScreenManager::loadFeed(QVector<Article*>* articles) {
+  delete feedScreen;
+  feedScreen = new FeedWindow;
+  stackedWidget->addWidget(feedScreen);
   feedScreen->createWindow(*articles);
   stackedWidget->setCurrentIndex(2);
+}
+
+void ScreenManager::loadEmptyFeed() {
+  FileReader fileReader;
+  JsonParser jsonParser;
+  QVector<Article*> articles;
+  QString content = fileReader.readFromFileToQString("test.json");
+  articles = jsonParser.parseFromStringToArticleVector(content);
+  stackedWidget->addWidget(feedScreen);
+  feedScreen->createWindow(articles);
+  stackedWidget->setCurrentIndex(2);
+}
+
+void ScreenManager::signOutSlot() {
+  stackedWidget->setCurrentIndex(0);
+  //getFeed();
 }

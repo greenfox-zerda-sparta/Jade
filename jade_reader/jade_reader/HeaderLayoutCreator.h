@@ -4,13 +4,16 @@
 #include <QWidget>
 class HeaderLayoutCreator : public QObject {
   Q_OBJECT
+signals:
+  void refreshSignal();
+  void signOutSignal();
 public slots:
-  void signOut();
-  void loadMore();
+  void signOutSlot();
+  void refreshSlot();
 private:
   QGridLayout* headerLayout;
   QPushButton* signOutButton;
-  QPushButton* loadMoreButton;
+  QPushButton* refreshButton;
 public:
   HeaderLayoutCreator();
   ~HeaderLayoutCreator();

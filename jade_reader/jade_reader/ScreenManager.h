@@ -27,5 +27,7 @@ public slots:
   void switchFeedScreen();
   void getFeed();
   void loadFeed(QVector<Article*>*);
+  void loadEmptyFeed();
+  void signOutSlot();
 };
 

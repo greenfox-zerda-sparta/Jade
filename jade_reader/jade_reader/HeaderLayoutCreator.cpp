@@ -3,28 +3,30 @@
 HeaderLayoutCreator::HeaderLayoutCreator() {
   headerLayout = new QGridLayout();
   signOutButton = new QPushButton;
-  loadMoreButton = new QPushButton;
+  refreshButton = new QPushButton;
 }
 
 HeaderLayoutCreator::~HeaderLayoutCreator() {
 
   delete signOutButton;
-  delete loadMoreButton;
+  delete refreshButton;
   delete headerLayout;
 }
 
 QGridLayout* HeaderLayoutCreator::createHeaderLayout() {
   signOutButton->setText("Sign out");
-  loadMoreButton->setText("Load more");
+  refreshButton->setText("Refresh");
   headerLayout->addWidget(signOutButton, 0, 0, 1, 1, Qt::AlignLeft);
-  headerLayout->addWidget(loadMoreButton, 0, 1, 1, 1, Qt::AlignRight);
-  connect(signOutButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::signOut);
-  connect(loadMoreButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::loadMore);
+  headerLayout->addWidget(refreshButton, 0, 1, 1, 1, Qt::AlignRight);
+  connect(signOutButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::signOutSlot);
+  connect(refreshButton, &QAbstractButton::clicked, this, &HeaderLayoutCreator::refreshSlot);
   return headerLayout;
 }
 
-void HeaderLayoutCreator::signOut() {
+void HeaderLayoutCreator::signOutSlot() {
+  signOutSignal();
 }
 
-void HeaderLayoutCreator::loadMore() { 
+void HeaderLayoutCreator::refreshSlot() {
+  refreshSignal();
 }
