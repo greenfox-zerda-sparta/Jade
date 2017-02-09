@@ -1,4 +1,5 @@
 #include "AuthenticationService.h"
+#include "Config.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -10,12 +11,12 @@ AuthenticationService::AuthenticationService() :
 
 void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
-  postRequest("http://zerda-reader-mockback.gomix.me/user/login", _email, _password);
+  postRequest(Config::SERVERURL + Config::LOGINPATH, _email, _password);
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
   logger->info("post Sign Up");
-  postRequest("http://zerda-reader-mockback.gomix.me/user/signup", _email, _password);
+  postRequest(Config::SERVERURL + Config::SIGNUPPATH, _email, _password);
 }
 
 void AuthenticationService::postRequest(QString _url, QString _email, QString _password) {
