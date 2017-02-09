@@ -14,6 +14,7 @@ void AuthenticationService::postLogin(QString _email, QString _password) {
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
+  logger->info("post Sign Up");
   postRequest("http://zerda-reader-mockback.gomix.me/user/signup", _email, _password);
 }
 
@@ -29,11 +30,10 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
   QString result = jsonObject["result"].toString();
   if (result == "fail") {
-    logger->error(jsonObject["message"].toString().toUtf8());
+    logger->error("Failed: " + jsonObject["message"].toString().toUtf8());
   } else {
     logger->info("Success");
     token = jsonObject["token"].toString();
-    logger->info(token.toUtf8());
   }
 }
 
