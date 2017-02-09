@@ -18,7 +18,7 @@ private:
   FeedService* feedService;
   void init();
 public:
-  ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen);
+  ScreenManager();
   ~ScreenManager();
   void refreshFeedScreen(FeedWindow*);
 public slots:

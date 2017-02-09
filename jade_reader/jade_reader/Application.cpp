@@ -1,8 +1,12 @@
 #include "Application.h"
 
 Application::Application(int argc, char* argv[]) : 
-  QApplication(argc, argv),
-  screenManager(new ScreenManager(new UserLoginScreen, new UserSignUpScreen, new FeedWindow)) {
+  QApplication(argc, argv)  {
+  screenManager = new ScreenManager;
+}
+
+Application::~Application() {
+  screenManager->deleteLater();
 }
 
 void Application::run() {

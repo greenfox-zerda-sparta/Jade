@@ -11,8 +11,9 @@ Q_OBJECT
 private:
   QString content;
   QVector<Article*> articles;
-  QScopedPointer<ScreenManager> screenManager;
+  ScreenManager* screenManager;
 public:
   Application(int argc, char* argv[]);
+  ~Application();
   void run();
 };

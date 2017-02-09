@@ -3,14 +3,14 @@
 #include "UserSignUpScreen.h"
 #include "FeedWindow.h"
 
-ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen) {
+ScreenManager::ScreenManager() {
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
   feedService = new FeedService;
-  this->loginScreenWidget = loginScreenWidget;
-  this->signUpScreenWidget = signUpScreenWidget;
-  this->feedScreen = feedScreen;
+  this->loginScreenWidget = new UserLoginScreen;
+  this->signUpScreenWidget = new UserSignUpScreen;
+  this->feedScreen = new FeedWindow;
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
