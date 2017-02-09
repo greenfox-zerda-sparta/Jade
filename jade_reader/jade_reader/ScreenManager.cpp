@@ -3,14 +3,14 @@
 #include "UserSignUpScreen.h"
 #include "FeedWindow.h"
 
-ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWidget, FeedWindow* feedScreen) {
+ScreenManager::ScreenManager() {
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
   feedService = new FeedService;
-  this->loginScreenWidget = loginScreenWidget;
-  this->signUpScreenWidget = signUpScreenWidget;
-  this->feedScreen = feedScreen;
+  loginScreenWidget = new UserLoginScreen;
+  signUpScreenWidget = new UserSignUpScreen;
+  feedScreen = new FeedWindow;
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
@@ -18,14 +18,15 @@ ScreenManager::ScreenManager(QWidget* loginScreenWidget, QWidget* signUpScreenWi
   connect(feedService, SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
 }
 
-ScreenManager::~ScreenManager() {
-  delete loginScreenWidget;
-  delete signUpScreenWidget;
-  delete feedScreen;
-  delete stackedWidget;
-  delete centralWidget;
-  delete containerLayout;
-}
+/*ScreenManager::~ScreenManager() {
+  //delete loginScreenWidget;
+  //delete signUpScreenWidget;
+  //delete feedScreen;
+  //delete stackedWidget;
+  //delete containerLayout;
+  //delete centralWidget;
+  //delete feedService;
+}*/
 
 void ScreenManager::init() {
   setWindowTitle(tr("Jade Reader"));
