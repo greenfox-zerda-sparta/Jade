@@ -10,7 +10,7 @@ private:
   QVBoxLayout* articleContainerLayout;
   ArticleLayoutCreator* layoutCreator;
   HeaderLayoutCreator* headerLayoutCreator;
-  QGridLayout* headerLayout;
+  //QBoxLayout* headerLayout;
 public:
   FeedWindow(QWidget* parent = 0);
   ~FeedWindow();

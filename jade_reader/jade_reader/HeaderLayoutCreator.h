@@ -2,7 +2,11 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QWidget>
-class HeaderLayoutCreator {
+class HeaderLayoutCreator : public QObject {
+  Q_OBJECT
+public slots:
+  void signOut();
+  void loadMore();
 private:
   QGridLayout* headerLayout;
   QPushButton* signOutButton;

@@ -8,6 +8,10 @@
 
 class ArticleLayout : public QObject {
   Q_OBJECT
+public slots:
+  void newBrowserWindow();
+  void markFavourite();
+  void markAsRead();
 private:
   LabelCreator* labelCreator;
   QPushButton* markAsReadButton;
@@ -18,11 +22,7 @@ public:
   ArticleLayout(Article* _article);
   QGridLayout* layout;
   Article* article;
-  public slots:
   QPushButton* addMarkAsReadButton();
   QPushButton* addMarkFavouriteButton();
-  void newBrowserWindow();
-  void markFavourite();
-  void markAsRead();
 };
 
