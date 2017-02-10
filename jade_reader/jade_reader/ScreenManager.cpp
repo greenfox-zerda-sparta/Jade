@@ -68,7 +68,6 @@ void ScreenManager::loadFeed(QVector<Article*>* articles) {
   feedScreen = new FeedWindow;
   feedScreen->createWindow(*articles);
   stackedWidget->addWidget(feedScreen);
-  //feedScreen->refreshFeedScreen(*articles);
   stackedWidget->setCurrentIndex(2);
 }
 
