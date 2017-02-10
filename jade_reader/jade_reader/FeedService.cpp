@@ -1,4 +1,5 @@
 #include "FeedService.h"
+#include "Config.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -11,7 +12,7 @@ FeedService::FeedService():
 FeedService::~FeedService() {}
 
 void FeedService::getFeed() {
-  QUrl url("http://zerda-reader-mockback.gomix.me/feed");
+  QUrl url(Config::SERVERURL + Config::FEEDPATH);
   QNetworkRequest request = QNetworkRequest(url);
   connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
   manager->get(request);

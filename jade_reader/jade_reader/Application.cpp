@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "ScreenManager.h"
 
 Application::Application(int argc, char* argv[]) : QApplication(argc, argv),
   screenManager(new ScreenManager)

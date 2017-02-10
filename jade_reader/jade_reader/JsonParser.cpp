@@ -1,14 +1,8 @@
 #include "JsonParser.h"
 
-JsonParser::JsonParser() {}
-
 QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   QVector<Article*> articles;
-  QJsonParseError *error = Q_NULLPTR;
-  QByteArray byteArray;
-  byteArray.append(content);
-  QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
-  QJsonObject jsonObject = jsonResponse.object();
+  QJsonObject jsonObject = parseToJsonObject(content);
   QJsonArray jsonArray = jsonObject["feed"].toArray();
   foreach(const QJsonValue & value, jsonArray) {
     QJsonObject obj = value.toObject();
@@ -26,4 +20,23 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   return articles;
 }
 
-JsonParser::~JsonParser() {}
+QString JsonParser::postLoginMessagetoJson(QString email, QString password) {
+  const QString emailKey = "email";
+  QJsonValue emailValue(email);
+  const QString passwordKey = "password";
+  QJsonValue passwordValue(password);
+  QJsonObject jsonObject;
+  jsonObject.insert(emailKey, emailValue);
+  jsonObject.insert(passwordKey, passwordValue);
+  QJsonDocument doc(jsonObject);
+  QString param(doc.toJson(QJsonDocument::Compact));
+  return param;
+}
+
+QJsonObject JsonParser::parseToJsonObject(QString input) {
+  QJsonParseError *error = Q_NULLPTR;
+  QByteArray byteArray;
+  byteArray.append(input);
+  QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
+  return jsonResponse.object();
+}

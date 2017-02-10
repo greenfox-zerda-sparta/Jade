@@ -1,6 +1,4 @@
 #pragma once
-#include "FileReader.h"
-#include "JsonParser.h"
 #include "UserLoginScreen.h"
 #include "UserSignUpScreen.h"
 #include "FeedWindow.h"
