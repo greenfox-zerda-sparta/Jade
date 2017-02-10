@@ -10,7 +10,7 @@
 
 class JsonParser {
 public:
-  JsonParser();
-  ~JsonParser();
   QVector<Article*> parseFromStringToArticleVector(QString content);
+  QString postLoginMessagetoJson(QString email, QString password);
+  QJsonObject parseToJsonObject(QString input);
 };

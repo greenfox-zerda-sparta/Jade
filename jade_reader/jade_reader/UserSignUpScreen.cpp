@@ -10,7 +10,8 @@ UserSignUpScreen::UserSignUpScreen(QWidget *parent)
   backButton(new QPushButton(tr("Back"))),
   formLayout(new QFormLayout),
   mainLayout(new QVBoxLayout(this)),
-  msgBox(new QMessageBox) {
+  msgBox(new QMessageBox),
+  authService(new AuthenticationService) {
   
   msgBox->setWindowTitle("Jade Reader");
   logger->info("Initializing...");
@@ -65,6 +66,6 @@ void UserSignUpScreen::onSignUpButtonEvent() {
     logger->info("Send request to server...");
     email = emailLineEdit->text();
     password = passwordLineEdit->text();
-    passwordAgain = passwordAgainLineEdit->text();
+    authService->postSignup(email, password);
   }
 }
