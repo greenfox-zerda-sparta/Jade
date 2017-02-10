@@ -62,10 +62,13 @@ void ScreenManager::getFeed() {
 }
 
 void ScreenManager::loadFeed(QVector<Article*>* articles) {
+  stackedWidget->setCurrentIndex(0);
+  stackedWidget->removeWidget(feedScreen);
   delete feedScreen;
   feedScreen = new FeedWindow;
-  stackedWidget->addWidget(feedScreen);
   feedScreen->createWindow(*articles);
+  stackedWidget->addWidget(feedScreen);
+  //feedScreen->refreshFeedScreen(*articles);
   stackedWidget->setCurrentIndex(2);
 }
 
@@ -82,5 +85,5 @@ void ScreenManager::loadEmptyFeed() {
 
 void ScreenManager::signOutSlot() {
   stackedWidget->setCurrentIndex(0);
-  //getFeed();
+  //loadFeed(articles);
 }

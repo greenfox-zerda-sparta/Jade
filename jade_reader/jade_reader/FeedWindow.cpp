@@ -22,7 +22,7 @@ void FeedWindow::createWindow(QVector<Article*> articles) {
   articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
-    articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout, 50);
+    articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout);
   }
 }
 
@@ -32,4 +32,10 @@ void FeedWindow::refreshSlot() {
 
 void FeedWindow::signOutSlot() {
   signOutSignal();
+}
+
+void FeedWindow::refreshFeedScreen(QVector<Article*> articles) {
+  delete articleContainerLayout;
+  articleContainerLayout = new QVBoxLayout(articleWindow);
+  createWindow(articles);
 }
