@@ -1,5 +1,10 @@
 #include "Application.h"
 #include "ScreenManager.h"
+#include "Article.h"
+#include "Utils.h"
+#include <QDebug>
+#include <QMetaObject>
+#include <QMetaProperty>
 
 Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
   loginScreenWidget = new UserLoginScreen;
@@ -19,5 +24,14 @@ Application::~Application() {
 }
 
 void Application::run() {
+  QString json = "{\"title\" : \"alma\"}";
+  Article*  article = (Article*)Utils::fromJson(Article::staticMetaObject, json);
+  qDebug() << article->getTitle();
+  const QMetaObject* metaObject = article->metaObject();
+  QStringList properties;
+  for (int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i)
+    properties << QString::fromLatin1(metaObject->property(i).name());
+  qDebug() << metaObject->propertyCount();
+  qDebug() << metaObject->className();
   screenManager->show();
 }

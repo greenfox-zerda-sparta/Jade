@@ -1,6 +1,8 @@
 #include "Article.h"
 #include "DateParser.h"
 
+Article::Article() {}
+
 quint64 Article::getId() {
   return id;
 }
