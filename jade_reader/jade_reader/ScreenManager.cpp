@@ -8,9 +8,9 @@ ScreenManager::ScreenManager() {
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
   feedService = new FeedService;
-  this->loginScreenWidget = new UserLoginScreen;
-  this->signUpScreenWidget = new UserSignUpScreen;
-  this->feedScreen = new FeedWindow;
+  loginScreenWidget = new UserLoginScreen;
+  signUpScreenWidget = new UserSignUpScreen;
+  feedScreenWidget = new FeedWindow;
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
@@ -21,36 +21,37 @@ ScreenManager::ScreenManager() {
 ScreenManager::~ScreenManager() {
   delete loginScreenWidget;
   delete signUpScreenWidget;
-  delete feedScreen;
+  delete feedScreenWidget;
   delete stackedWidget;
-  delete centralWidget;
   delete containerLayout;
+  delete centralWidget;
+  delete feedService;
 }
 
 void ScreenManager::init() {
   setWindowTitle(tr("Jade Reader"));
   stackedWidget->addWidget(loginScreenWidget);
   stackedWidget->addWidget(signUpScreenWidget);
-  stackedWidget->addWidget(feedScreen);
+  stackedWidget->addWidget(feedScreenWidget);
   containerLayout->addWidget(stackedWidget);
   setCentralWidget(centralWidget);
   centralWidget->setLayout(containerLayout);
 }
 
 void ScreenManager::switchLoginScreen() {
-  stackedWidget->setCurrentIndex(0);
+  setScreen(loginScreen);
 }
 
 void ScreenManager::switchSignUpScreen() {
-  stackedWidget->setCurrentIndex(1);
- }
+  setScreen(signUpScreen);
+}
 
 void ScreenManager::switchFeedScreen() {
-  stackedWidget->setCurrentIndex(2);
+  setScreen(feedScreen);
 }
 
 void ScreenManager::refreshFeedScreen(FeedWindow* feedScreen) {
-  this->feedScreen = feedScreen;
+  this->feedScreenWidget = feedScreen;
 }
 
 void ScreenManager::getFeed() {
@@ -58,6 +59,20 @@ void ScreenManager::getFeed() {
 }
 
 void ScreenManager::loadFeed(QVector<Article*>* articles) {
-  feedScreen->createWindow(*articles);
+  feedScreenWidget->createWindow(*articles);
   stackedWidget->setCurrentIndex(2);
+}
+
+void ScreenManager::setScreen(Screens screen) {
+  switch (screen) {
+    case loginScreen:
+      stackedWidget->setCurrentIndex(0);
+      break;
+    case signUpScreen:
+      stackedWidget->setCurrentIndex(1);
+      break;
+    case feedScreen:
+      stackedWidget->setCurrentIndex(2);
+      break;
+  }
 }

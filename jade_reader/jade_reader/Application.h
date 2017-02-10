@@ -9,8 +9,6 @@
 class Application : public QApplication{
 Q_OBJECT
 private:
-  QString content;
-  QVector<Article*> articles;
   ScreenManager* screenManager;
 public:
   Application(int argc, char* argv[]);
