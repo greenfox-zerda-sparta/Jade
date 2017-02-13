@@ -16,22 +16,13 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
 }
 
 QString JsonParser::postLoginMessagetoJson(QString email, QString password) {
-  const QString emailKey = "email";
-  QJsonValue emailValue(email);
-  const QString passwordKey = "password";
-  QJsonValue passwordValue(password);
   QJsonObject jsonObject;
-  jsonObject.insert(emailKey, emailValue);
-  jsonObject.insert(passwordKey, passwordValue);
+  jsonObject.insert("email", QJsonValue(email));
+  jsonObject.insert("password", QJsonValue(password));
   QJsonDocument doc(jsonObject);
-  QString param(doc.toJson(QJsonDocument::Compact));
-  return param;
+  return doc.toJson(QJsonDocument::Compact);
 }
 
 QJsonObject JsonParser::parseToJsonObject(QString input) {
-  QJsonParseError *error = Q_NULLPTR;
-  QByteArray byteArray;
-  byteArray.append(input);
-  QJsonDocument jsonResponse = QJsonDocument::fromJson(byteArray, error);
-  return jsonResponse.object();
+  return QJsonDocument::fromJson(input.toLatin1()).object();
 }
