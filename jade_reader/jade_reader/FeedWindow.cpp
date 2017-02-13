@@ -20,14 +20,11 @@ FeedWindow::~FeedWindow() {
 }
 
 void FeedWindow::createWindow(QVector<Article*> articles) {
-  qDebug() << "createWindow " << articles.size();
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
     QWidget* widget = new QWidget;
     widget->setLayout(layoutCreator->createLayout(articles[i])->layout);
     articleContainerLayout->addWidget(widget);
-    qDebug() << "create article"<< i;
-    //articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout);
   }
 }
 
