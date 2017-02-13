@@ -1,4 +1,5 @@
 #include "HeaderLayoutCreator.h"
+#include "FeedService.h"
 
 HeaderLayoutCreator::HeaderLayoutCreator() {
   headerLayout = new QGridLayout();

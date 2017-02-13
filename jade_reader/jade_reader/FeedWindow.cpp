@@ -20,7 +20,7 @@ FeedWindow::~FeedWindow() {
 }
 
 void FeedWindow::createWindow(QVector<Article*> articles) {
-  qDebug() << "createWindow";
+  qDebug() << "createWindow " << articles.size();
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
     QWidget* widget = new QWidget;
@@ -44,7 +44,7 @@ void FeedWindow::refreshFeedScreen(QVector<Article*>* articles) {
     delete articleContainerLayout->itemAt(articleContainerLayout->count() - 1)->widget();
    // articleContainerLayout->removeItem(articleContainerLayout->itemAt(i));
     //delete widget;
-    qDebug() << "for cycle" << i;
+    qDebug() << "delete cycle" << i;
   }
   qDebug() << "out of for cycle";
   //createWindow(*articles);

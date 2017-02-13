@@ -63,7 +63,7 @@ void ScreenManager::getFeed() {
 
 void ScreenManager::loadFeed(QVector<Article*>* articles) {
   feedScreen->refreshFeedScreen(articles);
-  qDebug() << "loadFeed";
+  qDebug() << "loadFeed " << articles->size();
   feedScreen->createWindow(*articles);
 }
 
