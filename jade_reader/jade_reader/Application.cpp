@@ -1,31 +1,18 @@
 #include "Application.h"
-#include "ScreenManager.h"
-#include "Article.h"
 #include "Utils.h"
-#include <QDebug>
-#include <QMetaObject>
 #include <QMetaProperty>
 
-Application::Application(int argc, char* argv[]) : QApplication(argc, argv) {
-  loginScreenWidget = new UserLoginScreen;
-  signUpScreenWidget = new UserSignUpScreen;
-  feedScreen = new FeedWindow;
-  screenManager = new ScreenManager(loginScreenWidget, signUpScreenWidget, feedScreen);
-  fileReader = new FileReader;
-  jsonParser = new JsonParser;
-}
+Application::Application(int argc, char* argv[]): QApplication(argc, argv),
+screenManager(new ScreenManager) {}
 
 Application::~Application() {
-  delete loginScreenWidget;
-  delete signUpScreenWidget;
-  delete feedScreen;
-  delete fileReader;
-  delete jsonParser;
+  screenManager->deleteLater();
 }
 
 void Application::run() {
   QString json = "{\"title\" : \"alma\"}";
-  Article*  article = (Article*)Utils::fromJson(Article::staticMetaObject, json);
+  //Article*  article = (Article*)Utils::fromJson(Article::staticMetaObject, json);
+  Article*  article = new Article;
   const QMetaObject* metaObject = article->metaObject();
   QStringList properties;
   qDebug() << metaObject->propertyCount();

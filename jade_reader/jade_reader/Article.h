@@ -6,6 +6,13 @@ class Article : QObject {
   Q_OBJECT
   Q_PROPERTY(quint64 id READ getId);
   Q_PROPERTY(QString title READ getTitle);
+  Q_PROPERTY(QString description READ getDescription);
+  Q_PROPERTY(QString created READ getCreated);
+  /*Q_PROPERTY(QString feedName READ);
+  Q_PROPERTY(quint64 feedId);
+  Q_PROPERTY(bool favorite);
+  Q_PROPERTY(bool opened);
+  Q_PROPERTY(QString url);*/
 private:
   quint64 id;
   QString title;

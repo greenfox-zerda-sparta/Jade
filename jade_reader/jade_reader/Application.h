@@ -6,8 +6,8 @@
 #include <QApplication>
 #include <QScopedPointer>
 
-class Application : public QApplication{
-Q_OBJECT
+class Application: public QApplication {
+  Q_OBJECT
 private:
   ScreenManager* screenManager;
 public:
