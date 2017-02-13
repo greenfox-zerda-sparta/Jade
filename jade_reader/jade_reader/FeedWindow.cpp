@@ -36,7 +36,7 @@ void FeedWindow::signOutSlot() {
   signOutSignal();
 }
 
-void FeedWindow::refreshFeedScreen(QVector<Article*>* articles) {
+void FeedWindow::refreshFeedScreen() {
   for (int i = articleContainerLayout->count(); i > 0; i--) {
     delete articleContainerLayout->itemAt(articleContainerLayout->count() - 1)->widget();
   }

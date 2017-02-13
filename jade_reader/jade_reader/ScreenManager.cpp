@@ -14,7 +14,6 @@ ScreenManager::ScreenManager() {
   signUpScreenWidget = new UserSignUpScreen;
   feedScreenWidget = new FeedWindow;
   init();
-  connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
   connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(loadEmptyFeed()));
   connect(feedService, SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
@@ -63,11 +62,12 @@ void ScreenManager::getFeed() {
 }
 
 void ScreenManager::loadFeed(QVector<Article*>* articles) {
-  feedScreenWidget->refreshFeedScreen(articles);
+  feedScreenWidget->refreshFeedScreen();
   feedScreenWidget->createWindow(*articles);
 }
 
 void ScreenManager::loadEmptyFeed() {
+  feedScreenWidget->refreshFeedScreen();
   FileReader fileReader;
   JsonParser jsonParser;
   QVector<Article*> articles;
