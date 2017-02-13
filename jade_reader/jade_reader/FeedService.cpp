@@ -22,11 +22,9 @@ void FeedService::getFeed() {
 
 void FeedService::replyFinished(QNetworkReply* reply) {
   networkReply = reply;
-  //qDebug() << reply->readAll();
   *articles = parser->parseFromStringToArticleVector(networkReply->readAll());
   networkReply->deleteLater();
   networkReply = NULL;
   this->onReady(articles.data());
-  qDebug() << "onReady artVecSize: " << articles->size();
 }
 
