@@ -4,6 +4,8 @@
 
 class Article : QObject {
   Q_OBJECT
+  Q_PROPERTY(quint64 id READ getId);
+  Q_PROPERTY(QString title READ getTitle);
 private:
   quint64 id;
   QString title;
