@@ -20,6 +20,6 @@ public:
   FeedWindow(QWidget* parent = 0);
   ~FeedWindow();
   void createWindow(QVector<Article*>);
-  void refreshFeedScreen(QVector<Article*>);
+  void refreshFeedScreen(QVector<Article*>*);
 };
 

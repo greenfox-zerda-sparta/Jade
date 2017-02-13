@@ -7,6 +7,7 @@ FeedWindow::FeedWindow(QWidget* parent) : QScrollArea(parent) {
   this->setWidget(articleWindow);
   layoutCreator = new ArticleLayoutCreator;
   headerLayoutCreator = new HeaderLayoutCreator;
+  articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
   connect(headerLayoutCreator, SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
   connect(headerLayoutCreator, SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
 }
@@ -19,10 +20,11 @@ FeedWindow::~FeedWindow() {
 }
 
 void FeedWindow::createWindow(QVector<Article*> articles) {
-  articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
-    articleContainerLayout->addLayout(layoutCreator->createLayout(articles[i])->layout);
+    QWidget* widget = new QWidget;
+    widget->setLayout(layoutCreator->createLayout(articles[i])->layout);
+    articleContainerLayout->addWidget(widget);
   }
 }
 
@@ -34,8 +36,8 @@ void FeedWindow::signOutSlot() {
   signOutSignal();
 }
 
-void FeedWindow::refreshFeedScreen(QVector<Article*> articles) {
-  delete articleContainerLayout;
-  articleContainerLayout = new QVBoxLayout(articleWindow);
-  createWindow(articles);
+void FeedWindow::refreshFeedScreen(QVector<Article*>* articles) {
+  for (int i = articleContainerLayout->count(); i > 0; i--) {
+    delete articleContainerLayout->itemAt(articleContainerLayout->count() - 1)->widget();
+  }
 }
