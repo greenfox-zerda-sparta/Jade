@@ -1,16 +1,13 @@
 #include "JsonParser.h"
 #include "Utils.h"
-#include <QDebug>
 
 QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   QVector<Article*> articles;
   QJsonObject jsonObject = parseToJsonObject(content);
   QJsonArray jsonArray = jsonObject["feed"].toArray();
   foreach(const QJsonValue & value, jsonArray) {
-    QJsonObject obj = value.toObject();
-    Article*  article = (Article*)Utils::fromJson(&Article::staticMetaObject, obj);
+    Article*  article = (Article*)Utils::fromJson(&Article::staticMetaObject, value.toObject());
     articles.push_back(new Article(article));
-    articles.push_back(article);
   }
   return articles;
 }
