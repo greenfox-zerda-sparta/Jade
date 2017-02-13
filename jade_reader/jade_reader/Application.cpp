@@ -1,6 +1,9 @@
 #include "Application.h"
 #include "Utils.h"
+#include "JsonParser.h"
 #include <QMetaProperty>
+#include <QJsonObject>
+#include <QVariant>
 
 Application::Application(int argc, char* argv[]): QApplication(argc, argv),
 screenManager(new ScreenManager) {}
@@ -10,16 +13,9 @@ Application::~Application() {
 }
 
 void Application::run() {
-  QString json = "{\"title\" : \"alma\"}";
-  //Article*  article = (Article*)Utils::fromJson(Article::staticMetaObject, json);
-  Article*  article = new Article;
-  const QMetaObject* metaObject = article->metaObject();
-  QStringList properties;
-  qDebug() << metaObject->propertyCount();
-  qDebug() << metaObject->className();
-  for (int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i) {
-    properties << QString::fromLatin1(metaObject->property(i).name());
-    qDebug() << QString::fromLatin1(metaObject->property(i).name());
-  }  
+  QString json = "{\"title\" : \"alma\", \"id\" : \"1\"}";
+  Article*  article = (Article*)Utils::fromQStringJson(Article::staticMetaObject, json);
+  qDebug() << article->getTitle();
+  qDebug() << article->getId();
   screenManager->show();
 }

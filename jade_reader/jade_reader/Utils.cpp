@@ -2,28 +2,23 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMetaProperty>
+#include <QDebug>
 
 Utils::Utils() {}
 Utils::~Utils() {}
 
-QObject* Utils::fromJson(const QMetaObject& meta, QString& json) {
+QObject* Utils::fromQStringJson(const QMetaObject& meta, QString& json) {
   auto jsonObject = QJsonDocument::fromJson(json.toLatin1()).object();
   return fromJson(&meta, jsonObject);
 }
 
 QObject* Utils::fromJson(const QMetaObject* meta, QJsonObject& jsonObject) {
   QObject* object = meta->newInstance();
-
   int propertyStart = QObject::staticMetaObject.propertyCount();
   for (int i = propertyStart; i < meta->propertyCount(); ++i) {
     QMetaProperty property = meta->property(i);
-    if (!property.isWritable())
-      continue;
-    if (!jsonObject.contains(property.name()))
-      continue;
-
     auto value = jsonValueToProperty(object, property, jsonObject.value(property.name()));
-    property.write(object, value);
+    qDebug() << property.write(object, value);
   }
   return object;
 }
