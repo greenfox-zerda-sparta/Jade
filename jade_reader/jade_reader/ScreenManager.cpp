@@ -64,15 +64,5 @@ void ScreenManager::loadFeed(QVector<Article*>* articles) {
 }
 
 void ScreenManager::setScreen(Screens screen) {
-  switch (screen) {
-    case loginScreen:
-      stackedWidget->setCurrentIndex(0);
-      break;
-    case signUpScreen:
-      stackedWidget->setCurrentIndex(1);
-      break;
-    case feedScreen:
-      stackedWidget->setCurrentIndex(2);
-      break;
-  }
+  stackedWidget->setCurrentIndex(screen);
 }
