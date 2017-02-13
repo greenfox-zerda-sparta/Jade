@@ -6,6 +6,7 @@
 #include <QScopedPointer>
 #include <QMessageBox>
 #include "Logger.h"
+#include "AuthenticationService.h"
 
 class UserLoginScreen: public QDialog {
   Q_OBJECT
@@ -17,6 +18,7 @@ private slots:
   void onSignInButtonEvent();
 private:
   QScopedPointer<Logger> logger;
+  QScopedPointer<AuthenticationService> authService;
   QScopedPointer<QLineEdit> emailLineEdit;
   QScopedPointer<QLineEdit> passwordLineEdit;
   QScopedPointer<QPushButton> signInButton;
