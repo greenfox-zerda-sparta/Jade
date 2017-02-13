@@ -43,6 +43,7 @@ public:
   QString getUrl();
   void setUrl(QString url);
   Q_INVOKABLE Article();
+  Article(Article* article);
   Article(quint64 id, QString title, QString description, qint64 created, QString feedName, quint64 feedId, bool favorite, bool opened, QString url);
   ~Article();
 };

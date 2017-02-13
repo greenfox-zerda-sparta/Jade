@@ -3,6 +3,8 @@
 
 Article::Article() {}
 
+Article::Article(Article* article) : id(article->getId()), title(article->getTitle()), description(article->getDescription()), created(article->getCreated()), feedName(article->getFeedName()), feedId(article->getFeedId()), favorite(article->getFavorite()), opened(article->getOpened()), url(article->getUrl()) {}
+
 quint64 Article::getId() {
   return id;
 }

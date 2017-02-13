@@ -1,4 +1,6 @@
 #include "JsonParser.h"
+#include "Utils.h"
+#include <QDebug>
 
 QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   QVector<Article*> articles;
@@ -6,16 +8,9 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   QJsonArray jsonArray = jsonObject["feed"].toArray();
   foreach(const QJsonValue & value, jsonArray) {
     QJsonObject obj = value.toObject();
-    quint64 id = obj["id"].toDouble();
-    QString title = obj["title"].toString();
-    QString description = obj["description"].toString();
-    qint64 created = obj["created"].toDouble();
-    QString feedName = obj["feed_name"].toString();
-    quint64 feedId = obj["feed_id"].toDouble();
-    bool favorite = obj["favorite"].toBool();
-    bool opened = obj["opened"].toBool();
-    QString url = obj["url"].toString();
-    articles.push_back(new Article(id, title, description, created, feedName, feedId, favorite, opened, url));
+    Article*  article = (Article*)Utils::fromJson(&Article::staticMetaObject, obj);
+    articles.push_back(new Article(article));
+    articles.push_back(article);
   }
   return articles;
 }
