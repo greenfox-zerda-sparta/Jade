@@ -1,5 +1,6 @@
 #include "AuthenticationService.h"
 #include "Config.h"
+#include "PostData.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -23,7 +24,8 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
   QUrl url(_url);
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-  QString param = jsonParser->postLoginMessagetoJson(_email, _password);
+  PostData* postData = new PostData(_email, _password);
+  QString param = jsonParser->toJson(postData->metaObject());
   connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
   manager->post(request, param.toUtf8());
 }
