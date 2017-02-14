@@ -14,5 +14,5 @@ public:
   QVector<Article*> parseFromStringToArticleVector(QString content);
   QString postLoginMessagetoJson(QString email, QString password);
   QJsonObject parseToJsonObject(QString input);
-  QObject* fromJson(const QMetaObject* meta, QJsonObject& jsonObject);
+  QObject* fromJsonObjectToMetaObject(const QMetaObject* meta, QJsonObject& jsonObject);
 };
