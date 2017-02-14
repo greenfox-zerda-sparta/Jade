@@ -1,6 +1,6 @@
 #include "FeedWindow.h"
 
-FeedWindow::FeedWindow(QWidget* parent) : QScrollArea(parent) {
+FeedWindow::FeedWindow(QSharedPointer<HttpRequest> httpRequest, QWidget* parent) : QScrollArea(parent), feedService(new FeedService(httpRequest)) {
   this->setWidgetResizable(true);
   articleWindow = new QWidget;
   articleContainerLayout = new QVBoxLayout(articleWindow);
@@ -10,6 +10,7 @@ FeedWindow::FeedWindow(QWidget* parent) : QScrollArea(parent) {
   articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
   connect(headerLayoutCreator, SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
   connect(headerLayoutCreator, SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
+  connect(feedService.data(), SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
 }
 
 FeedWindow::~FeedWindow() {
@@ -20,6 +21,7 @@ FeedWindow::~FeedWindow() {
 }
 
 void FeedWindow::createWindow(QVector<Article*> articles) {
+  qDebug() << "FeedWindow::createWindow started";
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
     QWidget* widget = new QWidget;
@@ -29,7 +31,13 @@ void FeedWindow::createWindow(QVector<Article*> articles) {
 }
 
 void FeedWindow::refreshSlot() {
-  refreshSignal();
+  feedService->getFeed();
+}
+
+void FeedWindow::loadFeed(QVector<Article*>* articles) {
+  qDebug() << "FeedWindow::loadFeed, article size: " << articles->size();
+  refreshFeedScreen(articles);
+  createWindow(*articles);
 }
 
 void FeedWindow::signOutSlot() {

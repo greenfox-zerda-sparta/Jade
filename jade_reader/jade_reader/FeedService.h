@@ -1,9 +1,10 @@
 #pragma once
 #include <QObject>
-#include <QNetworkAccessManager>
 #include <QScopedPointer>
-#include "JsonParser.h"
 #include <QNetWorkReply>
+#include "JsonParser.h"
+#include "Logger.h"
+#include "HttpRequest.h"
 
 class FeedService : public QObject {
   Q_OBJECT
@@ -12,13 +13,12 @@ signals:
 private slots:
   void replyFinished(QNetworkReply*);
 private:
-  QScopedPointer<QNetworkAccessManager> manager;
   QScopedPointer<JsonParser> parser;
   QScopedPointer<QVector<Article*>> articles;
   QNetworkReply* networkReply;
-  QNetworkRequest request;
+  QScopedPointer<Logger> logger;
+  QSharedPointer<HttpRequest> httpRequest;
 public:
-  FeedService();
-  ~FeedService();
+  FeedService(QSharedPointer<HttpRequest>);
   void getFeed();
 };

@@ -1,28 +1,28 @@
 #include "FeedService.h"
 #include "Config.h"
+#include "HttpRequest.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
 
-FeedService::FeedService():
-  manager(new QNetworkAccessManager(this)),
+FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
   parser(new JsonParser),
-  articles(new QVector<Article*>) {
-  networkReply = NULL;
-  QUrl url(Config::SERVERURL + Config::FEEDPATH);
-  request = QNetworkRequest(url);
-  connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
+  articles(new QVector<Article*>),
+  logger(new Logger("FeedService")),
+  httpRequest(httpRequest) {
+  connect(httpRequest.data(), SIGNAL(getReady(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
 
-FeedService::~FeedService() {}
-
 void FeedService::getFeed() {
-  manager->get(request);
+  httpRequest->getRequest();
+  logger->info("getFeed - getrequest from manager");
 }
 
 void FeedService::replyFinished(QNetworkReply* reply) {
+  logger->info("replyFinished - got data from server");
   networkReply = reply;
   *articles = parser->parseFromStringToArticleVector(networkReply->readAll());
+  logger->info("articles size " + QString(articles->size()));
   networkReply->deleteLater();
   networkReply = NULL;
   this->onReady(articles.data());

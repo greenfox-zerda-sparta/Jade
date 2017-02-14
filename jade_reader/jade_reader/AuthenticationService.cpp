@@ -5,7 +5,6 @@
 
 AuthenticationService::AuthenticationService() : 
   logger(new Logger("AuthenticationService")),
-  manager(new QNetworkAccessManager(this)),
   jsonParser(new JsonParser) {
 }
 
@@ -24,8 +23,8 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   QString param = jsonParser->postLoginMessagetoJson(_email, _password);
-  connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
-  manager->post(request, param.toUtf8());
+  connect(HttpRequest::networkAccessManager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyAuthenticationFinished(QNetworkReply*)));
+  HttpRequest::networkAccessManager->post(request, param.toUtf8());
 }
 
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
@@ -38,8 +37,8 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   }
 }
 
-void AuthenticationService::replyFinished(QNetworkReply* reply) {
-  pReply = reply->readAll();
-  logger->info(pReply.toUtf8());
-  getResult(jsonParser->parseToJsonObject(pReply));
+void AuthenticationService::replyAuthenticationFinished(QNetworkReply* reply) {
+  this->reply = reply->readAll();
+  logger->info(this->reply.toUtf8());
+  getResult(jsonParser->parseToJsonObject(this->reply));
 }

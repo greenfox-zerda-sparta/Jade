@@ -5,20 +5,17 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 
-ScreenManager::ScreenManager() {
+ScreenManager::ScreenManager() : logger(new Logger("ScreenManager")), httpRequest(new HttpRequest) {
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
-  feedService = new FeedService;
   loginScreenWidget = new UserLoginScreen;
   signUpScreenWidget = new UserSignUpScreen;
-  feedScreenWidget = new FeedWindow;
+  feedScreenWidget = new FeedWindow(httpRequest);
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget, SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
   connect(loginScreenWidget, SIGNAL(swithToFeedSignal()), this, SLOT(loadEmptyFeed()));
-  connect(feedService, SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
-  connect(feedScreenWidget, SIGNAL(refreshSignal()), this, SLOT(getFeed()));
   connect(feedScreenWidget, SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
 }
 
@@ -58,23 +55,14 @@ void ScreenManager::refreshFeedScreen(FeedWindow* feedScreen) {
   this->feedScreenWidget = feedScreen;
 }
 
-void ScreenManager::getFeed() {
-  feedService->getFeed();
-}
-
-void ScreenManager::loadFeed(QVector<Article*>* articles) {
-  feedScreenWidget->refreshFeedScreen(articles);
-  feedScreenWidget->createWindow(*articles);
-}
-
 void ScreenManager::loadEmptyFeed() {
   FileReader fileReader;
   JsonParser jsonParser;
   QVector<Article*> articles;
   QString content = fileReader.readFromFileToQString("test.json");
   articles = jsonParser.parseFromStringToArticleVector(content);
-  stackedWidget->addWidget(feedScreenWidget);
   feedScreenWidget->createWindow(articles);
+  stackedWidget->addWidget(feedScreenWidget);
   stackedWidget->setCurrentIndex(2);
 }
 
