@@ -24,10 +24,12 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   return articles;
 }
 
-QString JsonParser::postLoginMessagetoJson(QString email, QString password) {
+QString JsonParser::toJson(const QMetaObject* meta) {
   QJsonObject jsonObject;
-  jsonObject.insert("email", QJsonValue(email));
-  jsonObject.insert("password", QJsonValue(password));
+  for (int i = 0; i < meta->propertyCount(); i++) {
+    QMetaProperty property = meta->property(i);
+    jsonObject.insert(property.name(), QJsonValue(property.name()));
+  } 
   QJsonDocument doc(jsonObject);
   return doc.toJson(QJsonDocument::Compact);
 }
