@@ -3,7 +3,7 @@
 
 Article::Article() {}
 
-Article::Article(Article* article) : id(article->getId()), title(article->getTitle()), description(article->getDescription()), created(article->getCreated()), feedName(article->getFeedName()), feedId(article->getFeedId()), favorite(article->getFavorite()), opened(article->getOpened()), url(article->getUrl()) {}
+Article::Article(Article* article) : id(article->getId()), title(article->getTitle()), description(article->getDescription()), created(article->getCreated()), feed_name(article->getFeedName()), feed_id(article->getFeedId()), favorite(article->getFavorite()), opened(article->getOpened()), url(article->getUrl()) {}
 
 quint64 Article::getId() {
   return id;
@@ -34,23 +34,23 @@ QString Article::getCreated() {
 }
 
 void Article::setCreated(QString created) {
-  this->created = created;
+  this->created = DateParser::parseDate(created.toInt());
 }
 
 QString Article::getFeedName() {
-  return feedName;
+  return feed_name;
 }
 
 void Article::setFeedName(QString feedName) {
-  this->feedName = feedName;
+  this->feed_name = feedName;
 }
 
 quint64 Article::getFeedId() {
-  return feedId;
+  return feed_id;
 }
 
 void Article::setFeedId(quint64 feedId) {
-  this->feedId = feedId;
+  this->feed_id = feedId;
 }
 
 bool Article::getFavorite() {
@@ -81,8 +81,8 @@ Article::Article(quint64 id, QString title, QString description, qint64 created,
   this->id = id;
   this->title = title;
   this->description = description;
-  this->feedName = feedName;
-  this->feedId = feedId;
+  this->feed_name = feedName;
+  this->feed_id = feedId;
   this->favorite = favorite;
   this->opened = opened;
   this->url = url;

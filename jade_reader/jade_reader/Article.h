@@ -8,8 +8,8 @@ class Article : QObject {
   Q_PROPERTY(QString title READ getTitle WRITE setTitle);
   Q_PROPERTY(QString description READ getDescription WRITE setDescription);
   Q_PROPERTY(QString created READ getCreated WRITE setCreated);
-  Q_PROPERTY(QString feedName READ getFeedName WRITE setFeedName);
-  Q_PROPERTY(quint64 feedId READ getFeedId WRITE setFeedId);
+  Q_PROPERTY(QString feed_name READ getFeedName WRITE setFeedName);
+  Q_PROPERTY(quint64 feed_id READ getFeedId WRITE setFeedId);
   Q_PROPERTY(bool favorite READ getFavorite WRITE setFavorite);
   Q_PROPERTY(bool opened READ getOpened WRITE setOpened);
   Q_PROPERTY(QString url READ getUrl WRITE setUrl);
@@ -18,8 +18,8 @@ private:
   QString title;
   QString description;
   QString created;
-  QString feedName;
-  quint64 feedId;
+  QString feed_name;
+  quint64 feed_id;
   bool favorite;
   bool opened;
   QString url;
