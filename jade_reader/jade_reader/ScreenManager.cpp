@@ -9,8 +9,8 @@ ScreenManager::ScreenManager() : logger(new Logger("ScreenManager")), httpReques
   stackedWidget = new QStackedWidget;
   centralWidget = new QWidget;
   containerLayout = new QVBoxLayout;
-  loginScreenWidget = new UserLoginScreen;
-  signUpScreenWidget = new UserSignUpScreen;
+  loginScreenWidget = new UserLoginScreen(httpRequest);
+  signUpScreenWidget = new UserSignUpScreen(httpRequest);
   feedScreenWidget = new FeedWindow(httpRequest);
   init();
   connect(loginScreenWidget, SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));

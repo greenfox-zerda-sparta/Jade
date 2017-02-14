@@ -1,6 +1,7 @@
 #pragma once
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
+#include <QNetworkReply>
 
 class HttpRequest : public QObject {
   Q_OBJECT
@@ -15,7 +16,7 @@ public:
 private slots:
   void replyFinished(QNetworkReply*);
 signals:
-  void postReady(QNetworkReply*);
+  void postReady(QString);
   void getReady(QNetworkReply*);
 };
 
