@@ -13,8 +13,9 @@ void HttpRequest::replyFinished(QNetworkReply* reply) {
   if (serviceID == 1) {
     postReady(reply->readAll());
   } else if (serviceID == 2) {
-    getReady(reply);
+    getReady(reply->readAll());
   }
+  reply->deleteLater();
 }
 
 void HttpRequest::setServiceID(int ID) {

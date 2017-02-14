@@ -11,11 +11,10 @@ class FeedService : public QObject {
 signals:
   void onReady(QVector<Article*>*);
 private slots:
-  void replyFinished(QNetworkReply*);
+  void replyFinished(QString);
 private:
   QScopedPointer<JsonParser> parser;
   QScopedPointer<QVector<Article*>> articles;
-  QNetworkReply* networkReply;
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
 public:

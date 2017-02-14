@@ -17,6 +17,6 @@ private slots:
   void replyFinished(QNetworkReply*);
 signals:
   void postReady(QString);
-  void getReady(QNetworkReply*);
+  void getReady(QString);
 };
 
