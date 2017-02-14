@@ -19,7 +19,6 @@ private:
   QSharedPointer<HttpRequest> httpRequest;
 public:
   AuthenticationService(QSharedPointer<HttpRequest> httpRequest);
-  //void postRequest(QString _url, QString _email, QString _password);
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
   void getResult(QJsonObject& jsonObject);
