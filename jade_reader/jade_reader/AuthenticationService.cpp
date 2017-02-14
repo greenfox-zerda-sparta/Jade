@@ -1,10 +1,15 @@
 #include "AuthenticationService.h"
 #include "Config.h"
 #include "PostData.h"
+#include "AuthResponse.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
-AuthenticationService::AuthenticationService() : 
+bool AuthenticationService::isSuccess(QString result) {
+  return result == "success";
+}
+
+AuthenticationService::AuthenticationService() :
   logger(new Logger("AuthenticationService")),
   manager(new QNetworkAccessManager(this)),
   jsonParser(new JsonParser) {
@@ -31,17 +36,16 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
 }
 
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
-  QString result = jsonObject["result"].toString();
-  if (result == "fail") {
-    logger->error("Failed: " + jsonObject["message"].toString().toUtf8());
+  AuthResponse*  authResponse = (AuthResponse*)jsonParser->fromJsonObjectToMetaObject(&AuthResponse::staticMetaObject, jsonObject);
+  if (!isSuccess(authResponse->getResult())) {
+    logger->error("Failed: " + authResponse->getMessage().toUtf8());
   } else {
     logger->info("Success");
-    token = jsonObject["token"].toString();
+    token = authResponse->getToken();
   }
 }
 
 void AuthenticationService::replyFinished(QNetworkReply* reply) {
   pReply = reply->readAll();
-  logger->info(pReply.toUtf8());
   getResult(jsonParser->parseToJsonObject(pReply));
 }

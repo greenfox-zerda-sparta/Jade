@@ -17,12 +17,12 @@ private:
   QScopedPointer<QNetworkAccessManager> manager;
   QScopedPointer<JsonParser> jsonParser;
   QScopedPointer<Logger> logger;
+  bool isSuccess(QString result);
 public:
   AuthenticationService();
   void postRequest(QString _url, QString _email, QString _password);
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
   void getResult(QJsonObject& jsonObject);
-  void getToken();
 };
 
