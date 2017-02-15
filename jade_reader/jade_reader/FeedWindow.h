@@ -16,13 +16,12 @@ private slots:
 void loadFeed(QVector<Article*>* articles);
 private:
   QSharedPointer<FeedService> feedService;
-  QWidget* articleWindow;
-  QVBoxLayout* articleContainerLayout;
-  ArticleLayoutCreator* layoutCreator;
-  HeaderLayoutCreator* headerLayoutCreator;
+  QScopedPointer<QWidget> articleWindow;
+  QScopedPointer<QVBoxLayout> articleContainerLayout;
+  QScopedPointer<ArticleLayoutCreator> layoutCreator;
+  QScopedPointer<HeaderLayoutCreator> headerLayoutCreator;
 public:
   FeedWindow(QSharedPointer<HttpRequest>, QWidget* parent = 0);
-  ~FeedWindow();
   void createWindow(QVector<Article*>);
   void refreshFeedScreen(QVector<Article*>*);
 };

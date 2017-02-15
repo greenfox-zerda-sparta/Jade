@@ -1,27 +1,21 @@
 #include "FeedWindow.h"
 
-FeedWindow::FeedWindow(QSharedPointer<HttpRequest> httpRequest, QWidget* parent) : QScrollArea(parent), feedService(new FeedService(httpRequest)) {
+FeedWindow::FeedWindow(QSharedPointer<HttpRequest> httpRequest, QWidget* parent) : 
+  QScrollArea(parent), 
+  feedService(new FeedService(httpRequest)), 
+  articleWindow(new QWidget),
+  articleContainerLayout(new QVBoxLayout(articleWindow.data())),
+  layoutCreator(new ArticleLayoutCreator),
+  headerLayoutCreator(new HeaderLayoutCreator) {
   this->setWidgetResizable(true);
-  articleWindow = new QWidget;
-  articleContainerLayout = new QVBoxLayout(articleWindow);
-  this->setWidget(articleWindow);
-  layoutCreator = new ArticleLayoutCreator;
-  headerLayoutCreator = new HeaderLayoutCreator;
+  this->setWidget(articleWindow.data());
   articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
-  connect(headerLayoutCreator, SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
-  connect(headerLayoutCreator, SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
+  connect(headerLayoutCreator.data(), SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
+  connect(headerLayoutCreator.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
   connect(feedService.data(), SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
 }
 
-FeedWindow::~FeedWindow() {
-  delete layoutCreator;
-  delete headerLayoutCreator;
-  delete articleContainerLayout;
-  delete articleWindow;
-}
-
 void FeedWindow::createWindow(QVector<Article*> articles) {
-  qDebug() << "FeedWindow::createWindow started";
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
     QWidget* widget = new QWidget;
@@ -35,7 +29,6 @@ void FeedWindow::refreshSlot() {
 }
 
 void FeedWindow::loadFeed(QVector<Article*>* articles) {
-  qDebug() << "FeedWindow::loadFeed, article size: " << articles->size();
   refreshFeedScreen(articles);
   createWindow(*articles);
 }
