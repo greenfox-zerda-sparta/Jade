@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QFormLayout>
 #include <QScopedPointer>
+#include <QSharedPointer>
 #include <QMessageBox>
 #include "Logger.h"
 #include "AuthenticationService.h"
@@ -26,6 +27,7 @@ private:
   QScopedPointer<QFormLayout> formLayout;
   QScopedPointer<QVBoxLayout> mainLayout;
   QScopedPointer<QMessageBox> msgBox;
+  QSharedPointer<HttpRequest> httpRequest;
   QString email;
   QString password;
   void definePasswordLinesMode();
@@ -33,5 +35,5 @@ private:
   void initFormLayout();
   void initMainLayout();
 public:
-  explicit UserLoginScreen(QWidget* parent = Q_NULLPTR);
+  explicit UserLoginScreen(QSharedPointer<HttpRequest> httpRequest, QWidget* parent = Q_NULLPTR);
 };

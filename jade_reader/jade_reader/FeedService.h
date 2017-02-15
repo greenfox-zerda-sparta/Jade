@@ -1,21 +1,23 @@
 #pragma once
 #include <QObject>
-#include <QNetworkAccessManager>
 #include <QScopedPointer>
+#include <QNetWorkReply>
 #include "JsonParser.h"
+#include "Logger.h"
+#include "HttpRequest.h"
 
 class FeedService : public QObject {
   Q_OBJECT
 signals:
   void onReady(QVector<Article*>*);
 private slots:
-  void replyFinished(QNetworkReply*);
+  void replyFinished(QString);
 private:
-  QScopedPointer<QNetworkAccessManager> manager;
   QScopedPointer<JsonParser> parser;
   QScopedPointer<QVector<Article*>> articles;
+  QScopedPointer<Logger> logger;
+  QSharedPointer<HttpRequest> httpRequest;
 public:
-  FeedService();
-  ~FeedService();
+  FeedService(QSharedPointer<HttpRequest>);
   void getFeed();
 };

@@ -8,21 +8,22 @@
 
 class ArticleLayout : public QObject {
   Q_OBJECT
-private:
-  LabelCreator* labelCreator;
-  QPushButton* markAsReadButton;
-  QPushButton* markAsFavouriteButton;
-  QPushButton* goToLinkButton;
-  void addWidgetsToLayout();
-public:
-  ArticleLayout(Article* _article);
-  QGridLayout* layout;
-  Article* article;
-  public slots:
-  QPushButton* addMarkAsReadButton();
-  QPushButton* addMarkFavouriteButton();
+public slots:
   void newBrowserWindow();
   void markFavourite();
   void markAsRead();
+private:
+  Article* article;
+  QScopedPointer<LabelCreator> labelCreator;
+  QSharedPointer<QPushButton> markAsReadButton;
+  QSharedPointer<QPushButton> markAsFavouriteButton;
+  QSharedPointer<QPushButton> goToLinkButton;
+  QSharedPointer<QGridLayout> layout;
+  void addWidgetsToLayout();
+public:
+  ArticleLayout(Article* _article);
+  QSharedPointer<QGridLayout> getLayout();
+  QSharedPointer<QPushButton> addMarkAsReadButton();
+  QSharedPointer<QPushButton> addMarkFavouriteButton();
 };
 
