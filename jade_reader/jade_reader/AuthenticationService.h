@@ -3,26 +3,24 @@
 #include <QNetworkReply>
 #include <QObject>
 #include <QScopedPointer>
-#include <QNetworkAccessManager>
+#include <QSharedPointer>
 #include "Logger.h"
 #include "JsonParser.h"
+#include "HttpRequest.h"
 
 class AuthenticationService : public QObject {
   Q_OBJECT
 private slots:
-  void replyFinished(QNetworkReply*);
+  void replyAuthenticationFinished(QString replyJson);
 private:
-  QString pReply;
   QString token;
-  QScopedPointer<QNetworkAccessManager> manager;
   QScopedPointer<JsonParser> jsonParser;
   QScopedPointer<Logger> logger;
+  QSharedPointer<HttpRequest> httpRequest;
 public:
-  AuthenticationService();
-  void postRequest(QString _url, QString _email, QString _password);
+  AuthenticationService(QSharedPointer<HttpRequest> httpRequest);
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
   void getResult(QJsonObject& jsonObject);
-  void getToken();
 };
 

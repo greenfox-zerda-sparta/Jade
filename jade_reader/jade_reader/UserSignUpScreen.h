@@ -5,6 +5,7 @@
 #include <QFormLayout>
 #include <QString>
 #include <QScopedPointer>
+#include <QSharedPointer>
 #include <QMessageBox>
 #include "Logger.h"
 #include "AuthenticationService.h"
@@ -27,6 +28,7 @@ private:
   QScopedPointer<QPushButton> signUpButton;
   QScopedPointer<QPushButton> backButton;
   QScopedPointer<QMessageBox> msgBox;
+  QSharedPointer<HttpRequest> httpRequest;
   QString email;
   QString password;
   QString passwordAgain;
@@ -35,5 +37,5 @@ private:
   void initFormLayout();
   void initMainLayout();
 public:
-  explicit UserSignUpScreen(QWidget* parent = Q_NULLPTR);
+  explicit UserSignUpScreen(QSharedPointer<HttpRequest> httpRequest, QWidget* parent = Q_NULLPTR);
 };

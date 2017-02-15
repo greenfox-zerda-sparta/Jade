@@ -1,6 +1,6 @@
 #include "UserSignUpScreen.h"
 
-UserSignUpScreen::UserSignUpScreen(QWidget *parent)
+UserSignUpScreen::UserSignUpScreen(QSharedPointer<HttpRequest> httpRequest, QWidget *parent)
   : QDialog(parent),
   logger(new Logger("UserSignUpScreen")),
   emailLineEdit(new QLineEdit(parent)),
@@ -11,7 +11,7 @@ UserSignUpScreen::UserSignUpScreen(QWidget *parent)
   formLayout(new QFormLayout),
   mainLayout(new QVBoxLayout(this)),
   msgBox(new QMessageBox),
-  authService(new AuthenticationService) {
+  authService(new AuthenticationService(httpRequest)) {
   
   msgBox->setWindowTitle("Jade Reader");
   logger->info("Initializing...");
