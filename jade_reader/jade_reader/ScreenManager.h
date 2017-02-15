@@ -15,7 +15,6 @@ class ScreenManager : public QMainWindow {
 private:
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
-  QScopedPointer<FeedService> feedService;
   QScopedPointer<QStackedWidget> stackedWidget;
   QScopedPointer<QWidget> centralWidget;
   QScopedPointer<QVBoxLayout> containerLayout;
