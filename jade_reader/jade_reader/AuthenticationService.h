@@ -16,7 +16,8 @@ private:
   QString token;
   QScopedPointer<JsonParser> jsonParser;
   QScopedPointer<Logger> logger;
-  QSharedPointer<HttpRequest> httpRequest;
+   QSharedPointer<HttpRequest> httpRequest;
+  bool isSuccess(QString result);
 public:
   AuthenticationService(QSharedPointer<HttpRequest> httpRequest);
   void postLogin(QString _email, QString _password);

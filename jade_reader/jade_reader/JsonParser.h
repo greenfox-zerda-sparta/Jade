@@ -7,10 +7,13 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QString>
+#include <QMetaProperty>
+#include <QObject>
 
 class JsonParser {
 public:
   QVector<Article*> parseFromStringToArticleVector(QString content);
-  QString postLoginMessagetoJson(QString email, QString password);
+  QString toJson(QObject* object);
   QJsonObject parseToJsonObject(QString input);
+  QObject* fromJsonObjectToMetaObject(const QMetaObject* meta, QJsonObject& jsonObject);
 };
