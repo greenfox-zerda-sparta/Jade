@@ -11,8 +11,8 @@ private:
 public:
   static QSharedPointer<QNetworkAccessManager> networkAccessManager;
   HttpRequest();
-  void postRequest(QString _url, QJsonDocument json);
-  void getRequest();
+  void postRequest(QString path, QJsonDocument json);
+  void getRequest(QString path);
   void setServiceID(int);
 private slots:
   void replyFinished(QNetworkReply*);

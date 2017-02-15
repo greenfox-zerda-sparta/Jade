@@ -14,7 +14,7 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
 }
 
 void FeedService::getFeed() {
-  httpRequest->getRequest();
+  httpRequest->getRequest(Config::FEEDPATH);
   logger->info("getFeed - getrequest from manager");
 }
 

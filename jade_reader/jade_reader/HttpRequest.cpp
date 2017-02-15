@@ -23,17 +23,17 @@ void HttpRequest::setServiceID(int ID) {
   serviceID = ID;
 }
 
-void HttpRequest::postRequest(QString _url,  QJsonDocument json) {
+void HttpRequest::postRequest(QString path, QJsonDocument json) {
   serviceID = 1;
-  QUrl url(_url);
+  QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   HttpRequest::networkAccessManager->post(request, json.toJson(QJsonDocument::Compact).data());
 }
 
-void HttpRequest::getRequest() {
+void HttpRequest::getRequest(QString path) {
   serviceID = 2;
-  QUrl url(Config::SERVERURL + Config::FEEDPATH);
+  QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
   HttpRequest::networkAccessManager->get(request);
 }

@@ -22,14 +22,14 @@ void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
   PostData* postData = new PostData(_email, _password);
   QJsonDocument json = jsonParser->toJsonDocument((QObject*)postData);
-  httpRequest->postRequest(Config::SERVERURL + Config::LOGINPATH, json);
+  httpRequest->postRequest(Config::LOGINPATH, json);
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
   logger->info("post Sign Up");
   PostData* postData = new PostData(_email, _password);
   QJsonDocument json = jsonParser->toJsonDocument((QObject*)postData);
-  httpRequest->postRequest(Config::SERVERURL + Config::SIGNUPPATH, json);
+  httpRequest->postRequest(Config::SIGNUPPATH, json);
 }
 
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
