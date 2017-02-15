@@ -7,19 +7,19 @@ FeedWindow::FeedWindow(QSharedPointer<HttpRequest> httpRequest, QWidget* parent)
   articleContainerLayout(new QVBoxLayout(articleWindow.data())),
   layoutCreator(new ArticleLayoutCreator),
   headerLayoutCreator(new HeaderLayoutCreator) {
-  this->setWidgetResizable(true);
-  this->setWidget(articleWindow.data());
-  articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
-  connect(headerLayoutCreator.data(), SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
-  connect(headerLayoutCreator.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
-  connect(feedService.data(), SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
-}
+    this->setWidgetResizable(true);
+    this->setWidget(articleWindow.data());
+    articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout());
+    connect(headerLayoutCreator.data(), SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
+    connect(headerLayoutCreator.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
+    connect(feedService.data(), SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
+ }
 
 void FeedWindow::createWindow(QVector<Article*> articles) {
   articleContainerLayout->setSizeConstraint(QLayout::SetMaximumSize);
   for (int i = 0; i < articles.size(); ++i) {
     QWidget* widget = new QWidget;
-    widget->setLayout(layoutCreator->createLayout(articles[i])->layout);
+    widget->setLayout(layoutCreator->createLayout(articles[i])->getLayout().data());
     articleContainerLayout->addWidget(widget);
   }
 }

@@ -13,16 +13,17 @@ public slots:
   void markFavourite();
   void markAsRead();
 private:
-  LabelCreator* labelCreator;
-  QPushButton* markAsReadButton;
-  QPushButton* markAsFavouriteButton;
-  QPushButton* goToLinkButton;
+  Article* article;
+  QScopedPointer<LabelCreator> labelCreator;
+  QSharedPointer<QPushButton> markAsReadButton;
+  QSharedPointer<QPushButton> markAsFavouriteButton;
+  QSharedPointer<QPushButton> goToLinkButton;
+  QSharedPointer<QGridLayout> layout;
   void addWidgetsToLayout();
 public:
   ArticleLayout(Article* _article);
-  QGridLayout* layout;
-  Article* article;
-  QPushButton* addMarkAsReadButton();
-  QPushButton* addMarkFavouriteButton();
+  QSharedPointer<QGridLayout> getLayout();
+  QSharedPointer<QPushButton> addMarkAsReadButton();
+  QSharedPointer<QPushButton> addMarkFavouriteButton();
 };
 
