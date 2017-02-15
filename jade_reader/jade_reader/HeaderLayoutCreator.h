@@ -11,11 +11,10 @@ public slots:
   void signOutSlot();
   void refreshSlot();
 private:
-  QGridLayout* headerLayout;
-  QPushButton* signOutButton;
-  QPushButton* refreshButton;
+  QSharedPointer<QGridLayout> headerLayout;
+  QSharedPointer<QPushButton> signOutButton;
+  QSharedPointer<QPushButton> refreshButton;
 public:
   HeaderLayoutCreator();
-  ~HeaderLayoutCreator();
-  QGridLayout* createHeaderLayout();
+  QSharedPointer<QGridLayout> createHeaderLayout();
 };
