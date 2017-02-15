@@ -4,6 +4,7 @@
 #include "AuthResponse.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QObject>
 
 bool AuthenticationService::isSuccess(QString result) {
   return result == "success";
@@ -30,7 +31,8 @@ void AuthenticationService::postRequest(QString _url, QString _email, QString _p
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   PostData* postData = new PostData(_email, _password);
-  QString param = jsonParser->toJson(postData->metaObject());
+  QString param = jsonParser->toJson((QObject*)postData);
+  logger->info(param.toUtf8());
   connect(manager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
   manager->post(request, param.toUtf8());
 }
@@ -47,5 +49,6 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
 
 void AuthenticationService::replyFinished(QNetworkReply* reply) {
   pReply = reply->readAll();
-  getResult(jsonParser->parseToJsonObject(pReply));
+  logger->info(pReply.toUtf8());
+  getResult(jsonParser->parseToJsonObject(pReply)); 
 }

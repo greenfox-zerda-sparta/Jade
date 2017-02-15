@@ -1,4 +1,5 @@
 #include "JsonParser.h"
+#include <QDebug>
 
 QJsonObject JsonParser::parseToJsonObject(QString input) {
   return QJsonDocument::fromJson(input.toLatin1()).object();
@@ -24,12 +25,14 @@ QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
   return articles;
 }
 
-QString JsonParser::toJson(const QMetaObject* meta) {
+QString JsonParser::toJson(QObject* object) {
   QJsonObject jsonObject;
-  for (int i = 0; i < meta->propertyCount(); i++) {
-    QMetaProperty property = meta->property(i);
-    jsonObject.insert(property.name(), QJsonValue(property.name()));
-  } 
+  for (int i = 0; i < object->metaObject()->propertyCount(); i++) {
+    QMetaProperty property = object->metaObject()->property(i);
+    if (property.read(object) != "") {
+      jsonObject.insert(property.name(), QJsonValue::fromVariant(property.read(object)));
+    }
+  }
   QJsonDocument doc(jsonObject);
   return doc.toJson(QJsonDocument::Compact);
 }

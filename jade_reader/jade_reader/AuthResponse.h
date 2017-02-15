@@ -20,4 +20,3 @@ public:
   QString getToken();
   void setToken(QString token);
 };
-
