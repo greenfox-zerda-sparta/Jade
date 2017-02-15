@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QObject>
+#include <QJsonDocument>
 
 bool AuthenticationService::isSuccess(QString result) {
   return result == "success";
@@ -14,21 +15,21 @@ AuthenticationService::AuthenticationService(QSharedPointer<HttpRequest> httpReq
   logger(new Logger("AuthenticationService")),
   jsonParser(new JsonParser),
   httpRequest(httpRequest) {
-  connect(httpRequest.data(), SIGNAL(postReady(QString)), this, SLOT(replyAuthenticationFinished(QString)));
+  connect(httpRequest.data(), SIGNAL(postReady(QJsonDocument)), this, SLOT(replyAuthenticationFinished(QJsonDocument)));
 }
 
 void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
   PostData* postData = new PostData(_email, _password);
-  QString param = jsonParser->toJson((QObject*)postData);
-  httpRequest->postRequest(Config::SERVERURL + Config::LOGINPATH, param);
+  QJsonDocument json = jsonParser->toJsonDocument((QObject*)postData);
+  httpRequest->postRequest(Config::SERVERURL + Config::LOGINPATH, json);
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
   logger->info("post Sign Up");
   PostData* postData = new PostData(_email, _password);
-  QString param = jsonParser->toJson((QObject*)postData);
-  httpRequest->postRequest(Config::SERVERURL + Config::SIGNUPPATH, param);
+  QJsonDocument json = jsonParser->toJsonDocument((QObject*)postData);
+  httpRequest->postRequest(Config::SERVERURL + Config::SIGNUPPATH, json);
 }
 
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
@@ -41,7 +42,6 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   }
 }
 
-void AuthenticationService::replyAuthenticationFinished(QString replyJson) {
-  logger->info(replyJson.toUtf8());
-  getResult(jsonParser->parseToJsonObject(replyJson));
+void AuthenticationService::replyAuthenticationFinished(QJsonDocument replyJson) {
+  getResult(replyJson.object());
 }

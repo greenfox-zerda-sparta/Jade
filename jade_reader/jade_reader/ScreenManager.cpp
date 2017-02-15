@@ -48,7 +48,7 @@ void ScreenManager::loadEmptyFeed() {
   JsonParser jsonParser;
   QVector<Article*> articles;
   QString content = fileReader.readFromFileToQString("test.json");
-  articles = jsonParser.parseFromStringToArticleVector(content);
+  articles = jsonParser.parseFromDocumentToArticleVector(jsonParser.parseToJsonDocument(content));
   feedScreenWidget->createWindow(articles);
   stackedWidget->addWidget(feedScreenWidget.data());
   stackedWidget->setCurrentIndex(2);
