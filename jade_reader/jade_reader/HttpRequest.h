@@ -2,6 +2,7 @@
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
 #include <QNetworkReply>
+#include <QJsonObject>
 
 class HttpRequest : public QObject {
   Q_OBJECT
@@ -10,13 +11,13 @@ private:
 public:
   static QSharedPointer<QNetworkAccessManager> networkAccessManager;
   HttpRequest();
-  void postRequest(QString _url, QString json);
-  void getRequest();
+  void postRequest(QString path, QJsonObject json);
+  void getRequest(QString path);
   void setServiceID(int);
 private slots:
   void replyFinished(QNetworkReply*);
 signals:
-  void postReady(QString);
-  void getReady(QString);
+  void postReady(QJsonObject);
+  void getReady(QJsonObject);
 };
 

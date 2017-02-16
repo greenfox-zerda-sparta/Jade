@@ -12,8 +12,8 @@
 
 class JsonParser {
 public:
-  QVector<Article*> parseFromStringToArticleVector(QString content);
-  QString toJson(QObject* object);
-  QJsonObject parseToJsonObject(QString input);
+  static QJsonObject parseToJsonObject(QString input);
+  QVector<Article*> parseFromObjectToArticleVector(QJsonObject content);
   QObject* fromJsonObjectToMetaObject(const QMetaObject* meta, QJsonObject& jsonObject);
+  QJsonObject toJsonObject(QObject* object);
 };

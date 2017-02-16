@@ -58,14 +58,23 @@ void UserSignUpScreen::onSignUpButtonEvent() {
     logger->error("Email or Password line is empty.");
     msgBox->setText("Email or Password line is empty.");
     msgBox->exec();
+    resetLineEdits();
   } else if (passwordLineEdit->text().compare(passwordAgainLineEdit->text(), Qt::CaseSensitive) != 0) {
     logger->error("Passwords don't match.");
     msgBox->setText("Passwords don't match.");
     msgBox->exec();
+    resetLineEdits();
   } else {
     logger->info("Send request to server...");
     email = emailLineEdit->text();
     password = passwordLineEdit->text();
+    resetLineEdits();
     authService->postSignup(email, password);
   }
+}
+
+void UserSignUpScreen::resetLineEdits() {
+  emailLineEdit->clear();
+  passwordLineEdit->clear();
+  passwordAgainLineEdit->clear();
 }

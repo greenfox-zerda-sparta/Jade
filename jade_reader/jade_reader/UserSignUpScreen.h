@@ -38,4 +38,5 @@ private:
   void initMainLayout();
 public:
   explicit UserSignUpScreen(QSharedPointer<HttpRequest> httpRequest, QWidget* parent = Q_NULLPTR);
+  void resetLineEdits();
 };

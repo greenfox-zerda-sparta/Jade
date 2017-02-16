@@ -17,4 +17,4 @@ public:
     void checkQVectorSizeWithNotValidJsonKey();
 };
 
-#endif // TESTJSON_H
+#endif

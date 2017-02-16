@@ -11,12 +11,12 @@
 class AuthenticationService : public QObject {
   Q_OBJECT
 private slots:
-  void replyAuthenticationFinished(QString replyJson);
+  void replyAuthenticationFinished(QJsonObject replyJson);
 private:
   QString token;
   QScopedPointer<JsonParser> jsonParser;
   QScopedPointer<Logger> logger;
-   QSharedPointer<HttpRequest> httpRequest;
+  QSharedPointer<HttpRequest> httpRequest;
   bool isSuccess(QString result);
 public:
   AuthenticationService(QSharedPointer<HttpRequest> httpRequest);
