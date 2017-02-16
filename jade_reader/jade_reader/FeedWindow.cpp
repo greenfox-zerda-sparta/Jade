@@ -10,7 +10,7 @@ FeedWindow::FeedWindow(QSharedPointer<HttpRequest> httpRequest, QWidget* parent)
     this->setWidgetResizable(true);
     this->setWidget(articleWindow.data());
     articleContainerLayout->addLayout(headerLayoutCreator->createHeaderLayout().data());
-    connect(headerLayoutCreator.data(), SIGNAL(refreshSignal()), this, SLOT(refreshSlot()));
+    connect(headerLayoutCreator.data(), SIGNAL(refreshSignal()), feedService.data(), SIGNAL(refreshSignal()));
     connect(headerLayoutCreator.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
     connect(feedService.data(), SIGNAL(onReady(QVector<Article*>*)), this, SLOT(loadFeed(QVector<Article*>*)));
  }

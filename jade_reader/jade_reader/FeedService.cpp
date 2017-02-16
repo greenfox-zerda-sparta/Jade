@@ -10,7 +10,7 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
   articles(new QVector<Article*>),
   logger(new Logger("FeedService")),
   httpRequest(httpRequest) {
-  connect(httpRequest.data(), SIGNAL(getReady(QString)), this, SLOT(replyFinished(QString)));
+  connect(this, SIGNAL(refreshSignal()), httpRequest.data(), SLOT(getRequest()));
 }
 
 void FeedService::getFeed() {
@@ -18,10 +18,11 @@ void FeedService::getFeed() {
   logger->info("getFeed - getrequest from manager");
 }
 
-void FeedService::replyFinished(QString replyJson) {
+void FeedService::replyReady(QString replyJson) {
   logger->info("replyFinished - got data from server");
   *articles = parser->parseFromStringToArticleVector(replyJson);
   logger->info("articles size " + QString(articles->size()));
   this->onReady(articles.data());
+  disconnect(httpRequest.data(), SIGNAL(replyReady(QString)), this, SLOT(replyReady(QString)));
 }
 

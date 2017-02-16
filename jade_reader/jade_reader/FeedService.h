@@ -9,9 +9,10 @@
 class FeedService : public QObject {
   Q_OBJECT
 signals:
+  void refreshSignal();
   void onReady(QVector<Article*>*);
-private slots:
-  void replyFinished(QString);
+public slots:
+  void replyReady(QString);
 private:
   QScopedPointer<JsonParser> parser;
   QScopedPointer<QVector<Article*>> articles;

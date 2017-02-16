@@ -6,17 +6,17 @@
 class HttpRequest : public QObject {
   Q_OBJECT
 private:
-  int serviceID;
+  QSharedPointer<QNetworkAccessManager> networkAccessManager;
+  QNetworkReply* netReply;
 public:
-  static QSharedPointer<QNetworkAccessManager> networkAccessManager;
   HttpRequest();
-  void postRequest(QString _url, QString json);
-  void getRequest();
-  void setServiceID(int);
 private slots:
   void replyFinished(QNetworkReply*);
+public slots:
+  void postRequest(QString _url, QString json);
+  void getRequest();
 signals:
-  void postReady(QString);
+  void replyReady(QString);
   void getReady(QString);
 };
 
