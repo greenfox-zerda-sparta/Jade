@@ -12,9 +12,9 @@ HttpRequest::HttpRequest() {
 
 void HttpRequest::replyFinished(QNetworkReply* reply) {
   if (serviceID == 1) {
-    postReady(JsonParser::parseToJsonDocument(reply->readAll()));
+    postReady(JsonParser::parseToJsonObject(reply->readAll()));
   } else if (serviceID == 2) {
-    getReady(JsonParser::parseToJsonDocument(reply->readAll()));
+    getReady(JsonParser::parseToJsonObject(reply->readAll()));
   }
   reply->deleteLater();
 }
@@ -23,12 +23,13 @@ void HttpRequest::setServiceID(int ID) {
   serviceID = ID;
 }
 
-void HttpRequest::postRequest(QString path, QJsonDocument json) {
+void HttpRequest::postRequest(QString path, QJsonObject json) {
   serviceID = 1;
   QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-  HttpRequest::networkAccessManager->post(request, json.toJson(QJsonDocument::Compact).data());
+  QJsonDocument doc(json);
+  HttpRequest::networkAccessManager->post(request, doc.toJson(QJsonDocument::Compact));
 }
 
 void HttpRequest::getRequest(QString path) {
