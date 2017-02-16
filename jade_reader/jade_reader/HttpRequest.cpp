@@ -2,37 +2,30 @@
 #include <QNetworkRequest>
 #include "HttpRequest.h"
 #include "Config.h"
+#include "JsonParser.h"
 
-QSharedPointer<QNetworkAccessManager> HttpRequest::networkAccessManager(new QNetworkAccessManager);
-
-HttpRequest::HttpRequest() {
+HttpRequest::HttpRequest() :
+  networkAccessManager(new QNetworkAccessManager) {
   connect(HttpRequest::networkAccessManager.data(), SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 }
 
 void HttpRequest::replyFinished(QNetworkReply* reply) {
-  if (serviceID == 1) {
-    postReady(reply->readAll());
-  } else if (serviceID == 2) {
-    getReady(reply->readAll());
-  }
+  replyReady(JsonParser::parseToJsonObject(reply->readAll()));
   reply->deleteLater();
 }
 
-void HttpRequest::setServiceID(int ID) {
-  serviceID = ID;
-}
-
-void HttpRequest::postRequest(QString _url,  QString json) {
-  serviceID = 1;
-  QUrl url(_url);
+void HttpRequest::postRequest(QString path, QJsonObject json) {
+  QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-  HttpRequest::networkAccessManager->post(request, json.toUtf8());
+  QJsonDocument doc(json);
+  connect(this, SIGNAL(replyReady(QJsonObject)), sender(), SLOT(replyReady(QJsonObject)));
+  networkAccessManager->post(request, doc.toJson(QJsonDocument::Compact));
 }
 
-void HttpRequest::getRequest() {
-  serviceID = 2;
-  QUrl url(Config::SERVERURL + Config::FEEDPATH);
+void HttpRequest::getRequest(QString path) {
+  QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
-  HttpRequest::networkAccessManager->get(request);
+  connect(this, SIGNAL(replyReady(QJsonObject)), sender(), SLOT(replyReady(QJsonObject)));
+  networkAccessManager->get(request);
 }

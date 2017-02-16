@@ -57,10 +57,17 @@ void UserLoginScreen::onSignInButtonEvent() {
     logger->error("Email or Password line is empty.");
     msgBox->setText("Email or Password line is empty.");
     msgBox->exec();
+    resetLineEdits();
   } else {
     email = emailLineEdit->text();
     password = passwordLineEdit->text();
     authService->postLogin(email, password);
+    resetLineEdits();
     swithToFeedSignal();
   }
+}
+
+void UserLoginScreen::resetLineEdits() {
+  emailLineEdit->clear();
+  passwordLineEdit->clear();
 }

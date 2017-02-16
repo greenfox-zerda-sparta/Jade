@@ -1,5 +1,6 @@
 #include "HeaderLayoutCreator.h"
 #include "FeedService.h"
+#include "Config.h"
 
 HeaderLayoutCreator::HeaderLayoutCreator() :
   headerLayout(new QGridLayout()),
@@ -22,5 +23,5 @@ void HeaderLayoutCreator::signOutSlot() {
 }
 
 void HeaderLayoutCreator::refreshSlot() {
-  refreshSignal();
+  refreshSignal(Config::FEEDPATH);
 }

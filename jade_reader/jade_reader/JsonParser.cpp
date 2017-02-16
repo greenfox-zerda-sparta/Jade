@@ -5,6 +5,16 @@ QJsonObject JsonParser::parseToJsonObject(QString input) {
   return QJsonDocument::fromJson(input.toLatin1()).object();
 }
 
+QVector<Article*> JsonParser::parseFromObjectToArticleVector(QJsonObject content) {
+  QVector<Article*> articles;
+  QJsonArray jsonArray = content["feed"].toArray();
+  foreach(const QJsonValue & value, jsonArray) {
+    Article*  article = (Article*)fromJsonObjectToMetaObject(&Article::staticMetaObject, value.toObject());
+    articles.push_back(new Article(article));
+  }
+  return articles;
+}
+
 QObject* JsonParser::fromJsonObjectToMetaObject(const QMetaObject* meta, QJsonObject& jsonObject) {
   QObject* object = meta->newInstance();
   for (int i = 0; i < meta->propertyCount(); i++) {
@@ -14,18 +24,7 @@ QObject* JsonParser::fromJsonObjectToMetaObject(const QMetaObject* meta, QJsonOb
   return object;
 }
 
-QVector<Article*> JsonParser::parseFromStringToArticleVector(QString content) {
-  QVector<Article*> articles;
-  QJsonObject jsonObject = parseToJsonObject(content);
-  QJsonArray jsonArray = jsonObject["feed"].toArray();
-  foreach(const QJsonValue & value, jsonArray) {
-    Article*  article = (Article*)fromJsonObjectToMetaObject(&Article::staticMetaObject, value.toObject());
-    articles.push_back(new Article(article));
-  }
-  return articles;
-}
-
-QString JsonParser::toJson(QObject* object) {
+QJsonObject JsonParser::toJsonObject(QObject* object) {
   QJsonObject jsonObject;
   for (int i = 0; i < object->metaObject()->propertyCount(); i++) {
     QMetaProperty property = object->metaObject()->property(i);
@@ -34,5 +33,5 @@ QString JsonParser::toJson(QObject* object) {
     }
   }
   QJsonDocument doc(jsonObject);
-  return doc.toJson(QJsonDocument::Compact);
+  return doc.object();
 }
