@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "PostData.h"
 #include "AuthResponse.h"
+#include "FileHandler.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QObject>
@@ -38,6 +39,8 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   } else {
     logger->info("Success");
     token = authResponse->getToken();
+    FileHandler fileHandler;
+    fileHandler.writeToFile("token", "token.txt");
   }
 }
 
