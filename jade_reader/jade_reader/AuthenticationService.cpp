@@ -15,21 +15,21 @@ AuthenticationService::AuthenticationService(QSharedPointer<HttpRequest> httpReq
   logger(new Logger("AuthenticationService")),
   jsonParser(new JsonParser),
   httpRequest(httpRequest) {
-  connect(httpRequest.data(), SIGNAL(postReady(QJsonObject)), this, SLOT(replyAuthenticationFinished(QJsonObject)));
+  connect(this, SIGNAL(postRequest(QString, QJsonObject)), httpRequest.data(), SLOT(postRequest(QString, QJsonObject)));
 }
 
 void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
   PostData* postData = new PostData(_email, _password);
   QJsonObject json = jsonParser->toJsonObject((QObject*)postData);
-  httpRequest->postRequest(Config::LOGINPATH, json);
+  postRequest(Config::LOGINPATH, json);
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
   logger->info("post Sign Up");
   PostData* postData = new PostData(_email, _password);
   QJsonObject json = jsonParser->toJsonObject((QObject*)postData);
-  httpRequest->postRequest(Config::SIGNUPPATH, json);
+  postRequest(Config::SIGNUPPATH, json);
 }
 
 void AuthenticationService::getResult(QJsonObject& jsonObject) {
@@ -42,6 +42,7 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   }
 }
 
-void AuthenticationService::replyAuthenticationFinished(QJsonObject replyJson) {
+void AuthenticationService::replyReady(QJsonObject replyJson) {
   getResult(replyJson);
+  disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
 }

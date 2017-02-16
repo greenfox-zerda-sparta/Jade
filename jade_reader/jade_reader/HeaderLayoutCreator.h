@@ -5,7 +5,7 @@
 class HeaderLayoutCreator : public QObject {
   Q_OBJECT
 signals:
-  void refreshSignal();
+  void refreshSignal(QString);
   void signOutSignal();
 public slots:
   void signOutSlot();

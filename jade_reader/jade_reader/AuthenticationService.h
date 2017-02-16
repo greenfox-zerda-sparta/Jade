@@ -10,8 +10,10 @@
 
 class AuthenticationService : public QObject {
   Q_OBJECT
-private slots:
-  void replyAuthenticationFinished(QJsonObject replyJson);
+signals:
+  void postRequest(QString, QJsonObject);
+public slots:
+  void replyReady(QJsonObject replyJson);
 private:
   QString token;
   QScopedPointer<JsonParser> jsonParser;
