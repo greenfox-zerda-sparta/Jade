@@ -3,7 +3,9 @@
 
 void FileHandler::writeToFile(QString toFile, QString filename) {
   QFile file(filename);
-  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    return;
+  }
   QTextStream out(&file);
   out << toFile;
   file.close();
@@ -19,5 +21,6 @@ QString FileHandler::readFile(QString filename) {
   while (!in.atEnd()) {
     line = in.readLine();
   }
+  file.close();
   return line;
 }
