@@ -11,7 +11,6 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
   articles(new QVector<Article*>),
   logger(new Logger("FeedService")),
   httpRequest(httpRequest) {
-  //connect(this, SIGNAL(refreshSignal(QString)), httpRequest.data(), SLOT(getRequest(QString)));
   connect(this, SIGNAL(refreshSignal(QString)), this, SLOT(getToken(QString)));
   connect(this, SIGNAL(refreshSignalWithToken(QString)), httpRequest.data(), SLOT(getRequest(QString)));
 }

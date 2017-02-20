@@ -30,6 +30,7 @@ void UserLoginScreen::definePasswordLinesMode() {
 void UserLoginScreen::defineConnections() {
   connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserLoginScreen::onSignUpButtonEvent);
   connect(signInButton.data(), &QAbstractButton::clicked, this, &UserLoginScreen::onSignInButtonEvent);
+  connect(authService.data(), SIGNAL(switchToFeed()), this, SIGNAL(switchToFeedSignal()));
   logger->info("Define connections");
 }
 
@@ -63,7 +64,6 @@ void UserLoginScreen::onSignInButtonEvent() {
     password = passwordLineEdit->text();
     authService->postLogin(email, password);
     resetLineEdits();
-    swithToFeedSignal();
   }
 }
 

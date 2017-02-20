@@ -12,6 +12,8 @@ enum Screens {loginScreen, signUpScreen, feedScreen};
 
 class ScreenManager : public QMainWindow {
   Q_OBJECT
+signals:
+  void loadFeed();
 private:
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
@@ -29,7 +31,6 @@ public slots:
   void switchLoginScreen();
   void switchSignUpScreen();
   void switchFeedScreen();
-  void loadEmptyFeed();
   void signOutSlot();
 };
 

@@ -41,6 +41,7 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
     logger->info("Success");
     token = authResponse->getToken();
     FileHandler::writeToFile(token, "token.txt");
+    switchToFeed();
   }
 }
 
