@@ -5,7 +5,7 @@
 class FileHandler
 {
 public:
-  void writeToFile(QString toFile, QString filename);
-  QString readFile(QString filename);
+  static void writeToFile(QString toFile, QString filename);
+  static QString readFile(QString filename);
 };
 

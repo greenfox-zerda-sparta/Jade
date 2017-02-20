@@ -40,8 +40,7 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   } else {
     logger->info("Success");
     token = authResponse->getToken();
-    FileHandler fileHandler;
-    fileHandler.writeToFile("token", "token.txt");
+    FileHandler::writeToFile(token, "token.txt");
   }
 }
 
