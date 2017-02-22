@@ -5,6 +5,9 @@
 #include "AuthenticationService.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QDebug>
+#include "FeedResponse.h"
+#include "JsonParser.h"
 
 
 FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
@@ -24,14 +27,24 @@ void FeedService::sendRequestData() {
 
 void FeedService::replyReady(QJsonObject replyJson) {
   logger->info("Reply finished");
+  FeedResponse*  feedResponse = (FeedResponse*)parser->fromJsonObjectToMetaObject(&FeedResponse::staticMetaObject, replyJson);
+  if (!feedResponse->isError()) {
+    generateArticleVector(replyJson);
+    successResponse(); //Signal to ScreenManager
+  } else {
+    logger->error("Error: " + feedResponse->getError());
+    failedResponse(); //Signal to ScreenManager
+  }  
+  disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
+}
+
+void FeedService::generateArticleVector(QJsonObject replyJson) {
   *articles = parser->parseFromObjectToArticleVector(replyJson);
   if (articles->size() == 0) {
     logger->info("There are no Articles to show.");
   } else {
     logger->debug("Articles count: " + QString(articles->size()));
   }
-  onReady(); //Signal to ScreenManager
-  disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
 }
 
 QSharedPointer<QVector<Article*>> FeedService::getArticles() {

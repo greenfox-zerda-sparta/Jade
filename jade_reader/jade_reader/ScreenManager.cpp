@@ -37,7 +37,8 @@ void ScreenManager::defineConnections() {
   connect(loginScreenWidget.data(), SIGNAL(loginSuccess()), this, SLOT(fetchFeed()));
   connect(feedScreenWidget.data(), SIGNAL(signOutSignal()), this, SLOT(showLoginScreen()));
   connect(feedScreenWidget.data(), SIGNAL(refreshSignal()), this, SLOT(fetchFeed()));
-  connect(feedService.data(), SIGNAL(onReady()), this, SLOT(showFeedScreen()));
+  connect(feedService.data(), SIGNAL(successResponse()), this, SLOT(showFeedScreen()));
+  connect(feedService.data(), SIGNAL(failedResponse()), this, SLOT(showLoginScreen()));
 }
 
 void ScreenManager::showLoginScreen() {

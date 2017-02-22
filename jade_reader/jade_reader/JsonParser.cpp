@@ -1,5 +1,4 @@
 #include "JsonParser.h"
-#include <QDebug>
 
 QJsonObject JsonParser::parseToJsonObject(QString input) {
   return QJsonDocument::fromJson(input.toLatin1()).object();
