@@ -41,11 +41,23 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
     logger->info("Success");
     token = authResponse->getToken();
     FileHandler::writeToFile(token, "token.txt");
-    switchToFeed();
+    onAuthenticated();
   }
 }
 
 void AuthenticationService::replyReady(QJsonObject replyJson) {
   getResult(replyJson);
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
+}
+
+bool AuthenticationService::isAuthenticated() {
+  return readToken() != "";
+}
+
+QString AuthenticationService::readToken() {
+  return FileHandler::readFile("token.txt");
+}
+
+QString AuthenticationService::getToken() {
+  return token;
 }

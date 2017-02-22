@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "HttpRequest.h"
 #include "FileHandler.h"
+#include "AuthenticationService.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -11,20 +12,28 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
   articles(new QVector<Article*>),
   logger(new Logger("FeedService")),
   httpRequest(httpRequest) {
-  connect(this, SIGNAL(refreshSignal(QString)), this, SLOT(getToken(QString)));
-  connect(this, SIGNAL(refreshSignalWithToken(QString)), httpRequest.data(), SLOT(getRequest(QString)));
+  connect(this, SIGNAL(sendRequestSignal(QString)), httpRequest.data(), SLOT(getRequest(QString)));
 }
 
-void FeedService::getToken(QString path) {
-  path += "?token=" + FileHandler::readFile("token.txt");
-  refreshSignalWithToken(path);
+void FeedService::sendRequestData() {
+  AuthenticationService authService(httpRequest);
+  logger->info(authService.readToken());
+  QString path = Config::FEEDPATH + "?token=" + authService.readToken();
+  sendRequestSignal(path);
 }
 
 void FeedService::replyReady(QJsonObject replyJson) {
-  logger->info("replyFinished - got data from server");
+  logger->info("Reply finished");
   *articles = parser->parseFromObjectToArticleVector(replyJson);
-  logger->info("articles size " + QString(articles->size()));
-  this->onReady(articles.data());
+  if (articles->size() == 0) {
+    logger->info("There are no Articles to show.");
+  } else {
+    logger->debug("Articles count: " + QString(articles->size()));
+  }
+  onReady(); //Signal to ScreenManager
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
 }
 
+QSharedPointer<QVector<Article*>> FeedService::getArticles() {
+  return articles;
+}

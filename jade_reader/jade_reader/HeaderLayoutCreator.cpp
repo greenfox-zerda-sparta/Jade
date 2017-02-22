@@ -13,15 +13,7 @@ QSharedPointer<QGridLayout> HeaderLayoutCreator::createHeaderLayout() {
   refreshButton->setText("Refresh");
   headerLayout->addWidget(signOutButton.data(), 0, 0, 1, 1, Qt::AlignLeft);
   headerLayout->addWidget(refreshButton.data(), 0, 1, 1, 1, Qt::AlignRight);
-  connect(signOutButton.data(), &QAbstractButton::clicked, this, &HeaderLayoutCreator::signOutSlot);
-  connect(refreshButton.data(), &QAbstractButton::clicked, this, &HeaderLayoutCreator::refreshSlot);
+  connect(signOutButton.data(), &QAbstractButton::clicked, this, &HeaderLayoutCreator::signOutSignal);
+  connect(refreshButton.data(), &QAbstractButton::clicked, this, &HeaderLayoutCreator::refreshSignal);
   return headerLayout;
-}
-
-void HeaderLayoutCreator::signOutSlot() {
-  signOutSignal();
-}
-
-void HeaderLayoutCreator::refreshSlot() {
-  refreshSignal(Config::FEEDPATH);
 }

@@ -14,6 +14,7 @@ class UserLoginScreen: public QDialog {
 signals :
   void switchToSignUpSignal();
   void switchToFeedSignal();
+  void loginSuccess();
 private slots:
   void onSignUpButtonEvent();
   void onSignInButtonEvent();

@@ -23,33 +23,33 @@ UserLoginScreen::UserLoginScreen(QSharedPointer<HttpRequest> httpRequest, QWidge
 }
 
 void UserLoginScreen::definePasswordLinesMode() {
-  passwordLineEdit->setEchoMode(QLineEdit::Password);
   logger->info("Define password lines mode");
+  passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
 void UserLoginScreen::defineConnections() {
+  logger->info("Define connections");
   connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserLoginScreen::onSignUpButtonEvent);
   connect(signInButton.data(), &QAbstractButton::clicked, this, &UserLoginScreen::onSignInButtonEvent);
-  connect(authService.data(), SIGNAL(switchToFeed()), this, SIGNAL(switchToFeedSignal()));
-  logger->info("Define connections");
+  connect(authService.data(), SIGNAL(onAuthenticated()), this, SIGNAL(loginSuccess()));
 }
 
 void UserLoginScreen::initFormLayout() {
+  logger->info("Init Form Layout");
   formLayout->addRow(tr("&Email:"), emailLineEdit.data());
   formLayout->addRow(tr("&Password:"), passwordLineEdit.data());
-  logger->info("Init Form Layout");
 }
 
 void UserLoginScreen::initMainLayout() {
+  logger->info("Init Main Layout");
   mainLayout->addLayout(formLayout.data());
   mainLayout->addWidget(signInButton.data());
   mainLayout->addWidget(signUpButton.data());
-  logger->info("Init Main Layout");
 }
 
 void UserLoginScreen::onSignUpButtonEvent() {
-  switchToSignUpSignal();
   logger->info("Sign Up button pushed...");
+  switchToSignUpSignal();
 }
 
 void UserLoginScreen::onSignInButtonEvent() {

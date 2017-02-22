@@ -11,17 +11,17 @@ class FeedService : public QObject {
   Q_OBJECT
 signals:
   void refreshSignal(QString);
-  void onReady(QVector<Article*>*);
-  void refreshSignalWithToken(QString);
+  void onReady();
+  void sendRequestSignal(QString);
 public slots:
   void replyReady(QJsonObject);
-private slots:
-  void getToken(QString path);
+  void sendRequestData();
 private:
   QScopedPointer<JsonParser> parser;
-  QScopedPointer<QVector<Article*>> articles;
+  QSharedPointer<QVector<Article*>> articles;
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
 public:
   FeedService(QSharedPointer<HttpRequest>);
+  QSharedPointer<QVector<Article*>> getArticles();
 };

@@ -13,6 +13,7 @@ class AuthenticationService : public QObject {
 signals:
   void postRequest(QString, QJsonObject);
   void switchToFeed();
+  void onAuthenticated();
 public slots:
   void replyReady(QJsonObject replyJson);
 private:
@@ -26,5 +27,8 @@ public:
   void postLogin(QString _email, QString _password);
   void postSignup(QString _email, QString _password);
   void getResult(QJsonObject& jsonObject);
+  QString readToken();
+  bool isAuthenticated();
+  QString getToken();
 };
 

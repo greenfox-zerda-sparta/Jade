@@ -8,7 +8,7 @@
 #include "FeedWindow.h"
 #include "Logger.h"
 
-enum Screens {loginScreen, signUpScreen, feedScreen};
+enum Screens {feedScreen, loginScreen, signUpScreen};
 
 class ScreenManager : public QMainWindow {
   Q_OBJECT
@@ -17,6 +17,7 @@ signals:
 private:
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
+  QSharedPointer<FeedService> feedService;
   QScopedPointer<QStackedWidget> stackedWidget;
   QScopedPointer<QWidget> centralWidget;
   QScopedPointer<QVBoxLayout> containerLayout;
@@ -25,12 +26,13 @@ private:
   QScopedPointer<FeedWindow> feedScreenWidget;
   void setScreen(Screens);
   void init();
+  void defineConnections();
 public:
   ScreenManager();
 public slots:
-  void switchLoginScreen();
+  void fetchFeed();
+  void showLoginScreen();
   void switchSignUpScreen();
-  void switchFeedScreen();
-  void signOutSlot();
+  void showFeedScreen();
 };
 

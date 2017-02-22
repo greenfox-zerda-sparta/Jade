@@ -1,13 +1,16 @@
 #include "ScreenManager.h"
 #include "UserLoginScreen.h"
 #include "UserSignUpScreen.h"
+#include "AuthenticationService.h"
 #include "FeedWindow.h"
 #include "FileReader.h"
 #include "JsonParser.h"
+#include "Config.h"
 
 ScreenManager::ScreenManager() : 
   logger(new Logger("ScreenManager")), 
   httpRequest(new HttpRequest),
+  feedService(new FeedService(httpRequest)),
   stackedWidget(new QStackedWidget),
   centralWidget(new QWidget),
   containerLayout(new QVBoxLayout),
@@ -15,24 +18,29 @@ ScreenManager::ScreenManager() :
   signUpScreenWidget(new UserSignUpScreen(httpRequest)),
   feedScreenWidget(new FeedWindow(httpRequest)) {
   init();
-  connect(loginScreenWidget.data(), SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
-  connect(signUpScreenWidget.data(), SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
-  connect(loginScreenWidget.data(), SIGNAL(switchToFeedSignal()), this, SLOT(switchFeedScreen()));
-  connect(feedScreenWidget.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
-  connect(this, SIGNAL(loadFeed()), feedScreenWidget.data(), SIGNAL(refreshSignal()));
+  defineConnections();
 }
 
 void ScreenManager::init() {
   setWindowTitle(tr("Jade Reader"));
+  stackedWidget->addWidget(feedScreenWidget.data());
   stackedWidget->addWidget(loginScreenWidget.data());
   stackedWidget->addWidget(signUpScreenWidget.data());
-  stackedWidget->addWidget(feedScreenWidget.data());
   containerLayout->addWidget(stackedWidget.data());
   setCentralWidget(centralWidget.data());
   centralWidget->setLayout(containerLayout.data());
 }
 
-void ScreenManager::switchLoginScreen() {
+void ScreenManager::defineConnections() {
+  connect(signUpScreenWidget.data(), SIGNAL(switchToLoginSignal()), this, SLOT(showLoginScreen()));
+  connect(loginScreenWidget.data(), SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
+  connect(loginScreenWidget.data(), SIGNAL(loginSuccess()), this, SLOT(fetchFeed()));
+  connect(feedScreenWidget.data(), SIGNAL(signOutSignal()), this, SLOT(showLoginScreen()));
+  connect(feedScreenWidget.data(), SIGNAL(refreshSignal()), this, SLOT(fetchFeed()));
+  connect(feedService.data(), SIGNAL(onReady()), this, SLOT(showFeedScreen()));
+}
+
+void ScreenManager::showLoginScreen() {
   setScreen(loginScreen);
 }
 
@@ -40,13 +48,16 @@ void ScreenManager::switchSignUpScreen() {
   setScreen(signUpScreen);
 }
 
-void ScreenManager::switchFeedScreen() {
-  loadFeed();
-  setScreen(feedScreen);
+void ScreenManager::fetchFeed() {
+  logger->info("Fetching Feed");
+  feedService->sendRequestData();
+  logger->info("Waiting for the server response");
 }
 
-void ScreenManager::signOutSlot() {
-  stackedWidget->setCurrentIndex(0);
+void ScreenManager::showFeedScreen() {
+  logger->info("Show Feed Screen");
+  feedScreenWidget->loadFeed(feedService->getArticles().data());
+  setScreen(feedScreen);
 }
 
 void ScreenManager::setScreen(Screens screen) {
