@@ -1,11 +1,12 @@
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QDebug>
+#include <QMessageBox>
 #include "FeedService.h"
 #include "Config.h"
 #include "HttpRequest.h"
 #include "FileHandler.h"
 #include "AuthenticationService.h"
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QDebug>
 #include "FeedResponse.h"
 #include "JsonParser.h"
 
@@ -20,7 +21,6 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
 
 void FeedService::sendRequestData() {
   AuthenticationService authService(httpRequest);
-  logger->info(authService.readToken());
   QString path = Config::FEEDPATH + "?token=" + authService.readToken();
   sendRequestSignal(path);
 }
@@ -29,10 +29,14 @@ void FeedService::replyReady(QJsonObject replyJson) {
   logger->info("Reply finished");
   FeedResponse*  feedResponse = (FeedResponse*)parser->fromJsonObjectToMetaObject(&FeedResponse::staticMetaObject, replyJson);
   if (!feedResponse->isError()) {
+    logger->info("Success");
     generateArticleVector(replyJson);
     successResponse(); //Signal to ScreenManager
   } else {
     logger->error("Error: " + feedResponse->getError());
+    QMessageBox msgBox;
+    msgBox.setText(feedResponse->getError());
+    msgBox.exec();
     failedResponse(); //Signal to ScreenManager
   }  
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));

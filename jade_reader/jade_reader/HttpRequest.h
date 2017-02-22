@@ -1,13 +1,16 @@
 #pragma once
 #include <QNetworkAccessManager>
 #include <QSharedPointer>
+#include <QScopedPointer>
 #include <QNetworkReply>
 #include <QJsonObject>
+#include "Logger.h"
 
 class HttpRequest : public QObject {
   Q_OBJECT
 private:
   QSharedPointer<QNetworkAccessManager> networkAccessManager;
+  QScopedPointer<Logger> logger;
 public:
   HttpRequest();
 private slots:
