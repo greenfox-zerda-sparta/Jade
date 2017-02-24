@@ -35,7 +35,6 @@ void HttpRequest::postRequest(QString path, QJsonObject json) {
 void HttpRequest::getRequest(QString path) {
   QUrl url(Config::SERVERURL + path);
   QNetworkRequest request = QNetworkRequest(url);
-  qDebug() << sender();
   connect(this, SIGNAL(replyReady(QJsonObject)), sender(), SLOT(replyReady(QJsonObject)));
   networkAccessManager->get(request);
 }
