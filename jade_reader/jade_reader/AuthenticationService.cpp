@@ -2,14 +2,11 @@
 #include "Config.h"
 #include "PostData.h"
 #include "AuthResponse.h"
+#include "FileHandler.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QObject>
 #include <QJsonObject>
-
-bool AuthenticationService::isSuccess(QString result) {
-  return result == "success";
-}
 
 AuthenticationService::AuthenticationService(QSharedPointer<HttpRequest> httpRequest) :
   logger(new Logger("AuthenticationService")),
@@ -22,7 +19,7 @@ void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
   PostData* postData = new PostData(_email, _password);
   QJsonObject json = jsonParser->toJsonObject((QObject*)postData);
-  postRequest(Config::LOGINPATH, json);
+  postRequest(Config::LOGINPATH, json); //Signal to HTTPRequest
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
@@ -39,10 +36,28 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
   } else {
     logger->info("Success");
     token = authResponse->getToken();
+    FileHandler::writeToFile(token, "token.txt");
+    onAuthenticated(); //Signal to UserLoginScreen
   }
+}
+
+bool AuthenticationService::isSuccess(QString result) {
+  return result == "success";
 }
 
 void AuthenticationService::replyReady(QJsonObject replyJson) {
   getResult(replyJson);
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
+}
+
+bool AuthenticationService::isAuthenticated() {
+  return readToken() != "";
+}
+
+QString AuthenticationService::readToken() {
+  return FileHandler::readFile("token.txt");
+}
+
+QString AuthenticationService::getToken() {
+  return token;
 }

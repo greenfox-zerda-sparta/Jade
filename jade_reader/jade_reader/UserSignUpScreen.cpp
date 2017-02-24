@@ -23,15 +23,15 @@ UserSignUpScreen::UserSignUpScreen(QSharedPointer<HttpRequest> httpRequest, QWid
 }
 
 void UserSignUpScreen::definePasswordLinesMode() {
+  logger->info("Define password lines mode");
   passwordLineEdit->setEchoMode(QLineEdit::Password);
   passwordAgainLineEdit->setEchoMode(QLineEdit::Password);
-  logger->info("Define password lines mode");
 }
 
 void UserSignUpScreen::defineConnections() {
-  connect(backButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onBackButtonEvent);
-  connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onSignUpButtonEvent);
   logger->info("Define connections");
+  connect(backButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onBackButtonEvent);
+  connect(signUpButton.data(), &QAbstractButton::clicked, this, &UserSignUpScreen::onSignUpButtonEvent); 
 }
 
 void UserSignUpScreen::initFormLayout() {

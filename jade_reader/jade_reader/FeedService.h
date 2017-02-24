@@ -10,15 +10,20 @@
 class FeedService : public QObject {
   Q_OBJECT
 signals:
-  void refreshSignal(QString);
-  void onReady(QVector<Article*>*);
+  void failedResponse();
+  void successResponse();
+  void sendRequestSignal(QString);
 public slots:
   void replyReady(QJsonObject);
+  void sendRequestData();
 private:
   QScopedPointer<JsonParser> parser;
-  QScopedPointer<QVector<Article*>> articles;
+  QSharedPointer<QVector<Article*>> articles;
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
+  void generateArticleVector(QJsonObject);
+  bool isSuccess(QString error);
 public:
   FeedService(QSharedPointer<HttpRequest>);
+  QSharedPointer<QVector<Article*>> getArticles();
 };

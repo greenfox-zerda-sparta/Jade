@@ -10,8 +10,6 @@ signals:
 void refreshSignal();
 void signOutSignal();
 public slots:
-void signOutSlot();
-private slots:
 void loadFeed(QVector<Article*>* articles);
 private:
   QSharedPointer<FeedService> feedService;

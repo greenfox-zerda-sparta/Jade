@@ -1,8 +1,12 @@
 #include "JsonParser.h"
+#include <QJsonParseError>
 #include <QDebug>
 
 QJsonObject JsonParser::parseToJsonObject(QString input) {
-  return QJsonDocument::fromJson(input.toLatin1()).object();
+  QJsonParseError err;
+  QJsonDocument doc = QJsonDocument::fromJson(input.toLatin1(), &err);
+  qDebug() << err.errorString();
+  return doc.object();
 }
 
 QVector<Article*> JsonParser::parseFromObjectToArticleVector(QJsonObject content) {

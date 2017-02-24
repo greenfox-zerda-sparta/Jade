@@ -13,7 +13,8 @@ class UserLoginScreen: public QDialog {
   Q_OBJECT
 signals :
   void switchToSignUpSignal();
-  void swithToFeedSignal();
+  void switchToFeedSignal();
+  void loginSuccess();
 private slots:
   void onSignUpButtonEvent();
   void onSignInButtonEvent();
