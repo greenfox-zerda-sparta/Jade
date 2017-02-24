@@ -1,8 +1,9 @@
 #include "JsonParser.h"
 #include <QDebug>
+#include "FileHandler.h"
 
 QJsonObject JsonParser::parseToJsonObject(QString input) {
-  return QJsonDocument::fromJson(input.toLatin1()).object();
+  return QJsonDocument::fromJson(input.toUtf8()).object();
 }
 
 QVector<Article*> JsonParser::parseFromObjectToArticleVector(QJsonObject content) {

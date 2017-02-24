@@ -12,6 +12,7 @@ class AuthenticationService : public QObject {
   Q_OBJECT
 signals:
   void postRequest(QString, QJsonObject);
+  void switchToFeed();
 public slots:
   void replyReady(QJsonObject replyJson);
 private:

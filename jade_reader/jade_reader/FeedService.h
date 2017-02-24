@@ -12,8 +12,11 @@ class FeedService : public QObject {
 signals:
   void refreshSignal(QString);
   void onReady(QVector<Article*>*);
+  void refreshSignalWithToken(QString);
 public slots:
   void replyReady(QJsonObject);
+private slots:
+  void getToken(QString path);
 private:
   QScopedPointer<JsonParser> parser;
   QScopedPointer<QVector<Article*>> articles;

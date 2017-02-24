@@ -1,6 +1,8 @@
 #include "Config.h"
 
-const QString Config::SERVERURL = "http://zerda-reader-mockback.gomix.me/";
+const QString Config::SERVERURL = "http://murmuring-everglades-41117.herokuapp.com/";
 const QString Config::LOGINPATH = "user/login";
 const QString Config::SIGNUPPATH = "user/signup";
 const QString Config::FEEDPATH = "feed";
+const QString Config::SUBSCRIBEPATH = "subscribe";
+const QString Config::SUBSCRIPTIONSPATH = "subscriptions";

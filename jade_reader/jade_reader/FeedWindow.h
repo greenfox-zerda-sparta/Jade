@@ -9,9 +9,11 @@ Q_OBJECT
 signals:
 void refreshSignal();
 void signOutSignal();
+void refreshSignalWithPath(QString);
 public slots:
 void signOutSlot();
 private slots:
+void refreshSlot();
 void loadFeed(QVector<Article*>* articles);
 private:
   QSharedPointer<FeedService> feedService;

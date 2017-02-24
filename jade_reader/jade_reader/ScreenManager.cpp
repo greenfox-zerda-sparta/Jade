@@ -5,6 +5,8 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 
+#include "SubscriptionService.h" ///////
+
 ScreenManager::ScreenManager() : 
   logger(new Logger("ScreenManager")), 
   httpRequest(new HttpRequest),
@@ -17,8 +19,9 @@ ScreenManager::ScreenManager() :
   init();
   connect(loginScreenWidget.data(), SIGNAL(switchToSignUpSignal()), this, SLOT(switchSignUpScreen()));
   connect(signUpScreenWidget.data(), SIGNAL(switchToLoginSignal()), this, SLOT(switchLoginScreen()));
-  connect(loginScreenWidget.data(), SIGNAL(swithToFeedSignal()), this, SLOT(loadEmptyFeed()));
+  connect(loginScreenWidget.data(), SIGNAL(switchToFeedSignal()), this, SLOT(switchFeedScreen()));
   connect(feedScreenWidget.data(), SIGNAL(signOutSignal()), this, SLOT(signOutSlot()));
+  connect(this, SIGNAL(loadFeed()), feedScreenWidget.data(), SIGNAL(refreshSignal()));
 }
 
 void ScreenManager::init() {
@@ -29,6 +32,10 @@ void ScreenManager::init() {
   containerLayout->addWidget(stackedWidget.data());
   setCentralWidget(centralWidget.data());
   centralWidget->setLayout(containerLayout.data());
+  SubscriptionService* service = new SubscriptionService(httpRequest); /////
+  QString feed = "{ \"feed\": \"http://feeds.bbci.co.uk/news/technology/rss.xml\" }"; /////
+  //service->createSubscription(JsonParser::parseToJsonObject(feed)); /////
+  service->listSubscriptions(); /////
 }
 
 void ScreenManager::switchLoginScreen() {
@@ -40,18 +47,8 @@ void ScreenManager::switchSignUpScreen() {
 }
 
 void ScreenManager::switchFeedScreen() {
+  loadFeed();
   setScreen(feedScreen);
-}
-
-void ScreenManager::loadEmptyFeed() {
-  FileReader fileReader;
-  JsonParser jsonParser;
-  QVector<Article*> articles;
-  QString content = fileReader.readFromFileToQString("test.json");
-  articles = jsonParser.parseFromObjectToArticleVector(jsonParser.parseToJsonObject(content));
-  feedScreenWidget->createWindow(articles);
-  stackedWidget->addWidget(feedScreenWidget.data());
-  stackedWidget->setCurrentIndex(2);
 }
 
 void ScreenManager::signOutSlot() {
