@@ -9,7 +9,7 @@ SubscriptionService::SubscriptionService(QSharedPointer<HttpRequest> httpRequest
   connect(this, SIGNAL(listSubscriptions()), this, SLOT(includePath()));
   connect(this, SIGNAL(createSubscription(QJsonObject)), this, SLOT(includePath(QJsonObject)));
   connect(subLister.data(), SIGNAL(listReady(QJsonObject)), this, SLOT(listReady(QJsonObject)));
-  connect(subCreator.data(), SIGNAL(listReady(QJsonObject)), this, SLOT(createReady(QJsonObject)));
+  connect(subCreator.data(), SIGNAL(createReady(QJsonObject)), this, SLOT(createReady(QJsonObject)));
 }
 
 void SubscriptionService::includePath() {
@@ -23,10 +23,10 @@ void SubscriptionService::includePath(QJsonObject json) {
 }
 
 
-void SubscriptionService::listReady(QJsonObject) {
-
+void SubscriptionService::listReady(QJsonObject json) {
+  //qDebug() << json;
 }
 
-void SubscriptionService::createReady(QJsonObject) {
-
+void SubscriptionService::createReady(QJsonObject json) {
+  //qDebug() << json;
 }

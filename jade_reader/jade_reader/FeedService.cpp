@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "HttpRequest.h"
 #include "FileHandler.h"
+#include "FileReader.h"
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -23,7 +24,7 @@ void FeedService::getToken(QString path) {
 void FeedService::replyReady(QJsonObject replyJson) {
   logger->info("replyFinished - got data from server");
   *articles = parser->parseFromObjectToArticleVector(replyJson);
-  logger->info("articles size " + QString(articles->size()));
+  logger->info("articles size " + QString(articles->size())); 
   this->onReady(articles.data());
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
 }

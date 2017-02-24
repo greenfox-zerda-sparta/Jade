@@ -5,6 +5,8 @@
 #include "FileReader.h"
 #include "JsonParser.h"
 
+#include "SubscriptionService.h" ///////
+
 ScreenManager::ScreenManager() : 
   logger(new Logger("ScreenManager")), 
   httpRequest(new HttpRequest),
@@ -30,6 +32,10 @@ void ScreenManager::init() {
   containerLayout->addWidget(stackedWidget.data());
   setCentralWidget(centralWidget.data());
   centralWidget->setLayout(containerLayout.data());
+  SubscriptionService* service = new SubscriptionService(httpRequest); /////
+  QString feed = "{ \"feed\": \"http://feeds.bbci.co.uk/news/technology/rss.xml\" }"; /////
+  //service->createSubscription(JsonParser::parseToJsonObject(feed)); /////
+  service->listSubscriptions(); /////
 }
 
 void ScreenManager::switchLoginScreen() {
