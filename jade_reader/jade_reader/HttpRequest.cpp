@@ -11,7 +11,9 @@ HttpRequest::HttpRequest() :
 }
 
 void HttpRequest::replyFinished(QNetworkReply* reply) {
-  replyReady(JsonParser::parseToJsonObject(reply->readAll()));
+  QString _reply = reply->readAll();
+  qDebug() << _reply;
+  replyReady(JsonParser::parseToJsonObject(_reply));
   reply->deleteLater();
 }
 

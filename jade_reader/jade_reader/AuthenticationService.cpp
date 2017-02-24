@@ -8,10 +8,6 @@
 #include <QObject>
 #include <QJsonObject>
 
-bool AuthenticationService::isSuccess(QString result) {
-  return result == "success";
-}
-
 AuthenticationService::AuthenticationService(QSharedPointer<HttpRequest> httpRequest) :
   logger(new Logger("AuthenticationService")),
   jsonParser(new JsonParser),
@@ -23,7 +19,7 @@ void AuthenticationService::postLogin(QString _email, QString _password) {
   logger->info("post Login");
   PostData* postData = new PostData(_email, _password);
   QJsonObject json = jsonParser->toJsonObject((QObject*)postData);
-  postRequest(Config::LOGINPATH, json);
+  postRequest(Config::LOGINPATH, json); //Signal to HTTPRequest
 }
 
 void AuthenticationService::postSignup(QString _email, QString _password) {
@@ -41,8 +37,12 @@ void AuthenticationService::getResult(QJsonObject& jsonObject) {
     logger->info("Success");
     token = authResponse->getToken();
     FileHandler::writeToFile(token, "token.txt");
-    onAuthenticated();
+    onAuthenticated(); //Signal to UserLoginScreen
   }
+}
+
+bool AuthenticationService::isSuccess(QString result) {
+  return result == "success";
 }
 
 void AuthenticationService::replyReady(QJsonObject replyJson) {

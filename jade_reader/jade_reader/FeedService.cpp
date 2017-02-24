@@ -22,24 +22,28 @@ FeedService::FeedService(QSharedPointer<HttpRequest> httpRequest) :
 void FeedService::sendRequestData() {
   AuthenticationService authService(httpRequest);
   QString path = Config::FEEDPATH + "?token=" + authService.readToken();
-  sendRequestSignal(path);
+  sendRequestSignal(path); // Signal to HTTPRequest
 }
 
 void FeedService::replyReady(QJsonObject replyJson) {
   logger->info("Reply finished");
   FeedResponse*  feedResponse = (FeedResponse*)parser->fromJsonObjectToMetaObject(&FeedResponse::staticMetaObject, replyJson);
-  if (!feedResponse->isError()) {
+  if (isSuccess(feedResponse->getError())) {
     logger->info("Success");
     generateArticleVector(replyJson);
     successResponse(); //Signal to ScreenManager
   } else {
     logger->error("Error: " + feedResponse->getError());
     QMessageBox msgBox;
-    msgBox.setText(feedResponse->getError());
+    msgBox.setText(feedResponse->getError() + "\n" + "Please try again!");
     msgBox.exec();
     failedResponse(); //Signal to ScreenManager
   }  
   disconnect(httpRequest.data(), SIGNAL(replyReady(QJsonObject)), this, SLOT(replyReady(QJsonObject)));
+}
+
+bool FeedService::isSuccess(QString error) {
+  return error == "";
 }
 
 void FeedService::generateArticleVector(QJsonObject replyJson) {

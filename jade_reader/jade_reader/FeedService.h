@@ -22,6 +22,7 @@ private:
   QScopedPointer<Logger> logger;
   QSharedPointer<HttpRequest> httpRequest;
   void generateArticleVector(QJsonObject);
+  bool isSuccess(QString error);
 public:
   FeedService(QSharedPointer<HttpRequest>);
   QSharedPointer<QVector<Article*>> getArticles();
